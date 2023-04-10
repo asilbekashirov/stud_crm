@@ -1,3 +1,4 @@
+import { user } from "@/demo/account"
 import { sidebar } from "@/demo/sidebar"
 import { Icon } from "@iconify/react"
 import Link from "next/link"
@@ -11,7 +12,7 @@ const Sidebar = () => {
     return (
         <aside className="flex flex-col bg-slate-300 pt-20 h-screen w-80 p-3">
 
-            <h4 className="text-xl font-bold text-center mt-2">Welcome back, [Username]</h4>
+            <h4 className="text-xl font-bold text-center mt-4">Welcome back, <br /> {user.name} {user.surname}</h4>
 
             <ul className="flex flex-col mt-4">
                 {

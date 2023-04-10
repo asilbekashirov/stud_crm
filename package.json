@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@iconify/react": "^4.1.0",
     "@iconify/types": "^2.0.0",
     "@reduxjs/toolkit": "^1.9.3",
