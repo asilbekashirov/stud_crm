@@ -12,7 +12,7 @@ const SearchPage = () => {
             {
                 universities.map((item) => {
                     return (
-                        <UniversityDescriptoinCard {...item} />
+                        <UniversityDescriptoinCard key={item.name} {...item} />
                     )
                 })
             }
