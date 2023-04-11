@@ -10,7 +10,7 @@ const Sidebar = () => {
     const router = useRouter()
 
     return (
-        <aside className="flex flex-col fixed bg-slate-300 pt-20 h-screen w-80 p-3">
+        <aside className="flex flex-col fixed bg-slate-300 pt-20 h-screen w-64 p-3">
 
             <h4 className="text-xl font-bold text-center mt-4">Welcome back, <br /> {user.name} {user.surname}</h4>
 

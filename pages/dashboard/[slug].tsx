@@ -8,7 +8,7 @@ const Dashboard = ({ children }: { children: ReactNode }) => {
       <Header />
       <div className="flex">
         <Sidebar />
-        <main className="pt-24 ml-80 px-3 pb-3 w-full h-screen">
+        <main className="pt-24 ml-64 px-3 pb-3 w-full h-screen">
           {children}
         </main>
       </div>

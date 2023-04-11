@@ -2,8 +2,15 @@ import { IUniversity } from "@/demo/universities";
 import { AnimatePresence, motion } from "framer-motion";
 import { FC, useMemo, useState } from "react";
 import styles from "./universityDescriptionCard.module.css";
+import { Icon } from "@iconify/react";
+import { fDate } from "@/utils/date";
 
-const UniversityDescriptoinCard: FC<IUniversity> = ({ name, createdAt }) => {
+const UniversityDescriptoinCard: FC<IUniversity> = ({
+  name,
+  createdAt,
+  description,
+  programs,
+}) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const handleUnivSelect = (id: string) => {
@@ -15,18 +22,27 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({ name, createdAt }) => {
   const UniDescription = useMemo(
     () => (
       <AnimatePresence>
-        {selectedId && (
-          <div className={styles.card_wrapper}>
-            <motion.div
-              layoutId={selectedId}
-              className="rounded-xl bg-slate-400 p-4 w-1/2"
-            >
-              <motion.h5>{name}</motion.h5>
-              <motion.h6>{createdAt.toJSON()}</motion.h6>
-              <motion.button onClick={closeDescription}>Close</motion.button>
+        <motion.div className={styles.card_wrapper}>
+          <motion.div
+            layoutId={selectedId!}
+            className="rounded-lg bg-slate-200 p-4 w-1/2"
+          >
+            <motion.h5 className="text-xl font-semibold">{name}</motion.h5>
+            <motion.h6>{fDate(createdAt)}</motion.h6>
+            <motion.p className="mt-4">{description}</motion.p>
+            <motion.div className="flex justify-end">
+              <motion.button
+                onClick={closeDescription}
+                className="p-2 rounded-lg bg-red-500 text-white mr-2"
+              >
+                Close
+              </motion.button>
+              <motion.button className="p-2 rounded-lg bg-green-500 text-white">
+                Add to list
+              </motion.button>
             </motion.div>
-          </div>
-        )}
+          </motion.div>
+        </motion.div>
       </AnimatePresence>
     ),
     [name, createdAt, selectedId]
@@ -35,14 +51,19 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({ name, createdAt }) => {
   return (
     <>
       <motion.div
-        className="rounded-lg bg-slate-300 mt-2 p-3 cursor-pointer"
+        className="rounded-lg bg-slate-300 mt-2 p-3 cursor-pointer flex justify-between items-center w-4/5"
         layoutId={name}
         onClick={() => handleUnivSelect(name)}
       >
-        <motion.h5>{name}</motion.h5>
-        <motion.h6>{createdAt.toJSON()}</motion.h6>
+        <motion.div>
+          <motion.h5 className="text-lg font-semibold">{name}</motion.h5>
+          <motion.h6>{fDate(createdAt)}</motion.h6>
+        </motion.div>
+        <motion.div className="flex items-center text-left">
+            <Icon icon="mdi:book-education-outline" width={20} className="mr-2" /> {programs} programs
+        </motion.div>
       </motion.div>
-      {UniDescription}
+      {selectedId && UniDescription}
     </>
   );
 };

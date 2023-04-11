@@ -5,7 +5,7 @@ import Tooltip from "../tooltip/Tooltip";
 
 const Header = () => {
   return (
-    <header className="flex justify-between fixed inset-0 w-full bg-slate-300 h-20 items-center p-5">
+    <header className="flex justify-between z-10 fixed inset-0 w-full bg-slate-300 h-20 items-center p-5">
       <div className="logo cursor-pointer">
         <h3 className="text-2xl">Mega Dream</h3>
       </div>

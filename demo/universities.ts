@@ -3,6 +3,8 @@ import { faker } from "@faker-js/faker";
 export interface IUniversity {
     name: string;
     createdAt: Date;
+    programs: number
+    description: string;
 }
 
 export const universities: IUniversity[] = []
@@ -10,7 +12,9 @@ export const universities: IUniversity[] = []
 export function populateUniversity(): IUniversity {
     return {
         name: `University of ${faker.name.firstName()} ${faker.name.lastName()}`,
-        createdAt: faker.date.past(Math.floor(Math.random() * 20))
+        description: faker.lorem.paragraphs(2),
+        programs: Math.round(Math.random() * 25),
+        createdAt: faker.date.past(Math.round(Math.random() * 200))
     }
 }
 
