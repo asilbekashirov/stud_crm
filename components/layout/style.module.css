@@ -5,4 +5,9 @@
     background-color: slategray;
     margin-left: 0.5rem;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #eee;
+    font-size: 1.3rem;
 }
