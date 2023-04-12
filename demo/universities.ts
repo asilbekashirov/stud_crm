@@ -3,7 +3,10 @@ import { faker } from "@faker-js/faker";
 export interface IUniversity {
     name: string;
     createdAt: Date;
-    programs: number
+    programs: number;
+    country: string;
+    city: string;
+    active: boolean;
     description: string;
 }
 
@@ -14,6 +17,9 @@ export function populateUniversity(): IUniversity {
         name: `University of ${faker.name.firstName()} ${faker.name.lastName()}`,
         description: faker.lorem.paragraphs(2),
         programs: Math.round(Math.random() * 25),
+        country: faker.address.country(),
+        city: faker.address.city(),
+        active: Math.round(Math.random() * 2) === 1,
         createdAt: faker.date.past(Math.round(Math.random() * 200))
     }
 }

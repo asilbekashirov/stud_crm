@@ -10,6 +10,9 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
   createdAt,
   description,
   programs,
+  country,
+  city,
+  active
 }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -27,8 +30,19 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
             layoutId={selectedId!}
             className="rounded-lg bg-slate-200 p-4 w-1/2"
           >
-            <motion.h5 className="text-xl font-semibold">{name}</motion.h5>
-            <motion.h6>{fDate(createdAt)}</motion.h6>
+            <motion.h5 className="text-2xl font-semibold mb-3">{name}</motion.h5>
+            <motion.h6 className="flex items-center">
+              <Icon className="mr-3" width={25} icon="mdi:map-marker-outline" /> Location:{" "}
+              {country}, {city}
+            </motion.h6>
+            <motion.h6 className="flex items-center">
+              <Icon className="mr-3" width={25} icon="mdi:calendar-month-outline" /> Found in:{" "}
+              {fDate(createdAt)}
+            </motion.h6>
+            <motion.h6 className="flex items-center">
+              <Icon className="mr-3" width={25} icon="mdi:file-document-multiple-outline" />{" "}
+              Application is {active ? "open" : "closed"}
+            </motion.h6>
             <motion.p className="mt-4">{description}</motion.p>
             <motion.div className="flex justify-end">
               <motion.button
@@ -57,10 +71,22 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
       >
         <motion.div>
           <motion.h5 className="text-lg font-semibold">{name}</motion.h5>
-          <motion.h6>{fDate(createdAt)}</motion.h6>
+          <motion.h6 className="flex items-center">
+            <Icon width={20} className="mr-2" icon="mdi:map-marker-outline" /> Location:{" "}
+            {country}, {city}
+          </motion.h6>
+          <motion.h6 className="flex items-center">
+            <Icon width={20} className="mr-2" icon="mdi:calendar-month-outline" /> Found in:{" "}
+            {fDate(createdAt)}
+          </motion.h6>
+          <motion.h6 className="flex items-center">
+            <Icon width={20} className="mr-2" icon="mdi:file-document-multiple-outline" />{" "}
+            Application is {active ? "open" : "closed"}
+          </motion.h6>
         </motion.div>
         <motion.div className="flex items-center text-left">
-            <Icon icon="mdi:book-education-outline" width={20} className="mr-2" /> {programs} programs
+          <Icon icon="mdi:book-education-outline" width={20} className="mr-2" />{" "}
+          {programs} programs
         </motion.div>
       </motion.div>
       {selectedId && UniDescription}
