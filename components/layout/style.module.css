@@ -2,12 +2,12 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background-color: slategray;
+    background-color: rgb(241, 245, 249);
     margin-left: 0.5rem;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #eee;
+    color: #555;
     font-size: 1.3rem;
 }

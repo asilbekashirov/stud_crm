@@ -14,6 +14,7 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
   city,
   active,
   educationCost,
+  image,
 }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -29,46 +30,67 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
         <motion.div className={styles.card_wrapper}>
           <motion.div
             layoutId={selectedId!}
-            className="rounded-lg bg-slate-200 p-4 w-1/2"
+            className="rounded-lg bg-slate-200 w-1/2 max-h-1/2 flex flex-col"
           >
-            <motion.h5 className="text-2xl font-semibold mb-3">
-              {name}
-            </motion.h5>
-            <motion.h6 className="flex items-center text-gray-700">
-              <Icon className="mr-3" width={25} icon="mdi:map-marker-outline" />{" "}
-              Location: {country}, {city}
-            </motion.h6>
-            <motion.h6 className="flex items-center text-gray-700">
-              <Icon
-                className="mr-3"
-                width={25}
-                icon="mdi:calendar-month-outline"
-              />{" "}
-              Found in: {fDate(createdAt)}
-            </motion.h6>
-            <motion.h6 className="flex items-center text-gray-700">
-              <Icon
-                className="mr-3"
-                width={25}
-                icon="mdi:file-document-multiple-outline"
-              />{" "}
-              Application is {active ? "open" : "closed"}
-            </motion.h6>
-            <motion.h6 className="flex items-center text-gray-700">
-              <Icon width={25} className="mr-3" icon="mdi:currency-usd" />{" "}
-              Education cost: {educationCost}$/year
-            </motion.h6>
-            <motion.p className="mt-4">{description}</motion.p>
-            <motion.div className="flex justify-end">
-              <motion.button
-                onClick={closeDescription}
-                className="p-2 rounded-lg bg-red-500 text-white mr-2"
-              >
-                Close
-              </motion.button>
-              <motion.button className="p-2 rounded-lg bg-green-500 text-white">
-                Add to list
-              </motion.button>
+            <motion.div className="w-full h-60">
+              <motion.img
+                src={image}
+                className="w-full h-full object-cover rounded-t-lg block"
+              />
+            </motion.div>
+            <motion.div className="p-4">
+              <motion.h5 className="text-2xl font-semibold mb-3">
+                {name}
+              </motion.h5>
+
+              <motion.div className="flex justify-start">
+                <motion.div>
+                  <motion.h6 className="flex items-center text-gray-700">
+                    <Icon
+                      className="mr-3"
+                      width={25}
+                      icon="mdi:map-marker-outline"
+                    />{" "}
+                    Location: {country}, {city}
+                  </motion.h6>
+                  <motion.h6 className="flex items-center text-gray-700 mt-3">
+                    <Icon
+                      className="mr-3"
+                      width={25}
+                      icon="mdi:calendar-month-outline"
+                    />{" "}
+                    Found in: {fDate(createdAt)}
+                  </motion.h6>
+                </motion.div>
+
+                <motion.div className="ml-10">
+                  <motion.h6 className="flex items-center text-gray-700">
+                    <Icon
+                      className="mr-3"
+                      width={25}
+                      icon="mdi:file-document-multiple-outline"
+                    />{" "}
+                    Application is {active ? "open" : "closed"}
+                  </motion.h6>
+                  <motion.h6 className="flex items-center text-gray-700 mt-3">
+                    <Icon width={25} className="mr-3" icon="mdi:currency-usd" />{" "}
+                    Education cost: {educationCost}$/year
+                  </motion.h6>
+                </motion.div>
+              </motion.div>
+
+              <motion.p className="mt-4">{description}</motion.p>
+              <motion.div className="flex justify-end">
+                <motion.button
+                  onClick={closeDescription}
+                  className="p-2 rounded-lg bg-red-500 text-white mr-2"
+                >
+                  Close
+                </motion.button>
+                <motion.button className="p-2 rounded-lg bg-green-500 text-white">
+                  Add to list
+                </motion.button>
+              </motion.div>
             </motion.div>
           </motion.div>
         </motion.div>
@@ -80,7 +102,7 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
   return (
     <>
       <motion.div
-        className="rounded-lg bg-slate-300 mt-3 p-3 cursor-pointer flex justify-between items-center w-4/5"
+        className="rounded-lg bg-slate-300 mt-3 p-3 cursor-pointer flex justify-between items-center w-4/5 hover:bg-slate-400 transition-colors"
         layoutId={name}
         onClick={() => handleUnivSelect(name)}
       >

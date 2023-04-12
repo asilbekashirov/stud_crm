@@ -9,6 +9,7 @@ export interface IUniversity {
     active: boolean;
     educationCost: number;
     description: string;
+    image: string;
 }
 
 export const universities: IUniversity[] = []
@@ -16,11 +17,12 @@ export const universities: IUniversity[] = []
 export function populateUniversity(): IUniversity {
     return {
         name: `University of ${faker.name.firstName()} ${faker.name.lastName()}`,
-        description: faker.lorem.paragraphs(2),
+        description: faker.lorem.paragraphs(4),
         programs: Math.round(Math.random() * 25),
         country: faker.address.country(),
         city: faker.address.city(),
         active: Math.round(Math.random() * 2) === 1,
+        image: faker.image.city(undefined, undefined, true),
         educationCost: Math.round(Math.random() * 10000),
         createdAt: faker.date.past(Math.round(Math.random() * 200))
     }
