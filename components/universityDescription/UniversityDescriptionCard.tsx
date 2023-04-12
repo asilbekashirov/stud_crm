@@ -12,7 +12,8 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
   programs,
   country,
   city,
-  active
+  active,
+  educationCost,
 }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -30,18 +31,32 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
             layoutId={selectedId!}
             className="rounded-lg bg-slate-200 p-4 w-1/2"
           >
-            <motion.h5 className="text-2xl font-semibold mb-3">{name}</motion.h5>
-            <motion.h6 className="flex items-center">
-              <Icon className="mr-3" width={25} icon="mdi:map-marker-outline" /> Location:{" "}
-              {country}, {city}
+            <motion.h5 className="text-2xl font-semibold mb-3">
+              {name}
+            </motion.h5>
+            <motion.h6 className="flex items-center text-gray-700">
+              <Icon className="mr-3" width={25} icon="mdi:map-marker-outline" />{" "}
+              Location: {country}, {city}
             </motion.h6>
-            <motion.h6 className="flex items-center">
-              <Icon className="mr-3" width={25} icon="mdi:calendar-month-outline" /> Found in:{" "}
-              {fDate(createdAt)}
+            <motion.h6 className="flex items-center text-gray-700">
+              <Icon
+                className="mr-3"
+                width={25}
+                icon="mdi:calendar-month-outline"
+              />{" "}
+              Found in: {fDate(createdAt)}
             </motion.h6>
-            <motion.h6 className="flex items-center">
-              <Icon className="mr-3" width={25} icon="mdi:file-document-multiple-outline" />{" "}
+            <motion.h6 className="flex items-center text-gray-700">
+              <Icon
+                className="mr-3"
+                width={25}
+                icon="mdi:file-document-multiple-outline"
+              />{" "}
               Application is {active ? "open" : "closed"}
+            </motion.h6>
+            <motion.h6 className="flex items-center text-gray-700">
+              <Icon width={25} className="mr-3" icon="mdi:currency-usd" />{" "}
+              Education cost: {educationCost}$/year
             </motion.h6>
             <motion.p className="mt-4">{description}</motion.p>
             <motion.div className="flex justify-end">
@@ -65,23 +80,35 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
   return (
     <>
       <motion.div
-        className="rounded-lg bg-slate-300 mt-2 p-3 cursor-pointer flex justify-between items-center w-4/5"
+        className="rounded-lg bg-slate-300 mt-3 p-3 cursor-pointer flex justify-between items-center w-4/5"
         layoutId={name}
         onClick={() => handleUnivSelect(name)}
       >
         <motion.div>
           <motion.h5 className="text-lg font-semibold">{name}</motion.h5>
-          <motion.h6 className="flex items-center">
-            <Icon width={20} className="mr-2" icon="mdi:map-marker-outline" /> Location:{" "}
-            {country}, {city}
+          <motion.h6 className="flex items-center text-gray-700">
+            <Icon width={20} className="mr-2" icon="mdi:map-marker-outline" />{" "}
+            Location: {country}, {city}
           </motion.h6>
-          <motion.h6 className="flex items-center">
-            <Icon width={20} className="mr-2" icon="mdi:calendar-month-outline" /> Found in:{" "}
-            {fDate(createdAt)}
+          <motion.h6 className="flex items-center text-gray-700">
+            <Icon
+              width={20}
+              className="mr-2"
+              icon="mdi:calendar-month-outline"
+            />{" "}
+            Found in: {fDate(createdAt)}
           </motion.h6>
-          <motion.h6 className="flex items-center">
-            <Icon width={20} className="mr-2" icon="mdi:file-document-multiple-outline" />{" "}
+          <motion.h6 className="flex items-center text-gray-700">
+            <Icon
+              width={20}
+              className="mr-2"
+              icon="mdi:file-document-multiple-outline"
+            />{" "}
             Application is {active ? "open" : "closed"}
+          </motion.h6>
+          <motion.h6 className="flex items-center text-gray-700">
+            <Icon width={20} className="mr-2" icon="mdi:currency-usd" />{" "}
+            Education cost: {educationCost}$/year
           </motion.h6>
         </motion.div>
         <motion.div className="flex items-center text-left">
