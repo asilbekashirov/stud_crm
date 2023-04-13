@@ -7,7 +7,7 @@ export interface IUniversity {
     country: string;
     city: string;
     active: boolean;
-    educationCost: number;
+    tuitionFee: number;
     description: string;
     image: string;
 }
@@ -23,7 +23,7 @@ export function populateUniversity(): IUniversity {
         city: faker.address.city(),
         active: Math.round(Math.random() * 2) === 1,
         image: faker.image.city(undefined, undefined, true),
-        educationCost: Math.round(Math.random() * 10000),
+        tuitionFee: Math.round(Math.random() * 10000),
         createdAt: faker.date.past(Math.round(Math.random() * 200))
     }
 }

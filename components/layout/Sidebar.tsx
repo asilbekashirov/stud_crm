@@ -23,10 +23,10 @@ const Sidebar = () => {
             key={menubar.route}
           >
             <Link
-              className="flex items-center text-lg text-slate-100 p-3"
+              className="flex items-center text-lg text-slate-100 p-2"
               href={`/dashboard/${menubar.route}`}
             >
-              <div className="p-2 mr-2 rounded-xl bg-slate-100 text-slate-800">
+              <div className="p-1 mr-2 rounded-xl bg-slate-100 text-slate-800">
                 <Icon width={25} icon={menubar.icon} />
               </div>{" "}
               {menubar.name}

@@ -13,7 +13,7 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
   country,
   city,
   active,
-  educationCost,
+  tuitionFee,
   image,
 }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -30,7 +30,7 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
         <motion.div className={styles.card_wrapper}>
           <motion.div
             layoutId={selectedId!}
-            className="rounded-lg bg-slate-200 w-1/2 max-h-1/2 flex flex-col"
+            className={['rounded-lg bg-slate-200 flex flex-col', styles.card].join(' ')}
           >
             <motion.div className="w-full h-60">
               <motion.img
@@ -74,7 +74,7 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
                   </motion.h6>
                   <motion.h6 className="flex items-center text-gray-700 mt-3">
                     <Icon width={25} className="mr-3" icon="mdi:currency-usd" />{" "}
-                    Education cost: {educationCost}$/year
+                    Tuition fee: {tuitionFee}$/year
                   </motion.h6>
                 </motion.div>
               </motion.div>
@@ -130,7 +130,7 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
           </motion.h6>
           <motion.h6 className="flex items-center text-gray-700">
             <Icon width={20} className="mr-2" icon="mdi:currency-usd" />{" "}
-            Education cost: {educationCost}$/year
+            Tuition fee: {tuitionFee}$/year
           </motion.h6>
         </motion.div>
         <motion.div className="flex items-center text-left">

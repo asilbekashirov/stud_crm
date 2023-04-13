@@ -2,7 +2,7 @@ export const sidebar = [
     {
         route: 'home',
         name: 'Home',
-        icon: 'mdi:home'
+        icon: 'mdi:home-outline'
     },
     {
         route: 'search',

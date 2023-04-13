@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header className="flex justify-between z-10 fixed inset-0 w-full bg-primary-900 h-20 items-center p-5">
       <div className="logo cursor-pointer">
-        <h3 className="text-3xl text-secondary">Mega Dream</h3>
+        <h3 className="text-3xl text-secondary font-bold">Mega Dream</h3>
       </div>
       <div className="tools flex">
         <Tooltip text="Messages" position="bottom">
