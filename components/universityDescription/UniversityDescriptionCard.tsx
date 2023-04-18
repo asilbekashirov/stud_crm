@@ -30,7 +30,7 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
         <motion.div className={styles.card_wrapper}>
           <motion.div
             layoutId={selectedId!}
-            className={['rounded-lg bg-slate-200 flex flex-col', styles.card].join(' ')}
+            className={['rounded-lg bg-slate-100 flex flex-col', styles.card].join(' ')}
           >
             <motion.div className="w-full h-60">
               <motion.img
@@ -83,11 +83,14 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
               <motion.div className="flex justify-end">
                 <motion.button
                   onClick={closeDescription}
-                  className="p-2 rounded-lg bg-red-500 text-white mr-2"
+                  className="px-2 py-1 text-md rounded-lg bg-red-500 text-white mr-2"
                 >
                   Close
                 </motion.button>
-                <motion.button className="p-2 rounded-lg bg-green-500 text-white">
+                <motion.button className="px-2 text-md py-1 rounded-lg text-white bg-blue-400 mr-2">
+                  More
+                </motion.button>
+                <motion.button className="px-2 py-1 text-md rounded-lg bg-green-500 text-white">
                   Add to list
                 </motion.button>
               </motion.div>
@@ -102,7 +105,9 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
   return (
     <>
       <motion.div
-        className="rounded-lg bg-slate-300 mt-3 p-3 cursor-pointer flex justify-between items-center w-4/5 hover:bg-slate-400 transition-colors"
+        className={
+          [styles.card_main, 'rounded-lg bg-slate-100 mt-3 p-3 cursor-pointer flex justify-between items-center w-4/5 hover:bg-slate-200 transition-colors'].join(' ')
+        }
         layoutId={name}
         onClick={() => handleUnivSelect(name)}
       >

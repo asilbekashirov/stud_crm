@@ -1,8 +1,15 @@
+import { faker } from "@faker-js/faker"
+
 const HomePage = () => {
     return (
         <div className="flex flex-col">
-            <div className="w-full h-80 rounded-xl bg-slate-200 flex justify-center items-center">
-                Main news here...
+            <div className="w-full h-80 rounded-xl bg-slate-200 flex justify-center items-center relative">
+                <img src={faker.image.business()} alt="Main" className="rounded-xl object-cover w-full h-full" />
+                <div className="absolute rounded-b-xl w-full h-full bg-gradient-to-b from-transparent to-black">
+                    <h3 className="absolute bottom-3 left-3 text-slate-300 text-lg">
+                        {faker.lorem.lines(2)}
+                    </h3>
+                </div>
             </div>
             <div className="w-full flex justify-between gap-3 mt-3">
                 <div className="w-full h-80 rounded-xl bg-slate-200 flex justify-center items-center">

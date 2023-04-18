@@ -10,20 +10,20 @@ const Sidebar = () => {
 
   return (
     <aside className="flex flex-col fixed bg-primary-900 pt-20 h-screen w-64 p-3">
-      <h4 className="text-xl font-bold text-center mt-4 text-secondary">
+      <h4 className="text-xl text-gray-800 font-bold text-center mt-4 text-secondary">
         Welcome back, <br /> {user.name} {user.surname}
       </h4>
 
       <ul className="flex flex-col mt-4">
         {sidebar.map((menubar) => (
           <li
-            className={`rounded-lg hover:bg-primary-1000 mt-1 ${
-              router.route === `/dashboard/${menubar.route}` ? "bg-primary-1000" : ""
+            className={`rounded-lg hover:bg-primary-1000 hover:text-gray-100 mt-1 ${
+              router.route === `/dashboard/${menubar.route}` ? "bg-primary-1000 text-gray-100" : "text-gray-600"
             }`}
             key={menubar.route}
           >
             <Link
-              className="flex items-center text-lg text-slate-100 p-2"
+              className="flex items-center text-lg p-2"
               href={`/dashboard/${menubar.route}`}
             >
               <div className="p-1 mr-2 rounded-xl bg-slate-100 text-slate-800">
