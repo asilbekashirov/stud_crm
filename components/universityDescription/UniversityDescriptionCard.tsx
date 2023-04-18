@@ -4,6 +4,7 @@ import { FC, useMemo, useState } from "react";
 import styles from "./universityDescriptionCard.module.css";
 import { Icon } from "@iconify/react";
 import { fDate } from "@/utils/date";
+import { useRouter } from "next/router";
 
 const UniversityDescriptoinCard: FC<IUniversity> = ({
   name,
@@ -22,7 +23,13 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
     !!id ? setSelectedId(id) : setSelectedId(null);
   };
 
+  const router = useRouter()
+
   const closeDescription = () => setSelectedId(null);
+
+  const goToUniPage = () => {
+    router.push(`/dashboard/university/${name}`)
+  }
 
   const UniDescription = useMemo(
     () => (
@@ -87,7 +94,10 @@ const UniversityDescriptoinCard: FC<IUniversity> = ({
                 >
                   Close
                 </motion.button>
-                <motion.button className="px-2 text-md py-1 rounded-lg text-white bg-blue-400 mr-2">
+                <motion.button 
+                  onClick={goToUniPage}
+                  className="px-2 text-md py-1 rounded-lg text-white bg-blue-400 mr-2"
+                >
                   More
                 </motion.button>
                 <motion.button className="px-2 py-1 text-md rounded-lg bg-green-500 text-white">

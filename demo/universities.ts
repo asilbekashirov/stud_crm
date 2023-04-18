@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
 
 export interface IUniversity {
+    id: number;
     name: string;
     createdAt: Date;
     programs: number;
@@ -14,8 +15,9 @@ export interface IUniversity {
 
 export const universities: IUniversity[] = []
 
-export function populateUniversity(): IUniversity {
+export function populateUniversity(id: number): IUniversity {
     return {
+        id: id,
         name: `University of ${faker.name.firstName()} ${faker.name.lastName()}`,
         description: faker.lorem.paragraphs(4),
         programs: Math.round(Math.random() * 25),
@@ -28,4 +30,4 @@ export function populateUniversity(): IUniversity {
     }
 }
 
-Array.from({length: 100}).map(() => universities.push(populateUniversity()))
+Array.from({length: 100}).map((_, index) => universities.push(populateUniversity(index)))
