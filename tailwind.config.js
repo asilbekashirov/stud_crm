@@ -14,8 +14,17 @@ module.exports = {
         },
         secondary: {
           800: '#a0bded',
-          900: '#6575a2'
+          900: '#dadadc'
         },
+        background: {
+          900: '#eaebeb'
+        },
+        text: {
+          900: '#191a1a'
+        },
+        accent: {
+          900: '#93949a'
+        }
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

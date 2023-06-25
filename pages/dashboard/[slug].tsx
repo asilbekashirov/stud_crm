@@ -1,9 +1,13 @@
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
+import { useAppSelector } from "@/hooks/redux";
 import { ReactNode } from "react";
 
 const Dashboard = ({ children }: { children: ReactNode }) => {
-  return (
+
+  const isAuth = useAppSelector(state => state.app.isAuth)
+
+  return isAuth ? (
     <>
       <Header />
       <div className="flex">
@@ -13,7 +17,11 @@ const Dashboard = ({ children }: { children: ReactNode }) => {
         </main>
       </div>
     </>
-  );
+  ) : (
+    <main>
+      {children}
+    </main>
+  )
 };
 
 export default Dashboard;
