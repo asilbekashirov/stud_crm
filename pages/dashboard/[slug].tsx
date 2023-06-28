@@ -1,13 +1,16 @@
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
-import { useAppSelector } from "@/hooks/redux";
-import { ReactNode } from "react";
+import { useRouter } from "next/router";
+import { ReactNode, useMemo } from "react";
 
 const Dashboard = ({ children }: { children: ReactNode }) => {
 
-  const isAuth = useAppSelector(state => state.app.isAuth)
+  const router = useRouter()
+  const isMainLayout = useMemo(() => {
+    return router.pathname.split("/")[1] === "dashboard"
+  }, [router.pathname])
 
-  return isAuth ? (
+  return isMainLayout ? (
     <>
       <Header />
       <div className="flex">

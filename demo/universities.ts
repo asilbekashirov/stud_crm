@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 
 export interface IUniversity {
-    id: number;
+    id: number | string;
     name: string;
     createdAt: Date;
     programs: number;
@@ -11,6 +11,7 @@ export interface IUniversity {
     tuitionFee: number;
     description: string;
     image: string;
+    foundIn: Date;
 }
 
 export const universities: IUniversity[] = []
@@ -26,7 +27,8 @@ export function populateUniversity(id: number): IUniversity {
         active: Math.round(Math.random() * 2) === 1,
         image: faker.image.city(undefined, undefined, true),
         tuitionFee: Math.round(Math.random() * 10000),
-        createdAt: faker.date.past(Math.round(Math.random() * 200))
+        createdAt: faker.date.past(Math.round(Math.random() * 200)),
+        foundIn: faker.date.past(Math.round(Math.random() * 200))
     }
 }
 

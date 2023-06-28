@@ -1,8 +1,11 @@
 import TodoItem from "@/components/todo/TodoItem";
 import { user } from "@/demo/account";
+import { useAppSelector } from "@/hooks/redux";
 import { faker } from "@faker-js/faker";
 
 const HomePage = () => {
+  const isAuth = useAppSelector((state) => state.app.isAuth);
+
   return (
     <div className="flex flex-col">
       <div className="w-full h-80 rounded-xl bg-slate-200 flex justify-center items-center relative">
@@ -24,9 +27,13 @@ const HomePage = () => {
         <div className="w-full p-3 h-80 rounded-xl bg-slate-100 border-solid border-gray-500 border">
           <h4 className="text-center text-xl font-bold">Waiting tasks...</h4>
           <div className="flex flex-col">
-            {user.todo.map((todo, index) => (
-              <TodoItem {...todo} index={index} key={todo.text} />
-            ))}
+            {isAuth ? (
+              user.todo.map((todo, index) => (
+                <TodoItem {...todo} index={index} key={todo.text} />
+              ))
+            ) : (
+              <p className="text-center mt-5">To see the list of tasks, you must be authorized first</p>
+            )}
           </div>
         </div>
       </div>
