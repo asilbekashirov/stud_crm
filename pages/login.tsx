@@ -33,7 +33,7 @@ const LoginPage = () => {
                     wrapperClassName="mt-2"
                 />
                 <Button text="Submit" type="submit" wrapperClassName="mt-3 bg-primary-900" afterIcon="iconamoon:send-duotone" />
-                <p className="pt-2 text-center">Don't have account yet? <Link className="text-secondary-800" href="/register">Create here</Link> </p>
+                <p className="pt-2 text-center">Don&apos;t have account yet? <Link className="text-secondary-800" href="/register">Create here</Link> </p>
                 <p className="text-center w-full pt-1">
                     <Link href="/dashboard/home">Go to a dashboard</Link>
                 </p>
