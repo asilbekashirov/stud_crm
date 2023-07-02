@@ -1,4 +1,4 @@
-export function fDate(date: Date): string {
+export function fDate(date: Date | string): string {
 
     let formattedDate: string = ""
 
@@ -10,11 +10,11 @@ export function fDate(date: Date): string {
     }
 
     function dateFormat(dateObj: Date) {
-        const month = dateObj.getMonth() + 1
-        const day = dateObj.getDate()
-        const year = dateObj.getFullYear()
+        const month = String(dateObj.getMonth() + 1)
+        const day = String(dateObj.getDate())
+        const year = String(dateObj.getFullYear())
 
-        formattedDate = `${month}/${day}/${year}`
+        formattedDate = `${month.length === 1 ? "0"+month : month}/${day.length === 1 ? "0"+day : day}/${year}`
     }
 
     return formattedDate

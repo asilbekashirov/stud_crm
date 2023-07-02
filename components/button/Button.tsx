@@ -5,7 +5,7 @@ type IProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   text: React.ReactNode;
   beforeIcon?: string;
   afterIcon?: string;
-  wrapperClassName?: string
+  wrapperClassName?: string;
 };
 
 const Button: FC<IProps> = ({
@@ -16,10 +16,11 @@ const Button: FC<IProps> = ({
   ...rest
 }) => {
   return (
-    <div
-      className={`text-text-900 text-center p-2 cursor-pointer rounded-lg relative flex justify-center items-center h-ful transition-colors`.concat(
+    <button
+      className={`text-text-900 w-full text-center p-2 cursor-pointer rounded-lg relative flex justify-center items-center h-ful transition-colors`.concat(
         ` ${wrapperClassName}`
       )}
+      {...rest}
     >
       {!!beforeIcon && (
         <div>
@@ -27,14 +28,14 @@ const Button: FC<IProps> = ({
         </div>
       )}
 
-      <button {...rest}>{text}</button>
+      <p>{text}</p>
 
       {!!afterIcon && (
         <div className="ml-2">
           <Icon icon={afterIcon} width={25} />
         </div>
       )}
-    </div>
+    </button>
   );
 };
 

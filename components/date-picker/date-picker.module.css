@@ -1,0 +1,11 @@
+.calendar_modal {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 2;
+}
+.cells {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}

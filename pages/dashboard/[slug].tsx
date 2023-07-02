@@ -1,11 +1,14 @@
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
+import { useApp } from "@/hooks/useApp";
 import { useRouter } from "next/router";
 import { ReactNode, useMemo } from "react";
 
 const Dashboard = ({ children }: { children: ReactNode }) => {
 
+  useApp()
   const router = useRouter()
+
   const isMainLayout = useMemo(() => {
     return router.pathname.split("/")[1] === "dashboard"
   }, [router.pathname])

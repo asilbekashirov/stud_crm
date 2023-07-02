@@ -1,33 +1,19 @@
 import { useToggle } from "@/hooks/useToggle";
-import { IInputNames } from "@/models";
-import { DetailedHTMLProps, FC, InputHTMLAttributes } from "react";
-import {
-  Control,
-  Controller,
-  FieldPath,
-  FieldValues,
-  Path,
-  UseFormRegister,
-} from "react-hook-form";
+import { DetailedHTMLProps, InputHTMLAttributes, forwardRef } from "react";
 import { Icon } from "@iconify/react";
 
 type IProps = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> & {
+InputHTMLAttributes<HTMLInputElement>,
+HTMLInputElement
+>& {
   beforeIcon?: string;
   afterIcon?: string;
   wrapperClassName?: string;
 };
 
-const Input: FC<IProps> = ({
-  name,
-  className,
-  beforeIcon,
-  afterIcon,
-  wrapperClassName,
-  ...rest
-}) => {
+const Input = forwardRef<HTMLInputElement, IProps>((props, ref) => {
+  const { className = "", beforeIcon, afterIcon, wrapperClassName, ...rest } = props;
+
   const showPassword = useToggle(false);
   const focus = useToggle(false);
 
@@ -51,10 +37,12 @@ const Input: FC<IProps> = ({
         </div>
       )}
       <input
-        className={"p-2 w-full rounded-lg".concat(className?.length ? ` ${className}` : "")}
-        // {...(register && register(name))}
-        {...rest}
+        className={"p-2 w-full rounded-lg".concat(
+          className?.length ? ` ${className}` : ""
+        )}
+        ref={ref}
         type={showPassword.state ? "text" : rest.type}
+        {...rest}
       />
       {rest.type === "password" && (
         <div
@@ -78,6 +66,6 @@ const Input: FC<IProps> = ({
       )}
     </div>
   );
-};
+});
 
 export default Input;

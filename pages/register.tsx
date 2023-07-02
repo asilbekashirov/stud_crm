@@ -1,4 +1,5 @@
 import Button from "@/components/button/Button"
+import DatePicker from "@/components/date-picker/DatePicker"
 import Input from "@/components/input/Input"
 import { IRegisterData, registerObj } from "@/models/register"
 import Link from "next/link"
@@ -37,6 +38,10 @@ const RegisterPage = () => {
                     placeholder="Password"
                     wrapperClassName="mt-2"
                     {...register("password")}
+                />
+                <DatePicker 
+                    wrapperClassName="mt-2"
+                    placeholder="Birth date"
                 />
                 <Button text="Submit" type="submit" wrapperClassName="mt-3 bg-primary-900" afterIcon="iconamoon:send-duotone" />
                 <p className="pt-2 text-center">Already a user? <Link href="/login" className="text-secondary-800">Login instead</Link> </p>
