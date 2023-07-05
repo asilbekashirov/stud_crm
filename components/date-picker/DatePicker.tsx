@@ -144,4 +144,6 @@ const DatePicker = forwardRef<HTMLInputElement, IProps>(
   }
 );
 
+DatePicker.displayName = "DatePicker";
+
 export default DatePicker;

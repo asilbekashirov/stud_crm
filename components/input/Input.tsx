@@ -88,4 +88,6 @@ const Input = forwardRef<unknown, IProps>((props, ref) => {
   );
 });
 
+Input.displayName = "Input";
+
 export default Input;
