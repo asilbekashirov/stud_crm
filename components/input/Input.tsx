@@ -1,18 +1,26 @@
 import { useToggle } from "@/hooks/useToggle";
-import { DetailedHTMLProps, InputHTMLAttributes, forwardRef } from "react";
+import { DetailedHTMLProps, InputHTMLAttributes, LegacyRef, forwardRef } from "react";
 import { Icon } from "@iconify/react";
 
 type IProps = DetailedHTMLProps<
-InputHTMLAttributes<HTMLInputElement>,
-HTMLInputElement
->& {
+  InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+> & {
   beforeIcon?: string;
   afterIcon?: string;
   wrapperClassName?: string;
+  multiline?: boolean;
 };
 
-const Input = forwardRef<HTMLInputElement, IProps>((props, ref) => {
-  const { className = "", beforeIcon, afterIcon, wrapperClassName, ...rest } = props;
+const Input = forwardRef<unknown, IProps>((props, ref) => {
+  const {
+    className = "",
+    beforeIcon,
+    afterIcon,
+    wrapperClassName,
+    multiline,
+    ...rest
+  } = props;
 
   const showPassword = useToggle(false);
   const focus = useToggle(false);
@@ -36,14 +44,26 @@ const Input = forwardRef<HTMLInputElement, IProps>((props, ref) => {
           />
         </div>
       )}
-      <input
-        className={"p-2 w-full rounded-lg".concat(
-          className?.length ? ` ${className}` : ""
-        )}
-        ref={ref}
-        type={showPassword.state ? "text" : rest.type}
-        {...rest}
-      />
+      {multiline ? (
+        <textarea
+          className={"p-2 w-full resize-y rounded-lg".concat(
+            className?.length ? ` ${className}` : ""
+          )}
+          //@ts-ignore
+          ref={ref as unknown as LegacyRef<HTMLTextAreaElement>}
+          type={showPassword.state ? "text" : rest.type}
+          {...rest}
+        />
+      ) : (
+        <input
+          className={"p-2 w-full rounded-lg".concat(
+            className?.length ? ` ${className}` : ""
+          )}
+          ref={ref as unknown as LegacyRef<HTMLInputElement>}
+          type={showPassword.state ? "text" : rest.type}
+          {...rest}
+        />
+      )}
       {rest.type === "password" && (
         <div
           className="cursor-pointer px-1"

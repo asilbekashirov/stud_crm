@@ -8,14 +8,17 @@ import { appSlice } from "@/redux/store/app";
 import { useRouter } from "next/router";
 
 const Header = () => {
-  const isAuth = useAppSelector((state) => state.app.isAuth);
-  const dispatch = useAppDispatch()
-  const router = useRouter()
+  const {
+    isAuth,
+    user: { role },
+  } = useAppSelector((state) => state.app);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const exitProfile = () => {
-    dispatch(appSlice.actions.logout())
-    router.push("/login")
-  }
+    dispatch(appSlice.actions.logout());
+    router.push("/login");
+  };
 
   return (
     <header className="flex justify-between z-10 fixed inset-0 w-full bg-primary-900 h-20 items-center p-5">
@@ -25,7 +28,7 @@ const Header = () => {
         </h3>
       </div>
       <div className="tools flex">
-        {isAuth ? (
+        {isAuth && role !== "admin" ? (
           <>
             <Tooltip text="Messages" position="bottom">
               <div className={style.circle}>
@@ -48,6 +51,12 @@ const Header = () => {
               </div>
             </Tooltip>
           </>
+        ) : role === "admin" ? (
+          <Tooltip text="Logout" position="bottom">
+            <div className={style.circle} onClick={exitProfile}>
+              <Icon icon="iconamoon:arrow-right-4-square-duotone" />
+            </div>
+          </Tooltip>
         ) : (
           <Tooltip text="Login" position="bottom">
             <Link href="/login" className={style.circle}>

@@ -43,7 +43,7 @@ const RegisterPage = () => {
                     wrapperClassName="mt-2"
                     placeholder="Birth date"
                 />
-                <Button text="Submit" type="submit" wrapperClassName="mt-3 bg-primary-900" afterIcon="iconamoon:send-duotone" />
+                <Button text="Submit" type="submit" wrapperClassName="mt-3 bg-primary-900 w-full" afterIcon="iconamoon:send-duotone" />
                 <p className="pt-2 text-center">Already a user? <Link href="/login" className="text-secondary-800">Login instead</Link> </p>
                 <p className="text-center w-full pt-1">
                     <Link href="/dashboard/home">Go to a dashboard</Link>

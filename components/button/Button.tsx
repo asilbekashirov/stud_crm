@@ -17,7 +17,7 @@ const Button: FC<IProps> = ({
 }) => {
   return (
     <button
-      className={`text-text-900 w-full text-center p-2 cursor-pointer rounded-lg relative flex justify-center items-center h-ful transition-colors`.concat(
+      className={`text-text-900 text-center p-2 cursor-pointer rounded-lg relative flex justify-center items-center h-ful transition-colors`.concat(
         ` ${wrapperClassName}`
       )}
       {...rest}

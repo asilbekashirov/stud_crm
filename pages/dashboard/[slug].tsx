@@ -10,7 +10,7 @@ const Dashboard = ({ children }: { children: ReactNode }) => {
   const router = useRouter()
 
   const isMainLayout = useMemo(() => {
-    return router.pathname.split("/")[1] === "dashboard"
+    return ["dashboard", "admin"].includes(router.pathname.split("/")[1])
   }, [router.pathname])
 
   return isMainLayout ? (
