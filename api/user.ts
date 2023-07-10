@@ -9,5 +9,8 @@ export default {
     },
     register(data: IRegisterData) {
         return axios.post("/auth/register", data)
+    },
+    getAllUsers() {
+        return axios.get<IUser[]>("/auth/users")
     }
 }
