@@ -31,6 +31,11 @@ export const adminSidebar = [
     route: "university-add",
     name: "Add University",
     icon: "mdi:format-list-group-plus",
+  },
+  {
+    route: "users-all",
+    name: "Users List",
+    icon: "mdi:account-group-outline",
   }
 ];
 

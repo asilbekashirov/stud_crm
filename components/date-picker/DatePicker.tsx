@@ -39,7 +39,7 @@ const DatePicker = forwardRef<HTMLInputElement, IProps>(
       const year = today.getFullYear();
       const date = today.getDate();
       const weekDay = today.getDay() === 0 ? 7 : today.getDay();
-      const offset = Math.abs(weekDay - (date & 7));
+      const offset = Math.abs(weekDay - (date % 7));
 
       return [year, month, date, offset];
     }, [today]);

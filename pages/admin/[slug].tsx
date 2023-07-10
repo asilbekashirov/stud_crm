@@ -10,6 +10,8 @@ const IndexAdminPage = () => {
     useEffect(() => {
         if (!isAuth && role !== 'admin') {
             router.push('/login')
+        } else if (role !== 'admin') {
+            router.push('/dashboard/home')
         }
     }, [isAuth, role])
 
