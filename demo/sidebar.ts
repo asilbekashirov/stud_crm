@@ -18,11 +18,6 @@ export const sidebar = [
 
 export const adminSidebar = [
   {
-    route: "users",
-    name: "Users",
-    icon: "mdi:account-group-outline",
-  },
-  {
     route: "universities",
     name: "Universities",
     icon: "mdi:format-list-group",
