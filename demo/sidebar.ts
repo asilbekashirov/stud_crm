@@ -23,7 +23,7 @@ export const adminSidebar = [
     icon: "mdi:format-list-group",
   },
   {
-    route: "university-add",
+    route: "university-add?mode=create",
     name: "Add University",
     icon: "mdi:format-list-group-plus",
   },

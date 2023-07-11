@@ -1,23 +1,32 @@
+"use client";
+
 import DatePicker from "@/components/date-picker/DatePicker";
 import Input from "@/components/input/Input";
 import CourseDetailsSection from "@/components/universityAdd/CourseDetailsSection";
 import { IUniversityAdd, universityObj } from "@/models/university-add";
 import { useForm } from "react-hook-form";
+import { useSearchParams } from "next/navigation";
 
 const UniversityAddPage = () => {
+  const params = useSearchParams();
+
   const { register, handleSubmit, control } = useForm<IUniversityAdd>({
     defaultValues: Object.assign({}, universityObj),
   });
 
   const createUniversity = async (data: IUniversityAdd) => {
-    console.table(data)
+    console.table(data);
   };
+
+  const editUniversity = async (data: Partial<IUniversityAdd>) => {};
 
   return (
     <div>
       <form
         className="p-2 gap-2 flex flex-col"
-        onSubmit={handleSubmit(createUniversity)}
+        onSubmit={handleSubmit(
+          params.get("mode") === "edit" ? editUniversity : createUniversity
+        )}
       >
         <h3 className="text-center text-2xl">Add university details below</h3>
         <div className="flex gap-2 mt-2">
@@ -51,9 +60,21 @@ const UniversityAddPage = () => {
           />
         </div>
         <div>
-            <CourseDetailsSection course="bachelors" control={control} register={register} />
-            <CourseDetailsSection course="masters" control={control} register={register} />
-            <CourseDetailsSection course="phd" control={control} register={register} />
+          <CourseDetailsSection
+            course="bachelors"
+            control={control}
+            register={register}
+          />
+          <CourseDetailsSection
+            course="masters"
+            control={control}
+            register={register}
+          />
+          <CourseDetailsSection
+            course="phd"
+            control={control}
+            register={register}
+          />
         </div>
       </form>
     </div>

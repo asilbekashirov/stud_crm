@@ -12,5 +12,11 @@ export default {
     },
     getAllUsers() {
         return axios.get<IUser[]>("/auth/users")
+    },
+    updateUser(id: string, data: Partial<IUser>) {
+        return axios.put<IUser>(`/auth/user/${id}/update`, data)
+    },
+    deleteUser(id: string) {
+        return axios.delete<{message: string}>(`/auth/user/${id}/delete`)
     }
 }
