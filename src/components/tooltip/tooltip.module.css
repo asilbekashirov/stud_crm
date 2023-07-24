@@ -1,0 +1,26 @@
+.tooltip {
+    position: relative;
+}
+
+.tooltip_text {
+    position: absolute;
+    left: 50%;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 5px;
+    background-color: #22222270;
+    backdrop-filter: blur(5px);
+    font-size: 0.72rem;
+    transform: translateX(-40%);
+    color: #EEEEEE;
+}
+
+.top {
+    top: -60%;
+}
+
+.bottom {
+    bottom: -60%;
+}
