@@ -5,6 +5,13 @@ import Tooltip from "../tooltip/Tooltip";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { logout } from "../../redux/store/app";
+import Select from "../select/Select";
+
+const languages = [
+  {name: "En", value: "en"},
+  {name: "Ru", value: "ru"},
+  {name: "Uz", value: "uz"},
+]
 
 const Header = () => {
   const {
@@ -19,9 +26,9 @@ const Header = () => {
     navigate("/login");
   };
 
-  const changeLocale = () => {
-
-  }
+  const changeLocale = (e: React.ChangeEvent) => {
+    
+  };
 
   return (
     <header className="flex justify-between z-10 fixed inset-0 w-full bg-primary-900 h-20 items-center p-5">
@@ -30,11 +37,18 @@ const Header = () => {
           <Link to="/dashboard/home">Mega Dream</Link>
         </h3>
       </div>
-      <div className="tools flex">
+      <div className="tools flex items-center">
         <Tooltip text="Language" position="bottom">
-          <div className={style.circle} onClick={changeLocale}>
-            <Icon width={25} icon="prime:language" />
-          </div>
+          <Select
+            hideIcon
+            iterable={languages}
+            onChange={changeLocale}
+            text={
+              <div className={style.circle}>
+                <Icon width={25} icon="prime:language" />
+              </div>
+            }
+          />
         </Tooltip>
         {isAuth && role !== "admin" ? (
           <>

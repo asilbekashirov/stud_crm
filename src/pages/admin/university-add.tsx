@@ -180,12 +180,6 @@ const UniversityAddPage = () => {
           />
         </div>
         <div className="w-full mt-2 h-[1px] bg-slate-400 rounded-full"></div>
-        <Select
-          text="Lng"
-        >
-          <span>test1</span>
-          <span>test2</span>
-        </Select>
         <div className="w-full flex justify-center">
           <Button
             text="Cancel"
