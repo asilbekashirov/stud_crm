@@ -12,25 +12,25 @@ const itemVariants: Variants = {
 };
 
 interface IIterable {
-    name: string;
-    value: string;
+  name: string;
+  value: string;
 }
 
 interface IProps {
   text: React.ReactNode;
   hideIcon?: boolean;
   onChange?: (e: React.ChangeEvent) => void;
-  iterable: IIterable[]
+  iterable: IIterable[];
 }
 
 const Select: FC<IProps> = ({ text, hideIcon, onChange, iterable }) => {
   const open = useToggle(false);
-  const [value, setValue] = useState<string | null>(null)
+  const [value, setValue] = useState<string | null>(null);
 
   const handleSelect = (data: string) => {
-    setValue(data)
-    open.off()
-  }
+    setValue(data);
+    open.off();
+  };
 
   return (
     <motion.div
@@ -87,7 +87,8 @@ const Select: FC<IProps> = ({ text, hideIcon, onChange, iterable }) => {
         {iterable.length &&
           iterable.map((item) => (
             <motion.li
-                onClick={() => handleSelect(item.value)}
+              key={item.value}
+              onClick={() => handleSelect(item.value)}
               className="cursor-pointer py-1 px-4 transi hover:bg-primary-1000 w-full"
               variants={itemVariants}
               value={item.value}
