@@ -1,5 +1,6 @@
 import { motion, Variants } from "framer-motion";
 import { useToggle } from "../../hooks/useToggle";
+import { FC } from "react";
 
 const itemVariants: Variants = {
   open: {
@@ -10,7 +11,12 @@ const itemVariants: Variants = {
   closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
 };
 
-const Select = () => {
+interface IProps {
+    children: React.ReactNode
+    text: React.ReactNode
+}
+
+const Select: FC<IProps> = ({children, text}) => {
   const open = useToggle(false);
 
   return (
@@ -20,7 +26,7 @@ const Select = () => {
         whileTap={{ scale: 0.97 }}
         onClick={() => open.toggle()}
       >
-        Menu
+        {text}
         <motion.div
           variants={{
             open: { rotate: 180 },
@@ -36,7 +42,7 @@ const Select = () => {
         </motion.div>
       </motion.button>
       <motion.ul
-      className="py-2 px-4 rounded-lg bg-primary-900 w-max mt-1"
+      className="py-2 rounded-lg bg-primary-900 w-max mt-1"
         variants={{
           open: {
             clipPath: "inset(0% 0% 0% 0% round 10px)",
@@ -59,11 +65,13 @@ const Select = () => {
         }}
         style={{ pointerEvents: open.state ? "auto" : "none" }}
       >
-        <motion.li variants={itemVariants}>Item 1 </motion.li>
-        <motion.li variants={itemVariants}>Item 2 </motion.li>
-        <motion.li variants={itemVariants}>Item 3 </motion.li>
-        <motion.li variants={itemVariants}>Item 4 </motion.li>
-        <motion.li variants={itemVariants}>Item 5 </motion.li>
+        {
+            (Array.isArray(children) && children.map(child => (
+                <motion.li className="cursor-pointer py-1 px-4 transi hover:bg-primary-1000 w-full" variants={itemVariants}>
+                    {child}
+                </motion.li>
+            )))
+        }
       </motion.ul>
     </motion.div>
   );

@@ -8,9 +8,9 @@ import RegisterPage from "./pages/register";
 import UniversityAddPage from "./pages/admin/university-add";
 import UniversitiesPage from "./pages/admin/universities";
 import NewsAddPage from "./pages/admin/news-add";
-import UsersPage from "./pages/admin/users";
 import UniversityDetailPage from "./pages/dashboard/uniById";
 import NewsPage from "./pages/admin/news";
+import AllUsersPage from "./pages/admin/users-all";
 
 interface IProps {
   isAuth: boolean;
@@ -64,7 +64,7 @@ export default function Router({ isAuth, isAdmin }: IProps) {
         },
         {
           path: "users-all",
-          element: <UsersPage />,
+          element: <AllUsersPage />,
         },
       ],
     },
