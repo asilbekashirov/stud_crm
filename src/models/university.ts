@@ -62,6 +62,11 @@ export interface IUniversityProgramm {
   active: boolean;
   tuitionFee: number;
   semesters: number;
+  languages: string[];
+  educationType: {
+    fullTime: boolean
+    partTime: boolean
+  }
   intake: {
     fall: boolean
     spring: boolean
@@ -81,6 +86,11 @@ export const universityProgrammObj: IUniversityProgramm = {
   },
   active: false,
   tuitionFee: 0,
+  educationType: {
+    fullTime: false, 
+    partTime: false
+  },
+  languages: [],
   semesters: 0,
   intake: {
     spring: false,

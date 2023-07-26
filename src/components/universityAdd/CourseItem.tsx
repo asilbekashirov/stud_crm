@@ -61,6 +61,25 @@ const CourseItem: FC<IProps> = ({ course, remove, index, register, getValues }) 
           {...register(`${course}.${index}.tuitionFee`)}
         />
       </div>
+      <div className="mt-2">
+        <div className="flex gap-2">
+          <Checkbox
+            id={`${course}.${index}.educationType.fullTime`}
+            text="Full-time enrollment"
+            {...register(`${course}.${index}.educationType.fullTime`)}
+          />
+          <Checkbox
+            id={`${course}.${index}.educationType.partTime`}
+            {...register(`${course}.${index}.educationType.partTime`)}
+            text="Part-time enrollment"
+          />
+        </div>
+        <Input
+          placeholder="Language of instruction"
+          type="number"
+          // {...register(`${course}.${index}.languages`)}
+        />
+      </div>
       <div className="mt-2 flex flex-col gap-2">
         <h4 className="text-text-900 text-xl">Course description</h4>
         <Input
