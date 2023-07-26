@@ -53,7 +53,7 @@ const Slideshow: React.FC<IProps> = ({ images }) => {
           initial="enter"
           animate="center"
           exit="exit"
-          className="rounded-xl object-cover w-full h-full"
+          className="rounded-xl object-cover w-full absolute h-full"
           transition={{
             x: { type: "spring", stiffness: 300, damping: 30 },
             opacity: { duration: 0.2 },
