@@ -1,3 +1,7 @@
 {
-    
+    "common": {
+        "save": "Saqlash",
+        "cancel": "Bekor qilish",
+        "update": "Yangilash"
+    }
 }

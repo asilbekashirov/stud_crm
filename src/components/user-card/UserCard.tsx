@@ -4,6 +4,8 @@ import { FC } from "react";
 import Button from "../button/Button";
 import { fDate } from "../../utils/date";
 import useConfirm from "../confirm/Confirm";
+import { useAppDispatch } from "../../hooks/redux";
+import { showAlert } from "../../redux/store/app";
 
 const UserCard: FC<IUser> = ({
   fullName,
@@ -15,6 +17,7 @@ const UserCard: FC<IUser> = ({
 }) => {
 
   const confirmDialog = useConfirm()
+  const dispatch = useAppDispatch()
 
   const promoteToAdmin = async () => {
     const res = await confirmDialog({
@@ -23,7 +26,12 @@ const UserCard: FC<IUser> = ({
       falseText: "Cancel"
     })
 
-    console.log(res);
+    dispatch(showAlert({
+      text: "User has been promoted to Admin",
+      show: true,
+      type: "success"
+    }))
+    
   };
 
   return (

@@ -1,6 +1,7 @@
 import { motion, Variants } from "framer-motion";
 import { useToggle } from "../../hooks/useToggle";
-import { FC, MouseEventHandler, useState } from "react";
+import { FC, useState } from "react";
+import { useClickAway } from "../../hooks/useClickAway";
 
 const itemVariants: Variants = {
   open: {
@@ -27,6 +28,8 @@ const Select: FC<IProps> = ({ text, hideIcon, onChange, iterable }) => {
   const open = useToggle(false);
   const [value, setValue] = useState<string | null>(null);
 
+  const {wrapperRef} = useClickAway<HTMLDivElement>(() => open.off())
+
   const handleSelect = (data: string) => {
     setValue(data);
     open.off();
@@ -37,6 +40,7 @@ const Select: FC<IProps> = ({ text, hideIcon, onChange, iterable }) => {
       className=""
       initial={false}
       animate={open.state ? "open" : "closed"}
+      ref={wrapperRef}
     >
       <motion.button
         className="flex items-center relative justify-center rounded-lg bg-primary-900 p-2"

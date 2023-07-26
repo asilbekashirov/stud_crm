@@ -12,16 +12,20 @@ import Tooltip from "../../components/tooltip/Tooltip";
 import { copyObj } from "../../utils/helpers";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Select from "../../components/select/Select";
+import { useToggle } from "../../hooks/useToggle";
+import { useAppDispatch } from "../../hooks/redux";
+import { showAlert } from "../../redux/store/app";
 
 const UniversityAddPage = () => {
   const [params, setParams] = useSearchParams();
-  const uniId = params.get("id")
-
   const navigate = useNavigate();
-  const isEditMode = params.get("mode") === "edit"
   const [uploadedImage, setUploadedImage] = useState<File | null>(null)
-
   const formRef = useRef<HTMLFormElement | null>(null)
+  const disabled = useToggle(false)
+  const dispatch = useAppDispatch()
+
+  const uniId = params.get("id")
+  const isEditMode = params.get("mode") === "edit"
 
   const { data, isLoading } = useQuery({
     queryKey: ["university-by-id", uniId],
@@ -37,6 +41,7 @@ const UniversityAddPage = () => {
   });
 
   const createUniversity = async (data: IUniversityAdd) => {
+    disabled.on()
     const formData = new FormData(formRef.current || undefined)
 
     formData.append("bachelors", JSON.stringify(data.bachelors))
@@ -45,6 +50,16 @@ const UniversityAddPage = () => {
 
     uploadedImage && formData.append("image", uploadedImage)
     create.mutate(formData)
+
+    !create.isLoading && disabled.off()
+    if (create.isSuccess) {
+      dispatch(showAlert({
+        text: "University has been created successfully",
+        show: true,
+        type: "success"
+      }))
+      goBack()
+    }
   };
 
   const goBack = () => {
@@ -66,7 +81,7 @@ const UniversityAddPage = () => {
   }
 
   useEffect(() => {
-    if (!isEditMode) reset(Object.assign({}, universityObj))
+    if (!isEditMode) reset(copyObj(universityObj))
   }, [isEditMode])
 
   useEffect(() => {
@@ -193,6 +208,7 @@ const UniversityAddPage = () => {
               type="submit"
               afterIcon="iconamoon:edit-duotone"
               wrapperClassName="bg-blue-400 text-white"
+              disabled={disabled.state}
             />
           ) : (
             <Button
@@ -200,6 +216,7 @@ const UniversityAddPage = () => {
               type="submit"
               afterIcon="iconamoon:sign-plus-square-duotone"
               wrapperClassName="bg-green-500 text-white"
+              disabled={disabled.state}
             />
           )}
         </div>

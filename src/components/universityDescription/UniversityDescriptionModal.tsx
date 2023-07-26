@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import Button from "../button/Button";
 import { useAppSelector } from "../../hooks/redux";
+import { useClickAway } from "../../hooks/useClickAway";
 
 interface IProps extends IUniversityAdd {
   selectedId: string;

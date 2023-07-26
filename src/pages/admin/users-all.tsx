@@ -12,7 +12,7 @@ const AllUsersPage = () => {
         <div>
             {
                 data?.data?.map(user => (
-                    <UserCard {...user} key={user.id} />
+                    <UserCard {...user} key={user._id} />
                 ))                
             }
         </div>

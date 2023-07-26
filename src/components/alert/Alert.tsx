@@ -46,7 +46,7 @@ const Alert = () => {
         <div className="p-4 relative flex flex-col">
           <div
             className="absolute cursor-pointer top-2 p-2 right-2"
-            onClick={() => hideAlert()}
+            onClick={() => dispatch(hideAlert())}
           >
             <Icon width={30} icon="iconamoon:sign-times-circle-duotone" />
           </div>

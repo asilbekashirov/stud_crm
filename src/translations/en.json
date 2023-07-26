@@ -1,3 +1,7 @@
 {
-    
+    "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "update": "Update"
+    }
 }
