@@ -27,7 +27,7 @@ const Input = forwardRef<unknown, IProps>((props, ref) => {
 
   return (
     <div
-      className={`border-2 border-solid rounded-lg relative flex items-center h-ful transition-colors ${
+      className={`border-2 border-solid rounded-lg relative flex items-center h-full transition-colors ${
         focus.state
           ? "border-primary-1000 shadow-primary-900"
           : "border-accent-900"

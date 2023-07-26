@@ -6,7 +6,6 @@ import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import Button from "../button/Button";
 import { useAppSelector } from "../../hooks/redux";
-import { useClickAway } from "../../hooks/useClickAway";
 import { isCreatedUni } from "../../utils/helpers";
 
 type IProps = IUniversity & {
@@ -42,18 +41,18 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
         <motion.div
           layoutId={selectedId!}
           className={[
-            "rounded-lg bg-slate-100 flex flex-col",
+            "rounded-lg bg-slate-100 flex flex-col md:w-3/5 w-11/12",
             styles.card,
           ].join(" ")}
         >
-          <motion.div className="w-full h-80">
+          <motion.div className="w-full md:h-80 h-64">
             <motion.img
               src={("http://localhost:5000" + image!) as string}
               alt={name.en}
               className="w-full h-full object-cover rounded-t-lg block"
             />
           </motion.div>
-          <motion.div className="p-4">
+          <motion.div className="md:p-4 p-2">
             <motion.h5 className="text-2xl font-semibold mb-3">
               {name.en}
             </motion.h5>
@@ -68,7 +67,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
                   />{" "}
                   Location: {country}, {city}
                 </motion.h6>
-                <motion.h6 className="flex items-center text-gray-700 mt-3">
+                <motion.h6 className="flex items-center text-gray-700 md:mt-3 mt-1">
                   <Icon
                     className="mr-3"
                     width={25}

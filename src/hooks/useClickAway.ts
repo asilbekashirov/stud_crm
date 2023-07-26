@@ -9,13 +9,13 @@ export function useClickAway<T extends HTMLElement>(closeFn: (e?: any) => any) {
     return () => window.removeEventListener("click", clickAway);
   }, []);
 
-  const clickAway = useCallback((e: MouseEvent) => {
+  const clickAway = (e: MouseEvent) => {
     if (!wrapperRef.current) return;
 
     if (!wrapperRef.current?.contains(e.target as Node)) {
       closeFn();
     }
-  }, [wrapperRef]);
+  }
 
   return { wrapperRef };
 }

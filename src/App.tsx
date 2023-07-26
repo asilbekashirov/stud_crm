@@ -9,7 +9,6 @@ function App() {
   useApp()
   const {isAuth, user: {role}} = useAppSelector(state => state.app)
   const isAdmin = role === "admin"
-
   return (
     <div>
       <Router isAuth={isAuth} isAdmin={isAdmin} />

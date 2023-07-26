@@ -34,7 +34,7 @@ const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
       <motion.div
         className={[
           styles.card_main,
-          "rounded-lg bg-slate-100 mt-3 p-3 cursor-pointer flex justify-between items-center w-4/5 hover:bg-slate-200 transition-colors relative",
+          "rounded-lg bg-slate-100 mt-3 md:p-3 p-1 cursor-pointer flex md:flex-row justify-between md:items-center flex-col items-start md:w-4/5 w-full hover:bg-slate-200 transition-colors relative",
         ].join(" ")}
         layoutId={name.en}
         onClick={handleUniSelect}
@@ -73,7 +73,7 @@ const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
               width={20}
               className="mr-2"
             />{" "}
-            {programs} programs
+            Programs: {programs}
           </div>
           {isAdmin && (
             <Button

@@ -11,6 +11,7 @@ interface IAlert {
 export interface AppState {
   isAuth: boolean;
   token: string | null;
+  showSidebar: boolean;
   user: IUser;
   alert: IAlert
 }
@@ -18,6 +19,7 @@ export interface AppState {
 const initialState: AppState = {
   isAuth: false,
   token: null,
+  showSidebar: true,
   user: Object.assign({}, userObj),
   alert: {
     show: false,
@@ -43,6 +45,9 @@ export const appSlice = createSlice({
     showAlert: (state, action: PayloadAction<IAlert>) => {
       state.alert = action.payload
     },
+    toggleSidebar: (state, action: PayloadAction<boolean>) => {
+      state.showSidebar = action.payload
+    },
     hideAlert: (state) => {
       state.alert = {
         show: false,
@@ -53,7 +58,7 @@ export const appSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { login, logout, showAlert, hideAlert } = appSlice.actions;
+// Action creators
+export const { login, logout, showAlert, hideAlert, toggleSidebar } = appSlice.actions;
 
 export default appSlice.reducer;

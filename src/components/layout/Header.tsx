@@ -1,39 +1,51 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import style from "./style.module.css";
 import { Icon } from "@iconify/react";
 import Tooltip from "../tooltip/Tooltip";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { logout } from "../../redux/store/app";
+import { logout, toggleSidebar } from "../../redux/store/app";
 import Select from "../select/Select";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 const languages = [
-  {name: "En", value: "en"},
-  {name: "Ru", value: "ru"},
-  {name: "Uz", value: "uz"},
-]
+  { name: "En", value: "en" },
+  { name: "Ru", value: "ru" },
+  { name: "Uz", value: "uz" },
+];
 
 const Header = () => {
   const {
     isAuth,
+    showSidebar,
     user: { role },
   } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const match = useMediaQuery("md")
+
+  useEffect(() => {
+    toggle(true)
+  }, [match])
+
+  const toggle = (state: boolean) => {
+    dispatch(toggleSidebar(state))
+  }
 
   const exitProfile = () => {
     dispatch(logout());
     navigate("/login");
   };
 
-  const changeLocale = (e: React.ChangeEvent) => {
-    
-  };
+  const changeLocale = (e: React.ChangeEvent) => {};
 
   return (
-    <header className="flex justify-between z-10 fixed inset-0 w-full bg-primary-900 h-20 items-center p-5">
-      <div className="logo cursor-pointer">
-        <h3 className="text-3xl text-secondary font-bold">
+    <header className="flex justify-between fixed inset-0 w-full bg-primary-900 md:h-20 h-16 items-center px-2 md:p-5 z-50">
+      <div className="logo cursor-pointer flex items-center">
+        <div className="mr-2 block md:hidden cursor-pointer" onClick={() => toggle(!showSidebar)}>
+          <Icon icon="gg:menu-motion" width={25} />
+        </div>
+        <h3 className="md:text-3xl text-xl text-secondary font-bold">
           <Link to="/dashboard/home">Mega Dream</Link>
         </h3>
       </div>

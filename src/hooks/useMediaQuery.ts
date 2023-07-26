@@ -12,10 +12,10 @@ export function useMediaQuery(breakPoint: "sm" | "md" | "lg"): boolean {
 
     const handleResize = () => {
         if (window.innerWidth <= screenSizes[breakPoint]) {
-            if (matches) return
+            // if (matches) return
             setMatches(true);
         } else {
-            if (!matches) return
+            // if (!matches) return
             setMatches(false);
         }
     }
