@@ -1,7 +1,7 @@
 import DatePicker from "../../components/date-picker/DatePicker";
 import Input from "../../components/input/Input";
 import CourseDetailsSection from "../../components/universityAdd/CourseDetailsSection";
-import { IUniversityAdd, universityObj } from "../../models/university-add";
+import { ICreateUniversity, ISavedUniversity, IUniversity, universityObj } from "../../models/university";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import api from "../../api/universities";
@@ -9,7 +9,7 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Button from "../../components/button/Button";
 import { Icon } from "@iconify/react";
 import Tooltip from "../../components/tooltip/Tooltip";
-import { copyObj } from "../../utils/helpers";
+import { copyObj, isCreatedUni } from "../../utils/helpers";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Select from "../../components/select/Select";
 import { useToggle } from "../../hooks/useToggle";
@@ -36,11 +36,11 @@ const UniversityAddPage = () => {
     mutationFn: (data: FormData) => api.createUniversity(data)
   });
 
-  const { register, handleSubmit, control, reset, setValue, getValues } = useForm<IUniversityAdd>({
+  const { register, handleSubmit, control, reset, setValue, getValues } = useForm<IUniversity & (ICreateUniversity | ISavedUniversity)>({
     defaultValues: copyObj(universityObj),
   });
 
-  const createUniversity = async (data: IUniversityAdd) => {
+  const createUniversity = async (data: IUniversity) => {
     disabled.on()
     const formData = new FormData(formRef.current || undefined)
 
@@ -85,12 +85,11 @@ const UniversityAddPage = () => {
   }, [isEditMode])
 
   useEffect(() => {
-    if (data?.data.university._id) {
-      reset(data.data.university);
-    }
+    if (!isCreatedUni(data?.data.university)) return
+      reset(data?.data.university);
   }, [data]);
 
-  const editUniversity = async (data: Partial<IUniversityAdd>) => {};
+  const editUniversity = async (data: Partial<IUniversity>) => {};
 
   if (isLoading && uniId) return <p>Getting information about the university</p>
 

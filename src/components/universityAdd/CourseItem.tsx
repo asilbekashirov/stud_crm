@@ -1,4 +1,4 @@
-import { IUniversityAdd } from "../../models/university-add";
+import { IUniversity } from "../../models/university";
 import { FC } from "react";
 import { UseFieldArrayRemove, UseFormGetValues, UseFormRegister } from "react-hook-form";
 import Input from "../input/Input";
@@ -8,9 +8,9 @@ import Checkbox from "../checkbox/Checkbox";
 interface IProps {
   course: "phd" | "masters" | "bachelors";
   remove: UseFieldArrayRemove;
-  register: UseFormRegister<IUniversityAdd>;
+  register: UseFormRegister<IUniversity>;
   index: number;
-  getValues: UseFormGetValues<IUniversityAdd>
+  getValues: UseFormGetValues<IUniversity>
 }
 
 const CourseItem: FC<IProps> = ({ course, remove, index, register, getValues }) => {

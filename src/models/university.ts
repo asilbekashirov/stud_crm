@@ -1,12 +1,20 @@
-export interface IUniversityAdd {
+export type ISavedUniversity = {
+  _id: string
+  image: string;
+  createdAt?: string | Date
+  updatedAt?: string | Date
+}
+
+export type ICreateUniversity = {
+  image: File | null
+}
+
+export type IUniversity = {
   name: {
     ru: string
     uz: string
     en: string
   }
-  _id?: string
-  createdAt?: string | Date
-  updatedAt?: string | Date
   foundIn: string;
   country: string;
   city: string;
@@ -15,13 +23,12 @@ export interface IUniversityAdd {
     uz: string
     ru: string
   }
-  image: File | null | string;
   bachelors: IUniversityProgramm[];
   masters: IUniversityProgramm[];
   phd: IUniversityProgramm[];
-}
+} & (ISavedUniversity | ICreateUniversity)
 
-export const universityObj: IUniversityAdd = {
+export const universityObj: IUniversity = {
   name: {
     en: "",
     ru: "",

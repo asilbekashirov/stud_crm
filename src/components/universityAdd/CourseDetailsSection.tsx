@@ -1,4 +1,4 @@
-import { IUniversityAdd, universityProgrammObj } from "../../models/university-add";
+import { IUniversity, universityProgrammObj } from "../../models/university";
 import { FC } from "react";
 import { Control, UseFormGetValues, UseFormRegister, useFieldArray } from "react-hook-form";
 import CourseItem from "./CourseItem";
@@ -6,9 +6,9 @@ import Button from "../button/Button";
 
 interface IProps {
   course: "phd" | "masters" | "bachelors";
-  control: Control<IUniversityAdd>;
-  register: UseFormRegister<IUniversityAdd>;
-  getValues: UseFormGetValues<IUniversityAdd>
+  control: Control<IUniversity>;
+  register: UseFormRegister<IUniversity>;
+  getValues: UseFormGetValues<IUniversity>
 }
 
 const CourseDetailsSection: FC<IProps> = ({ course, control, register, getValues }) => {

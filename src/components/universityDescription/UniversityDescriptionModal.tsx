@@ -1,4 +1,4 @@
-import { IUniversityAdd } from "../../models/university-add";
+import { ISavedUniversity, IUniversity } from "../../models/university";
 import { motion, AnimatePresence } from "framer-motion";
 import { FC } from "react";
 import styles from "./universityDescriptionCard.module.css";
@@ -7,30 +7,33 @@ import { useNavigate } from "react-router-dom";
 import Button from "../button/Button";
 import { useAppSelector } from "../../hooks/redux";
 import { useClickAway } from "../../hooks/useClickAway";
+import { isCreatedUni } from "../../utils/helpers";
 
-interface IProps extends IUniversityAdd {
+type IProps = IUniversity & {
   selectedId: string;
   close: () => void;
   edit: (e: any) => void;
-}
+};
 
-const UniversityDescriptionModal: FC<IProps> = ({
-  selectedId,
-  name,
-  image,
-  country,
-  city,
-  description,
-  close,
-  foundIn,
-  edit,
-  _id
-}) => {
+const UniversityDescriptionModal: FC<IProps> = (props) => {
+  const {
+    selectedId,
+    name,
+    image,
+    country,
+    city,
+    description,
+    close,
+    foundIn,
+    edit,
+  } = props;
+
   const navigate = useNavigate();
   const isAdmin = useAppSelector((state) => state.app.user).role === "admin";
 
   const goToUniPage = () => {
-    navigate(`/dashboard/university/${_id}`);
+    if (!isCreatedUni(props)) return
+    navigate(`/dashboard/university/${props._id}`);
   };
 
   return (

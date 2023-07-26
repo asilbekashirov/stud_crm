@@ -2,13 +2,14 @@ import { motion } from "framer-motion";
 import { FC, MouseEventHandler, useMemo, useState } from "react";
 import styles from "./universityDescriptionCard.module.css";
 import { Icon } from "@iconify/react";
-import { IUniversityAdd } from "../../models/university-add";
+import { ISavedUniversity, IUniversity } from "../../models/university";
 import UniversityDescriptionModal from "./UniversityDescriptionModal";
 import Button from "../button/Button";
 import { useAppSelector } from "../../hooks/redux";
 import { useNavigate } from "react-router-dom";
+import { isCreatedUni } from "../../utils/helpers";
 
-const UniversityDescriptoinCard: FC<IUniversityAdd> = (uni) => {
+const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
   const { name, country, city, foundIn } = uni;
 
   const navigate = useNavigate()
@@ -24,6 +25,7 @@ const UniversityDescriptoinCard: FC<IUniversityAdd> = (uni) => {
 
   const editUniversity = (e: any) => {
     e.stopPropagation()
+    if (!isCreatedUni(uni)) return
     navigate(`/admin/university-add?mode=edit&id=${uni._id}`)
   };
 
