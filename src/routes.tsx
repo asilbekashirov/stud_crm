@@ -76,5 +76,9 @@ export default function Router({ isAuth, isAdmin }: IProps) {
       path: "/register",
       element: <RegisterPage />,
     },
+    {
+      path: "*",
+      element: <Navigate to="/dashboard/home" />
+    }
   ]);
 }

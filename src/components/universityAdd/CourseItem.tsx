@@ -1,6 +1,10 @@
 import { IUniversity } from "../../models/university";
 import { FC } from "react";
-import { UseFieldArrayRemove, UseFormGetValues, UseFormRegister } from "react-hook-form";
+import {
+  UseFieldArrayRemove,
+  UseFormGetValues,
+  UseFormRegister,
+} from "react-hook-form";
 import Input from "../input/Input";
 import Button from "../button/Button";
 import Checkbox from "../checkbox/Checkbox";
@@ -10,10 +14,16 @@ interface IProps {
   remove: UseFieldArrayRemove;
   register: UseFormRegister<IUniversity>;
   index: number;
-  getValues: UseFormGetValues<IUniversity>
+  getValues: UseFormGetValues<IUniversity>;
 }
 
-const CourseItem: FC<IProps> = ({ course, remove, index, register, getValues }) => {
+const CourseItem: FC<IProps> = ({
+  course,
+  remove,
+  index,
+  register,
+  getValues,
+}) => {
   const deleteCourse = () => {
     remove(index);
   };
@@ -55,11 +65,26 @@ const CourseItem: FC<IProps> = ({ course, remove, index, register, getValues }) 
             falseText="Spring intake is disabled"
           />
         </div>
-        <Input
-          placeholder="Tuition fee"
-          type="number"
-          {...register(`${course}.${index}.tuitionFee`)}
-        />
+      </div>
+      <div className="mt-2 flex md:flex-row flex-col gap-2">
+        <div className="w-full">
+          <h4>Tuition fee: </h4>
+          <Input
+            placeholder="Tuition fee"
+            type="number"
+            wrapperClassName="w-full"
+            {...register(`${course}.${index}.tuitionFee`)}
+          />
+        </div>
+        <div className="w-full">
+          <h4>Semesters: </h4>
+          <Input
+            placeholder="Semesters"
+            type="number"
+            wrapperClassName="w-full"
+            {...register(`${course}.${index}.semesters`)}
+          />
+        </div>
       </div>
       <div className="mt-2">
         <div className="flex gap-2">

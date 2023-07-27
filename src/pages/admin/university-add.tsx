@@ -41,6 +41,10 @@ const UniversityAddPage = () => {
   });
 
   const createUniversity = async (data: IUniversity) => {
+
+    console.log(data);
+    return
+
     disabled.on()
     const formData = new FormData(formRef.current || undefined)
 
@@ -48,6 +52,7 @@ const UniversityAddPage = () => {
     formData.append("masters", JSON.stringify(data.masters))
     formData.append("phd", JSON.stringify(data.phd))
 
+    //@ts-ignore
     uploadedImage && formData.append("image", uploadedImage)
     create.mutate(formData)
 
