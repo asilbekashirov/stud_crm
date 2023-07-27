@@ -31,7 +31,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
   const isAdmin = useAppSelector((state) => state.app.user).role === "admin";
 
   const goToUniPage = () => {
-    if (!isCreatedUni(props)) return
+    if (!isCreatedUni(props)) return;
     navigate(`/dashboard/university/${props._id}`);
   };
 
@@ -45,18 +45,18 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
             styles.card,
           ].join(" ")}
         >
-          <motion.div className="w-full md:h-80 h-64">
+          <motion.div className="w-full md:h-96 relative">
             <motion.img
               src={("http://localhost:5000" + image!) as string}
               alt={name.en}
               className="w-full h-full object-cover rounded-t-lg block"
             />
-          </motion.div>
-          <motion.div className="md:p-4 p-2">
-            <motion.h5 className="text-2xl font-semibold mb-3">
+            <div className="w-full bg-gradient-to-b from-transparent to-black absolute top-0 left-0 h-full"></div>
+            <motion.h5 className="text-2xl absolute bottom-0 left-0 md:ml-4 ml-2 text-white font-semibold mb-3">
               {name.en}
             </motion.h5>
-
+          </motion.div>
+          <motion.div className="md:p-4 p-2">
             <motion.div className="flex justify-start">
               <motion.div>
                 <motion.h6 className="flex items-center text-gray-700">

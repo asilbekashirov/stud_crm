@@ -63,7 +63,6 @@ const DatePicker = forwardRef<HTMLInputElement, IProps>(
 
     const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.value);
-        console.log('date change');
         rest.onChange && rest.onChange(e)
     }
 

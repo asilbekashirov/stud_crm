@@ -1,7 +1,12 @@
 import DatePicker from "../../components/date-picker/DatePicker";
 import Input from "../../components/input/Input";
 import CourseDetailsSection from "../../components/universityAdd/CourseDetailsSection";
-import { ICreateUniversity, ISavedUniversity, IUniversity, universityObj } from "../../models/university";
+import {
+  ICreateUniversity,
+  ISavedUniversity,
+  IUniversity,
+  universityObj,
+} from "../../models/university";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import api from "../../api/universities";
@@ -19,13 +24,13 @@ import { showAlert } from "../../redux/store/app";
 const UniversityAddPage = () => {
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
-  const [uploadedImage, setUploadedImage] = useState<File | null>(null)
-  const formRef = useRef<HTMLFormElement | null>(null)
-  const disabled = useToggle(false)
-  const dispatch = useAppDispatch()
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const disabled = useToggle(false);
+  const dispatch = useAppDispatch();
 
-  const uniId = params.get("id")
-  const isEditMode = params.get("mode") === "edit"
+  const uniId = params.get("id");
+  const isEditMode = params.get("mode") === "edit";
 
   const { data, isLoading } = useQuery({
     queryKey: ["university-by-id", uniId],
@@ -33,70 +38,73 @@ const UniversityAddPage = () => {
   });
 
   const create = useMutation({
-    mutationFn: (data: FormData) => api.createUniversity(data)
+    mutationFn: (data: FormData) => api.createUniversity(data),
   });
 
-  const { register, handleSubmit, control, reset, setValue, getValues } = useForm<IUniversity & (ICreateUniversity | ISavedUniversity)>({
-    defaultValues: copyObj(universityObj),
-  });
+  const { register, handleSubmit, control, reset, setValue, getValues } =
+    useForm<IUniversity & (ICreateUniversity | ISavedUniversity)>({
+      defaultValues: copyObj(universityObj),
+    });
 
   const createUniversity = async (data: IUniversity) => {
+    // console.log(data);
+    // return;
 
-    console.log(data);
-    return
+    disabled.on();
+    const formData = new FormData(formRef.current || undefined);
 
-    disabled.on()
-    const formData = new FormData(formRef.current || undefined)
-
-    formData.append("bachelors", JSON.stringify(data.bachelors))
-    formData.append("masters", JSON.stringify(data.masters))
-    formData.append("phd", JSON.stringify(data.phd))
+    formData.append("bachelors", JSON.stringify(data.bachelors));
+    formData.append("masters", JSON.stringify(data.masters));
+    formData.append("phd", JSON.stringify(data.phd));
 
     //@ts-ignore
-    uploadedImage && formData.append("image", uploadedImage)
-    create.mutate(formData)
+    uploadedImage && formData.append("image", uploadedImage);
+    create.mutate(formData);
 
-    !create.isLoading && disabled.off()
+    !create.isLoading && disabled.off();
     if (create.isSuccess) {
-      dispatch(showAlert({
-        text: "University has been created successfully",
-        show: true,
-        type: "success"
-      }))
-      goBack()
+      dispatch(
+        showAlert({
+          text: "University has been created successfully",
+          show: true,
+          type: "success",
+        })
+      );
+      goBack();
     }
   };
 
   const goBack = () => {
-    navigate(-1)
+    navigate(-1);
   };
 
   const removeUploadedImage = () => {
-    setUploadedImage(null)
-    setValue("image", null)
-  }
+    setUploadedImage(null);
+    setValue("image", null);
+  };
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
-      setUploadedImage(null)
-      return
-    } 
+      setUploadedImage(null);
+      return;
+    }
     setValue("image", e.target.files[0]);
-    setUploadedImage(e.target.files[0])
-  }
+    setUploadedImage(e.target.files[0]);
+  };
 
   useEffect(() => {
-    if (!isEditMode) reset(copyObj(universityObj))
-  }, [isEditMode])
+    if (!isEditMode) reset(copyObj(universityObj));
+  }, [isEditMode]);
 
   useEffect(() => {
-    if (!isCreatedUni(data?.data.university)) return
-      reset(data?.data.university);
+    if (!isCreatedUni(data?.data.university)) return;
+    reset(data?.data.university);
   }, [data]);
 
   const editUniversity = async (data: Partial<IUniversity>) => {};
 
-  if (isLoading && uniId) return <p>Getting information about the university</p>
+  if (isLoading && uniId)
+    return <p>Getting information about the university</p>;
 
   return (
     <div>
@@ -125,7 +133,12 @@ const UniversityAddPage = () => {
           />
         </div>
         <div className="flex gap-2">
-          <DatePicker name="foundIn" setvalue={setValue} wrapperClassName="w-full" placeholder="Foundation date" />
+          <DatePicker
+            name="foundIn"
+            setvalue={setValue}
+            wrapperClassName="w-full"
+            placeholder="Foundation date"
+          />
           <Input
             wrapperClassName="w-full"
             placeholder="Country"
@@ -159,23 +172,32 @@ const UniversityAddPage = () => {
           />
         </div>
         <div className="flex gap-2 items-center">
-          <input type="file" id="uni_image" className="hidden" onChange={handleImageUpload} />
-          <label htmlFor="uni_image" className="cursor-pointer flex p-2 gap-2 bg-primary-900 w-max rounded-lg mt-2">
+          <input
+            type="file"
+            id="uni_image"
+            className="hidden"
+            onChange={handleImageUpload}
+          />
+          <label
+            htmlFor="uni_image"
+            className="cursor-pointer flex p-2 gap-2 bg-primary-900 w-max rounded-lg mt-2"
+          >
             <Icon icon="iconamoon:cloud-upload-duotone" width={25} />
             <p>Upload image</p>
           </label>
-          {
-            uploadedImage && (
-              <>
-                <p>{uploadedImage.name}</p>
-                <Tooltip text="Delete" position="bottom">
-                  <div onClick={removeUploadedImage} className="text-red-500 rounded-lg cursor-pointer p-1">
-                    <Icon icon="iconamoon:sign-times-circle-duotone" width={25} />
-                  </div>
-                </Tooltip>
-              </>
-            )
-          }
+          {uploadedImage && (
+            <>
+              <p>{uploadedImage.name}</p>
+              <Tooltip text="Delete" position="bottom">
+                <div
+                  onClick={removeUploadedImage}
+                  className="text-red-500 rounded-lg cursor-pointer p-1"
+                >
+                  <Icon icon="iconamoon:sign-times-circle-duotone" width={25} />
+                </div>
+              </Tooltip>
+            </>
+          )}
         </div>
         <h4 className="mt-1 text-xl">Programms:</h4>
         <div>
