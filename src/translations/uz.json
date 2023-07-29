@@ -2,9 +2,20 @@
     "common": {
         "save": "Saqlash",
         "cancel": "Bekor qilish",
-        "update": "Yangilash"
+        "update": "Yangilash",
+        "no_data": "Ma'lumot mavjud emas"
     },
     "university":  {
-        "available_courses": "Mavjud kurslar"
+        "available_courses": "Mavjud kurslar",
+        "bsc": "Bakalavr",
+        "masters": "Magistratura",
+        "phd": "Doktorantura",
+        "duration": "Davomiyligi",
+        "semesters": "Semestr",
+        "info": "Universitet haqida ma'lumot",
+        "location": "Joylashuv",
+        "fullTime": "To'liq stavka",
+        "partTime": "Yarim stavka",
+        "languages": "Ta'lim tillari"
     }
 }

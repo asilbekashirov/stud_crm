@@ -12,7 +12,7 @@ const UniversityDetailPage = () => {
     queryFn: id ? () => api.getUniversityById(id as string) : undefined,
   });
   const universityInfo = data?.data.university || null;
-  const {t, i18n} = useTranslation()
+  const { t, i18n } = useTranslation();
 
   const lng = i18n.language as ILanguages;
 
@@ -32,10 +32,12 @@ const UniversityDetailPage = () => {
         <Icon icon="mdi:location-outline" width={25} color="#555" />
         {universityInfo?.country},&nbsp;{universityInfo?.city}
       </h5>
-      <h4 className="text-xl font-semibold mt-5">University info:</h4>
+      <h4 className="text-xl font-semibold mt-5">{t("university.info")}:</h4>
       <p className="mt-2">{universityInfo?.description.en}</p>
-      <h4 className="text-xl font-semibold mt-5">{t("university.available_courses")}</h4>
-      <h6 className="text-lg mt-2">BSc:</h6>
+      <h4 className="text-xl font-semibold mt-5">
+        {t("university.available_courses")}
+      </h4>
+      <h6 className="text-lg mt-2">{t("university.bsc")}:</h6>
       <div className="flex flex-col">
         {universityInfo?.bachelors.map((course, index) => (
           <div
@@ -61,7 +63,8 @@ const UniversityDetailPage = () => {
                 icon="mdi:calendar-month-outline"
                 width={20}
               />
-              Duration: {course.semesters} semesters
+              {t("university.duration")}: {course.semesters}{" "}
+              {t("university.semesters")}
             </div>
             <div className="mt-1 flex items-center">
               <Icon
@@ -70,13 +73,13 @@ const UniversityDetailPage = () => {
                 icon="mdi:clock-outline"
                 width={20}
               />
-              {course.educationType.fullTime && "Full-time / "}
-              {course.educationType.partTime && "Part-time"}
+              {course.educationType.fullTime && `${t("university.fullTime")} / `}
+              {course.educationType.partTime && `${t("university.partTime")}`}
             </div>
           </div>
         ))}
       </div>
-      <h6 className="text-lg mt-2">MSc:</h6>
+      <h6 className="text-lg mt-2">{t("university.masters")}:</h6>
       <div className="flex flex-col">
         {universityInfo?.masters.map((course, index) => (
           <div
@@ -102,7 +105,8 @@ const UniversityDetailPage = () => {
                 icon="mdi:calendar-month-outline"
                 width={20}
               />
-              {course.semesters}
+              {t("university.duration")}: {course.semesters}{" "}
+              {t("university.semesters")}
             </div>
             <div className="mt-1 flex items-center">
               <Icon
@@ -111,15 +115,21 @@ const UniversityDetailPage = () => {
                 icon="mdi:clock-outline"
                 width={20}
               />
-              {course.educationType.fullTime && "Full-time / "}
-              {course.educationType.partTime && "Part-time"}
+              {course.educationType.fullTime && `${t("university.fullTime")} / `}
+              {course.educationType.partTime && `${t("university.partTime")}`}
             </div>
           </div>
         ))}
       </div>
-      <h6 className="text-lg mt-2">Phd:</h6>
+      <h6 className="text-lg mt-2">{t("university.phd")}:</h6>
       <div className="flex flex-col">
-        {universityInfo?.phd.map((course, index) => (
+        {
+        !universityInfo?.phd.length ? (
+            <div className="text-center">
+                {t("common.no_data")}
+            </div>
+        ) :
+        universityInfo?.phd.map((course, index) => (
           <div
             key={index}
             className="w-full p-2 flex flex-col justify-start bg-slate-100 border border-gray-400 border-solid rounded-md mt-2"
@@ -143,7 +153,8 @@ const UniversityDetailPage = () => {
                 icon="mdi:calendar-month-outline"
                 width={20}
               />
-              {course.semesters}
+              {t("university.duration")}: {course.semesters}{" "}
+              {t("university.semesters")}
             </div>
             <div className="mt-1 flex items-center">
               <Icon
@@ -152,8 +163,8 @@ const UniversityDetailPage = () => {
                 icon="mdi:clock-outline"
                 width={20}
               />
-              {course.educationType.fullTime && "Full-time / "}
-              {course.educationType.partTime && "Part-time"}
+              {course.educationType.fullTime && `${t("university.fullTime")} / `}
+              {course.educationType.partTime && `${t("university.partTime")}`}
             </div>
           </div>
         ))}

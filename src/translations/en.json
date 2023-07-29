@@ -2,9 +2,20 @@
     "common": {
         "save": "Save",
         "cancel": "Cancel",
-        "update": "Update"
+        "update": "Update",
+        "no_data": "No data"
     },
     "university":  {
-        "available_courses": "Available Courses"
+        "available_courses": "Available Courses",
+        "bsc": "Bachelor's",
+        "masters": "Master's",
+        "phd": "PHd",
+        "duration": "Duration",
+        "semesters": "Semesters",
+        "info": "University info",
+        "location": "Location",
+        "fullTime": "Full Time",
+        "partTime": "Part Time",
+        "languages": "Languages"
     }
 }
