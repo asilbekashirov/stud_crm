@@ -3,5 +3,8 @@
         "save": "Saqlash",
         "cancel": "Bekor qilish",
         "update": "Yangilash"
+    },
+    "university":  {
+        "available_courses": "Mavjud kurslar"
     }
 }

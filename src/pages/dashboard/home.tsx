@@ -24,7 +24,7 @@ const HomePage = () => {
           </h3>
         </div> */}
       </div>
-      <div className="w-full flex justify-between gap-3 mt-3">
+      <div className="w-full flex md:flex-row flex-col justify-between md:gap-3 gap-1 mt-3">
         <div className="w-full h-80 rounded-xl bg-slate-100 border-solid border-gray-500 border flex justify-center items-center">
           News archive...
         </div>

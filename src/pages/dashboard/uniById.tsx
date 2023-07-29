@@ -2,6 +2,8 @@ import { Icon } from "@iconify/react";
 import { useQuery } from "@tanstack/react-query";
 import api from "../../api/universities";
 import { useParams } from "react-router-dom";
+import { ILanguages } from "../../models";
+import { useTranslation } from "react-i18next";
 
 const UniversityDetailPage = () => {
   const { id } = useParams();
@@ -10,6 +12,9 @@ const UniversityDetailPage = () => {
     queryFn: id ? () => api.getUniversityById(id as string) : undefined,
   });
   const universityInfo = data?.data.university || null;
+  const {t, i18n} = useTranslation()
+
+  const lng = i18n.language as ILanguages;
 
   return (
     <main className="">
@@ -20,14 +25,16 @@ const UniversityDetailPage = () => {
           alt={universityInfo?.name.en}
         />
       </div>
-      <h2 className="text-3xl mt-4 font-semibold">{universityInfo?.name.en}</h2>
+      <h2 className="text-3xl mt-4 font-semibold">
+        {universityInfo?.name[lng]}
+      </h2>
       <h5 className="flex items-center text-gray-700 text-lg mt-2">
         <Icon icon="mdi:location-outline" width={25} color="#555" />
         {universityInfo?.country},&nbsp;{universityInfo?.city}
       </h5>
       <h4 className="text-xl font-semibold mt-5">University info:</h4>
       <p className="mt-2">{universityInfo?.description.en}</p>
-      <h4 className="text-xl font-semibold mt-5">Available courses</h4>
+      <h4 className="text-xl font-semibold mt-5">{t("university.available_courses")}</h4>
       <h6 className="text-lg mt-2">BSc:</h6>
       <div className="flex flex-col">
         {universityInfo?.bachelors.map((course, index) => (
@@ -35,7 +42,7 @@ const UniversityDetailPage = () => {
             key={index}
             className="w-full p-2 flex flex-col justify-start bg-slate-100 border border-gray-400 border-solid rounded-md mt-2"
           >
-            <h4 className="text-gray-600 text-lg">{course.name["en"]}</h4>
+            <h4 className="text-gray-600 text-lg">{course.name[lng]}</h4>
             <div className="mt-1 flex items-center">
               <Icon
                 color="#444"
@@ -43,8 +50,8 @@ const UniversityDetailPage = () => {
                 icon="mdi:translate"
                 width={20}
               />
-              {course.languages.map((lng) => (
-                <div>{lng}</div>
+              {course.languages.map((lang) => (
+                <div>{lang}</div>
               ))}
             </div>
             <div className="mt-1 flex items-center">
@@ -54,7 +61,7 @@ const UniversityDetailPage = () => {
                 icon="mdi:calendar-month-outline"
                 width={20}
               />
-              {course.semesters}
+              Duration: {course.semesters} semesters
             </div>
             <div className="mt-1 flex items-center">
               <Icon
@@ -76,7 +83,7 @@ const UniversityDetailPage = () => {
             key={index}
             className="w-full p-2 flex flex-col justify-start bg-slate-100 border border-gray-400 border-solid rounded-md mt-2"
           >
-            <h4 className="text-gray-600 text-lg">{course.name["en"]}</h4>
+            <h4 className="text-gray-600 text-lg">{course.name[lng]}</h4>
             <div className="mt-1 flex items-center">
               <Icon
                 color="#444"
@@ -84,8 +91,8 @@ const UniversityDetailPage = () => {
                 icon="mdi:translate"
                 width={20}
               />
-              {course.languages.map((lng) => (
-                <div>{lng}</div>
+              {course.languages.map((lang) => (
+                <div>{lang}</div>
               ))}
             </div>
             <div className="mt-1 flex items-center">
@@ -117,7 +124,7 @@ const UniversityDetailPage = () => {
             key={index}
             className="w-full p-2 flex flex-col justify-start bg-slate-100 border border-gray-400 border-solid rounded-md mt-2"
           >
-            <h4 className="text-gray-600 text-lg">{course.name["en"]}</h4>
+            <h4 className="text-gray-600 text-lg">{course.name[lng]}</h4>
             <div className="mt-1 flex items-center">
               <Icon
                 color="#444"
@@ -125,8 +132,8 @@ const UniversityDetailPage = () => {
                 icon="mdi:translate"
                 width={20}
               />
-              {course.languages.map((lng) => (
-                <div>{lng}</div>
+              {course.languages.map((lang) => (
+                <div>{lang}</div>
               ))}
             </div>
             <div className="mt-1 flex items-center">

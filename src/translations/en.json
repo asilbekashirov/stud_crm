@@ -3,5 +3,8 @@
         "save": "Save",
         "cancel": "Cancel",
         "update": "Update"
+    },
+    "university":  {
+        "available_courses": "Available Courses"
     }
 }

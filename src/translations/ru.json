@@ -3,5 +3,8 @@
         "save": "Сохранить",
         "cancel": "Отменить",
         "update": "Обновить"
+    },
+    "university":  {
+        "available_courses": "Доступные курсы"
     }
 }

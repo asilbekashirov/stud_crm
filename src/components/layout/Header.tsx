@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { logout, toggleSidebar } from "../../redux/store/app";
 import Select from "../select/Select";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useTranslation } from "react-i18next";
 
 const languages = [
   { name: "En", value: "en" },
@@ -22,27 +23,32 @@ const Header = () => {
   } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const match = useMediaQuery("md")
+  const match = useMediaQuery("md");
+  const {i18n} = useTranslation()
 
   useEffect(() => {
-    toggle(true)
-  }, [match])
+    toggle(true);
+  }, [match]);
 
   const toggle = (state: boolean) => {
-    dispatch(toggleSidebar(state))
-  }
+    dispatch(toggleSidebar(state));
+  };
 
   const exitProfile = () => {
     dispatch(logout());
     navigate("/login");
   };
-
-  const changeLocale = (e: React.ChangeEvent) => {};
+  const changeLocale = async (newData: string) => {
+    await i18n.changeLanguage(newData)
+  };
 
   return (
     <header className="flex justify-between fixed inset-0 w-full bg-primary-900 md:h-20 h-16 items-center px-2 md:p-5 z-50">
       <div className="logo cursor-pointer flex items-center">
-        <div className="mr-2 block md:hidden cursor-pointer" onClick={() => toggle(!showSidebar)}>
+        <div
+          className="mr-2 block md:hidden cursor-pointer"
+          onClick={() => toggle(!showSidebar)}
+        >
           <Icon icon="gg:menu-motion" width={25} />
         </div>
         <h3 className="md:text-3xl text-xl text-secondary font-bold">
@@ -51,16 +57,19 @@ const Header = () => {
       </div>
       <div className="tools flex items-center">
         <Tooltip text="Language" position="bottom">
-          <Select
-            hideIcon
-            iterable={languages}
-            onChange={changeLocale}
-            text={
-              <div className={style.circle}>
-                <Icon width={25} icon="prime:language" />
-              </div>
-            }
-          />
+          <div className={style.circle}>
+            <Select
+              hideIcon
+              iterable={languages}
+              onChange={changeLocale}
+              initialValue={i18n.language}
+              // text={
+              //   <div className={style.circle}>
+              //     <Icon width={25} icon="prime:language" />
+              //   </div>
+              // }
+            />
+          </div>
         </Tooltip>
         {isAuth && role !== "admin" ? (
           <>

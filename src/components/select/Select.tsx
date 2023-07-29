@@ -18,21 +18,26 @@ interface IIterable {
 }
 
 interface IProps {
-  text: React.ReactNode;
+  // text: React.ReactNode;
   hideIcon?: boolean;
-  onChange?: (e: React.ChangeEvent) => void;
+  onChange: (e: string) => void;
   iterable: IIterable[];
+  initialValue?: string;
 }
 
-const Select: FC<IProps> = ({ text, hideIcon, onChange, iterable }) => {
+const Select: FC<IProps> = ({ hideIcon, onChange, iterable, initialValue }) => {
   const open = useToggle(false);
-  const [value, setValue] = useState<string | null>(null);
+
+  const [value, setValue] = useState<string | undefined>(initialValue);
+
+  // const initialValue = 
 
   const {wrapperRef} = useClickAway<HTMLDivElement>(() => open.off())
 
   const handleSelect = (data: string) => {
     setValue(data);
     open.off();
+    onChange(data)
   };
 
   return (
@@ -43,11 +48,11 @@ const Select: FC<IProps> = ({ text, hideIcon, onChange, iterable }) => {
       ref={wrapperRef}
     >
       <motion.button
-        className="flex items-center relative justify-center rounded-lg bg-primary-900 p-2"
+        className="flex items-center capitalize relative justify-center rounded-lg p-2"
         whileTap={{ scale: 0.97 }}
         onClick={() => open.toggle()}
       >
-        {text}
+        {value}
         {!hideIcon && (
           <motion.div
             variants={{
