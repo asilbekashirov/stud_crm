@@ -25,11 +25,11 @@ const HomePage = () => {
         </div> */}
       </div>
       <div className="w-full flex md:flex-row flex-col justify-between md:gap-3 gap-1 mt-3">
-        <div className="w-full h-80 rounded-xl bg-slate-100 border-solid border-gray-500 border flex justify-center items-center">
+        <div className="w-full h-80 rounded-3xl bg-primary-800 flex justify-center items-center">
           News archive...
         </div>
-        <div className="w-full p-3 h-80 rounded-xl bg-slate-100 border-solid border-gray-500 border">
-          <h4 className="text-center text-xl font-bold">Waiting tasks...</h4>
+        <div className="w-full p-3 h-80 rounded-3xl bg-primary-800">
+          <h4 className="text-center text-3xl font-bold">Waiting tasks...</h4>
           <div className="flex flex-col">
             {isAuth ? (
               user.todo.map((todo, index) => (

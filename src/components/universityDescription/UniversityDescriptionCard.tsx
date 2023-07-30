@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { FC, MouseEventHandler, useMemo, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import styles from "./universityDescriptionCard.module.css";
 import { Icon } from "@iconify/react";
-import { ISavedUniversity, IUniversity } from "../../models/university";
+import { IUniversity } from "../../models/university";
 import UniversityDescriptionModal from "./UniversityDescriptionModal";
 import Button from "../button/Button";
 import { useAppSelector } from "../../hooks/redux";
@@ -12,40 +12,39 @@ import { isCreatedUni } from "../../utils/helpers";
 const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
   const { name, country, city, foundIn } = uni;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const isAdmin = useAppSelector((state) => state.app.user).role == "admin";
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const programs = useMemo(() => {
-    return uni.bachelors?.length + uni.masters?.length + uni.phd?.length || 0
-  }, [uni])
+    return uni.bachelors?.length + uni.masters?.length + uni.phd?.length || 0;
+  }, [uni]);
 
   const handleUniSelect = () => setSelectedId(name.en);
   const closeDescription = () => setSelectedId(null);
 
   const editUniversity = (e: any) => {
-    e.stopPropagation()
-    if (!isCreatedUni(uni)) return
-    navigate(`/admin/university-add?mode=edit&id=${uni._id}`)
+    e.stopPropagation();
+    if (!isCreatedUni(uni)) return;
+    navigate(`/admin/university-add?mode=edit&id=${uni._id}`);
   };
 
   return (
     <>
       <motion.div
-        className={[
-          styles.card_main,
-          "rounded-lg bg-slate-100 mt-3 md:p-3 p-1 cursor-pointer flex md:flex-row justify-between md:items-center flex-col items-start md:w-4/5 w-full hover:bg-slate-200 transition-colors relative",
-        ].join(" ")}
+        className={
+          "rounded-xl bg-primary-800 mt-3 md:p-3 p-1 cursor-pointer flex md:flex-row justify-between md:items-center flex-col items-start md:w-4/5 w-full relative"
+        }
         layoutId={name.en}
         onClick={handleUniSelect}
       >
-        <motion.div>
-          <motion.h5 className="text-lg font-semibold">{name.en}</motion.h5>
-          <motion.h6 className="flex items-center text-gray-700">
+        <motion.div className="flex flex-col gap-1">
+          <motion.h5 className="text-lg font-semibold text-text-900">{name.en}</motion.h5>
+          <motion.h6 className="flex items-center text-primary-700">
             <Icon width={20} className="mr-2" icon="mdi:map-marker-outline" />{" "}
             Location: {country}, {city}
           </motion.h6>
-          <motion.h6 className="flex items-center text-gray-700">
+          <motion.h6 className="flex items-center text-primary-700">
             <Icon
               width={20}
               className="mr-2"

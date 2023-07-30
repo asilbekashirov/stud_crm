@@ -10,7 +10,7 @@ export function useApp() {
   const navigate = useNavigate()
 
   // set default server address
-  axios.defaults.baseURL = "http://localhost:5000/api";
+  axios.defaults.baseURL = process.env.NODE_ENV === "production" ? "https://md-back.onrender.com/api" : "http://localhost:5000/api";
 
   useEffect(() => {
     // if token exists, set it to headers

@@ -78,7 +78,7 @@ export default function Router({ isAuth, isAdmin }: IProps) {
     },
     {
       path: "*",
-      element: <Navigate to="/dashboard/home" />
+      element: <Navigate to={isAdmin ? "/admin/universities" : "/dashboard/home"} />
     }
   ]);
 }

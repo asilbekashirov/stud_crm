@@ -7,21 +7,18 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          1000: '#ae8507',
-          900: '#ffc300',
+          1000: '#171b21',
+          900: '#151e27',
+          800: '#2c3e50',
+          700: 'rgb(145, 158, 171)'
         },
         secondary: {
-          800: '#a0bded',
-          900: '#dadadc'
-        },
-        background: {
-          900: '#eaebeb'
+          800: 'rgb(253, 169, 45)',
+          700: 'rgb(254, 214, 128)',
+          600: 'rgba(253, 169, 45, 0.08)'
         },
         text: {
-          900: '#191a1a'
-        },
-        accent: {
-          900: '#93949a'
+          900: '#ffffff'
         }
       },
       backgroundImage: {

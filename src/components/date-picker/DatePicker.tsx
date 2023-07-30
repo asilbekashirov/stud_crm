@@ -86,21 +86,21 @@ const DatePicker = forwardRef<HTMLInputElement, IProps>(
         ref={calendarRef}
         className={`border-2 border-solid rounded-lg flex items-center h-ful transition-colors relative ${
           focus.state
-            ? "border-primary-1000 shadow-primary-900"
-            : "border-accent-900"
+            ? "border-primary-700 shadow-primary-700"
+            : "border-primary-800"
         }`.concat(` ${wrapperClassName}`)}
       >
         <div
-          className="p-2 bg-slate-200 rounded-l-md cursor-pointer"
+          className="p-2 rounded-l-md cursor-pointer"
           onClick={() => calendar.toggle()}
         >
-          <Icon width={25} icon="iconamoon:calendar-2-duotone" />
+          <Icon width={25} className="text-primary-700" icon="iconamoon:calendar-2-duotone" />
         </div>
         <input
           type="text"
           value={selectedDate}
           onChange={handleDateChange}
-          className={"p-2 w-full rounded-lg".concat(
+          className={" w-full bg-transparent text-text-900 rounded-lg".concat(
             className?.length ? ` ${className}` : ""
           )}
           ref={ref}

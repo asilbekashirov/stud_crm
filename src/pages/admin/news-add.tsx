@@ -18,7 +18,7 @@ const NewsAddPage = () => {
   };
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) {
+    if (!e.target.files?.length) {
       setUploadedImage(null);
       return;
     }
@@ -40,7 +40,7 @@ const NewsAddPage = () => {
       >
         <h3 className="text-center text-2xl">Add details below</h3>
         {uploadedImage && (
-          <div className="w-full h-96">
+          <div className="w-full h-[26rem] mt-4">
             <img
               className="w-full h-full object-cover rounded-lg"
               src={URL.createObjectURL(uploadedImage)}
@@ -72,6 +72,7 @@ const NewsAddPage = () => {
               type="file"
               id="uni_image"
               className="hidden"
+              accept="image/png, image/gif, image/jpeg, image/webp"
               onChange={handleImageUpload}
             />
             <label

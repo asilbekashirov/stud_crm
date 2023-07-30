@@ -55,7 +55,7 @@ const Checkbox = forwardRef<HTMLInputElement, IProps>(
       <div onClick={() => checked.toggle()}>
         <label
           htmlFor={id}
-          className="flex items-center p-2 cursor-pointer"
+          className="flex text-text-900 items-center p-2 cursor-pointer"
         >
           <input
             id={id}

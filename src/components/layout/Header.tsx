@@ -43,18 +43,8 @@ const Header = () => {
   };
 
   return (
-    <header className="flex justify-between fixed inset-0 w-full bg-primary-900 md:h-20 h-16 items-center px-2 md:p-5 z-50">
-      <div className="logo cursor-pointer flex items-center">
-        <div
-          className="mr-2 block md:hidden cursor-pointer"
-          onClick={() => toggle(!showSidebar)}
-        >
-          <Icon icon="gg:menu-motion" width={25} />
-        </div>
-        <h3 className="md:text-3xl text-xl text-secondary font-bold">
-          <Link to="/dashboard/home">Mega Dream</Link>
-        </h3>
-      </div>
+    <header className="flex justify-end fixed inset-0 bg-primary-900 md:h-20 h-16 items-center px-2 md:p-5 z-50">
+      
       <div className="tools flex items-center">
         <Tooltip text="Language" position="bottom">
           <div className={style.circle}>

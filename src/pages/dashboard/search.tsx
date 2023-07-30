@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import UniversityDescriptoinCard from "../../components/universityDescription/UniversityDescriptionCard";
 import { useDebounce } from "../../hooks/useDebounce";
 import Input from "../../components/input/Input";
+import Button from "../../components/button/Button";
 
 const SearchPage = () => {
   const [search, setSearch] = useState("");
@@ -27,9 +28,10 @@ const SearchPage = () => {
           wrapperClassName="w-full"
           placeholder="Type something and hit 'Enter' to search..."
         />
-        <button className="flex items-center justify-center p-2 bg-primary-900 ml-4 rounded-md">
-          <Icon icon="mdi:filter-outline" width={20} /> Filter
-        </button>
+        <Button 
+          text="Filter"
+          afterIcon="mdi:filter-outline"
+        />
       </div>
       {!isError ? (
         <div className="mt-2 flex justify-center items-center flex-col">

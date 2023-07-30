@@ -25,15 +25,15 @@ const Button = forwardRef<HTMLButtonElement, IProps>(({
     >
       {!!beforeIcon && (
         <div>
-          <Icon icon={beforeIcon} width={25} className="text-primary-1000 " />
+          <Icon icon={beforeIcon} width={25} className="text-text-900 " />
         </div>
       )}
 
-      <p>{text}</p>
+      <p className="text-text-900">{text}</p>
 
       {!!afterIcon && (
         <div className="ml-2">
-          <Icon icon={afterIcon} width={20} />
+          <Icon icon={afterIcon} className="text-text-900" width={20} />
         </div>
       )}
     </button>

@@ -29,24 +29,24 @@ const Input = forwardRef<unknown, IProps>((props, ref) => {
     <div
       className={`border-2 border-solid rounded-lg relative flex items-center transition-colors ${
         focus.state
-          ? "border-primary-1000 shadow-primary-900"
-          : "border-accent-900"
+          ? "border-primary-700 shadow-primary-700"
+          : "border-primary-800"
       }`.concat(` ${wrapperClassName}`)}
       onFocus={() => focus.on()}
       onBlur={() => focus.off()}
     >
       {!!beforeIcon && (
-        <div className="p-2 bg-slate-200 flex h-full rounded-l-md">
+        <div className="p-2 bg-transparent flex h-full rounded-l-md">
           <Icon
             icon={beforeIcon}
             width={25}
-            className={focus.state ? " text-primary-1000 " : ""}
+            className="text-primary-700"
           />
         </div>
       )}
       {multiline ? (
         <textarea
-          className={"p-2 w-full resize-y rounded-lg".concat(
+          className={"p-2 w-full resize-y rounded-lg bg-transparent text-text-900".concat(
             className?.length ? ` ${className}` : ""
           )}
           //@ts-ignore
@@ -55,7 +55,7 @@ const Input = forwardRef<unknown, IProps>((props, ref) => {
         />
       ) : (
         <input
-          className={"p-2 w-full rounded-lg".concat(
+          className={"p-2 w-full bg-transparent text-text-900 rounded-lg".concat(
             className?.length ? ` ${className}` : ""
           )}
           ref={ref as unknown as LegacyRef<HTMLInputElement>}

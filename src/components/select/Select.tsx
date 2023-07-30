@@ -70,7 +70,7 @@ const Select: FC<IProps> = ({ hideIcon, onChange, iterable, initialValue }) => {
         )}
       </motion.button>
       <motion.ul
-        className="py-2 rounded-lg bg-primary-900 absolute top-full left-0 z-50 w-max mt-1"
+        className="py-2 rounded-lg bg-primary-800 absolute top-full left-0 z-50 w-max mt-1"
         variants={{
           open: {
             clipPath: "inset(0% 0% 0% 0% round 10px)",
@@ -98,7 +98,7 @@ const Select: FC<IProps> = ({ hideIcon, onChange, iterable, initialValue }) => {
             <motion.li
               key={item.value}
               onClick={() => handleSelect(item.value)}
-              className="cursor-pointer py-1 px-4 transi hover:bg-primary-1000 w-full"
+              className="cursor-pointer py-1 px-4 text-lg text-text-900 hover:bg-primary-700 w-full"
               variants={itemVariants}
               value={item.value}
             >

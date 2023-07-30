@@ -37,13 +37,11 @@ const UserCard: FC<IUser> = ({
   return (
     <>
       <div
-        className={`p-2 relative rounded-lg mt-2 flex flex-col border-2 border-solid ${
-          isActivated ? "border-primary-900" : "border-red-500"
-        }`}
+        className="p-2 relative bg-primary-800 rounded-lg mt-2 flex flex-col"
       >
         {
           !isActivated && (
-            <div className="absolute top-2 border-2 border-solid border-slate-400 right-2 bg-slate-200 px-2 py-1 rounded-full text-sm">
+            <div className="absolute top-2 border-2 border-solid border-red-500 right-2 bg-primary-800 px-2 py-1 rounded-full text-sm">
               Account is not activated
             </div>
           )
@@ -67,7 +65,7 @@ const UserCard: FC<IUser> = ({
         {role === "user" && (
           <Button
             onClick={promoteToAdmin}
-            wrapperClassName="text-white mt-2 bg-blue-400 w-max flex justify-center"
+            wrapperClassName="text-white mt-2 bg-blue-500 w-max flex justify-center"
             text="Promote to Admin"
             afterIcon="iconamoon:certificate-badge-duotone"
           />

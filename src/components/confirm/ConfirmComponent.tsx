@@ -15,7 +15,7 @@ const ConfirmComponent: FC<IProps> = ({ show, trueFn, falseFn, message, trueText
   return (
     <ModalPortal>
       <div className="absolute top-0 left-0 z-50 backdrop-blur-sm grid place-items-center w-full h-full">
-        <div className="flex flex-col p-4 rounded-lg bg-slate-200 border-2 border-solid border-slate-400 max-w-2xl min-w-[36rem]">
+        <div className="flex flex-col p-4 rounded-lg bg-primary-800 border-2 border-solid border-primary-700 max-w-2xl min-w-[36rem]">
           <h4 className="text-2xl">Confirm the action</h4>
           <p className="my-3">
             {message}
