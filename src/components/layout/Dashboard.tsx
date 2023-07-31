@@ -8,7 +8,7 @@ const Dashboard = () => {
       <Header />
       <div className="flex">
         <Sidebar />
-        <main className="md:pt-24 pt-20 bg-primary-900 md:ml-64 md:px-3 px-2 pb-3 w-full h-screen">
+        <main className="md:pt-24 pt-20 bg-primary-900 md:ml-64 md:px-3 px-2 pb-3 w-full min-h-screen">
           <Outlet />
         </main>
       </div>

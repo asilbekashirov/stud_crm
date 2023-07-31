@@ -66,6 +66,10 @@ export default function Router({ isAuth, isAdmin }: IProps) {
           path: "users-all",
           element: <AllUsersPage />,
         },
+        {
+          path: "university/:id",
+          element: <UniversityDetailPage />
+        }
       ],
     },
     {

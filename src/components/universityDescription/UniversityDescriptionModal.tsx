@@ -32,7 +32,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
 
   const goToUniPage = () => {
     if (!isCreatedUni(props)) return;
-    navigate(`/dashboard/university/${props._id}`);
+    navigate(`/${isAdmin ? "admin" : "dashboard"}/university/${props._id}`);
   };
 
   return (
@@ -59,7 +59,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
           <motion.div className="md:p-4 p-2">
             <motion.div className="flex justify-start">
               <motion.div>
-                <motion.h6 className="flex items-center text-gray-700">
+                <motion.h6 className="flex items-center text-primary-800">
                   <Icon
                     className="mr-3"
                     width={25}
@@ -112,7 +112,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
                   text="Edit"
                   afterIcon="iconamoon:edit-duotone"
                   onClick={edit}
-                  wrapperClassName="bg-primary-900 text-white"
+                  wrapperClassName="bg-secondary-800 text-white"
                 />
               ) : (
                 <Button
