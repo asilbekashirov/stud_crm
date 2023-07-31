@@ -29,7 +29,7 @@ const CourseItem: FC<IProps> = ({
   };
 
   return (
-    <div className="p-1 border-2 flex flex-col mt-1 border-solid border-primary-900 rounded-lg">
+    <div className="p-2 border-2 flex flex-col mt-2 bg-primary-800 rounded-3xl">
       <span className="rounded-full flex justify-center border-accent-900 items-center p-2 w-8 h-8 border-2 border-solid">
         {index + 1}
       </span>

@@ -4,6 +4,8 @@ import api from "../../api/universities";
 import { useParams } from "react-router-dom";
 import { ILanguages } from "../../models";
 import { useTranslation } from "react-i18next";
+import UniversityCourseDescription from "../../components/universityDescription/UniversityCourseDescription";
+import { useMemo } from "react";
 
 const UniversityDetailPage = () => {
   const { id } = useParams();
@@ -15,6 +17,14 @@ const UniversityDetailPage = () => {
   const { t, i18n } = useTranslation();
 
   const lng = i18n.language as ILanguages;
+
+  const programs = useMemo(() => {
+    return [
+      { name: "bsc", value: universityInfo?.bachelors },
+      { name: "masters", value: universityInfo?.masters },
+      { name: "phd", value: universityInfo?.phd },
+    ];
+  }, [universityInfo]);
 
   return (
     <main className="">
@@ -37,129 +47,24 @@ const UniversityDetailPage = () => {
       <h4 className="text-2xl font-semibold mt-5">
         {t("university.available_courses")}
       </h4>
-      <h6 className="text-xl mt-2">{t("university.bsc")}:</h6>
-      <div className="flex flex-col">
-        {universityInfo?.bachelors.map((course, index) => (
-          <div
-            key={index}
-            className="w-full p-2 flex flex-col justify-start bg-primary-800 rounded-xl mt-2"
-          >
-            <h4 className="text-text-900 text-lg">{course.name[lng]}</h4>
-            <div className="mt-1 flex items-center text-primary-700">
-              <Icon
-                className="mr-1"
-                icon="mdi:translate"
-                width={20}
-              />
-              {course.languages.map((lang) => (
-                <div>{lang}</div>
-              ))}
-            </div>
-            <div className="mt-1 flex items-center text-primary-700">
-              <Icon
-                className="mr-1"
-                icon="mdi:calendar-month-outline"
-                width={20}
-              />
-              {t("university.duration")}: {course.semesters}{" "}
-              {t("university.semesters")}
-            </div>
-            <div className="mt-1 flex items-center text-primary-700">
-              <Icon
-                className="mr-1"
-                icon="mdi:clock-outline"
-                width={20}
-              />
-              {course.educationType.fullTime && `${t("university.fullTime")} / `}
-              {course.educationType.partTime && `${t("university.partTime")}`}
-            </div>
+      {programs.map((program) => (
+        <div key={program.name}>
+          <h6 className="text-xl mt-2">{t(`university.${program.name}`)}:</h6>
+          <div className="flex flex-col">
+            {program.value?.length ? (
+              program.value?.map((course, index) => (
+                <UniversityCourseDescription
+                  {...course}
+                  key={index}
+                  lng={lng}
+                />
+              ))
+            ) : (
+              <p className="w-full text-center py-4 text-lg text-primary-700">{t("common.no_data")}</p>
+            )}
           </div>
-        ))}
-      </div>
-      <h6 className="text-xl mt-2">{t("university.masters")}:</h6>
-      <div className="flex flex-col">
-        {universityInfo?.masters.map((course, index) => (
-          <div
-            key={index}
-            className="w-full p-2 flex flex-col justify-start bg-primary-800 rounded-xl mt-2"
-          >
-            <h4 className="text-gray-600 text-lg">{course.name[lng]}</h4>
-            <div className="mt-1 flex items-center text-primary-700">
-              <Icon
-                className="mr-1"
-                icon="mdi:translate"
-                width={20}
-              />
-              {course.languages.map((lang) => (
-                <div>{lang}</div>
-              ))}
-            </div>
-            <div className="mt-1 flex items-center text-primary-700">
-              <Icon
-                className="mr-1"
-                icon="mdi:calendar-month-outline"
-                width={20}
-              />
-              {t("university.duration")}: {course.semesters}{" "}
-              {t("university.semesters")}
-            </div>
-            <div className="mt-1 flex items-center text-primary-700">
-              <Icon
-                className="mr-1"
-                icon="mdi:clock-outline"
-                width={20}
-              />
-              {course.educationType.fullTime && `${t("university.fullTime")} / `}
-              {course.educationType.partTime && `${t("university.partTime")}`}
-            </div>
-          </div>
-        ))}
-      </div>
-      <h6 className="text-xl mt-2">{t("university.phd")}:</h6>
-      <div className="flex flex-col">
-        {
-        !universityInfo?.phd.length ? (
-            <div className="text-center">
-                {t("common.no_data")}
-            </div>
-        ) :
-        universityInfo?.phd.map((course, index) => (
-          <div
-            key={index}
-            className="w-full p-2 flex flex-col justify-start bg-primary-800 rounded-xl mt-2"
-          >
-            <h4 className="text-gray-600 text-lg">{course.name[lng]}</h4>
-            <div className="mt-1 flex items-center text-primary-700">
-              <Icon
-                className="mr-1"
-                icon="mdi:translate"
-                width={20}
-              />
-              {course.languages.map((lang) => (
-                <div>{lang}</div>
-              ))}
-            </div>
-            <div className="mt-1 flex items-center text-primary-700">
-              <Icon
-                className="mr-1"
-                icon="mdi:calendar-month-outline"
-                width={20}
-              />
-              {t("university.duration")}: {course.semesters}{" "}
-              {t("university.semesters")}
-            </div>
-            <div className="mt-1 flex items-center text-primary-700">
-              <Icon
-                className="mr-1"
-                icon="mdi:clock-outline"
-                width={20}
-              />
-              {course.educationType.fullTime && `${t("university.fullTime")} / `}
-              {course.educationType.partTime && `${t("university.partTime")}`}
-            </div>
-          </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </main>
   );
 };

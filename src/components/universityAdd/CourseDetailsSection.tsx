@@ -26,7 +26,7 @@ const CourseDetailsSection: FC<IProps> = ({ course, control, register, getValues
     <div className="w-full mt-2">
       <div className="flex items-center">
         <h4 className="uppercase text-lg">{course}</h4>
-        <Button onClick={addCourse} wrapperClassName="bg-primary-900 ml-2" text="Add" afterIcon="iconamoon:sign-plus-circle-duotone" />
+        <Button onClick={addCourse} wrapperClassName="bg-secondary-800 ml-2" text="Add" afterIcon="iconamoon:sign-plus-circle-duotone" />
       </div>
       {fields.map((field, index) => (
         <CourseItem

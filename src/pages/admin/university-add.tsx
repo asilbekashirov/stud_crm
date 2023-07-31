@@ -115,7 +115,7 @@ const UniversityAddPage = () => {
       >
         <h3 className="text-center text-3xl">Add university details below</h3>
         <h4 className="my-1 text-xl">Name:</h4>
-        <div className="flex gap-2">
+        <div className="flex gap-2 rounded-xl">
           <Input
             wrapperClassName="w-full"
             placeholder="English"

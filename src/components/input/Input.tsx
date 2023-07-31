@@ -29,8 +29,8 @@ const Input = forwardRef<unknown, IProps>((props, ref) => {
     <div
       className={`border-2 border-solid rounded-lg relative flex items-center transition-colors ${
         focus.state
-          ? "border-primary-700 shadow-primary-700"
-          : "border-primary-800"
+          ? "border-secondary-800 shadow-secondary-800"
+          : "border-primary-700"
       }`.concat(` ${wrapperClassName}`)}
       onFocus={() => focus.on()}
       onBlur={() => focus.off()}

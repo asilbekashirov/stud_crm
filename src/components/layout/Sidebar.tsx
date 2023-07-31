@@ -23,7 +23,9 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`md:flex fixed h-screen w-64 z-50 transition-transform ${showSidebar ? "translate-x-0" : "-translate-x-full"}`}
+      className={`md:flex fixed h-screen w-64 z-50 transition-transform ${
+        showSidebar ? "translate-x-0" : "-translate-x-full"
+      }`}
     >
       <div
         onClick={() => dispatch(toggleSidebar(false))}
@@ -33,7 +35,12 @@ const Sidebar = () => {
       >
         {/* gradient-layer  */}
       </div>
-      <div className={["flex flex-col z-40 w-full relative h-screen bg-primary-900 p-3", styles.sidebar].join(" ")}>
+      <div
+        className={[
+          "flex flex-col z-40 w-full relative h-screen bg-primary-900 p-3",
+          styles.sidebar,
+        ].join(" ")}
+      >
         <div className="cursor-pointer flex items-center">
           <div
             className="mr-2 block md:hidden cursor-pointer"
@@ -41,7 +48,7 @@ const Sidebar = () => {
           >
             <Icon icon="gg:menu-motion" width={25} />
           </div>
-          <h3 className="md:text-3xl text-text-900 text-xl font-bold">
+          <h3 className="md:text-3xl text-text-900 text-xl text-center w-full mt-4 font-bold">
             <Link to="/dashboard/home">Mega Dream</Link>
           </h3>
         </div>
@@ -50,7 +57,7 @@ const Sidebar = () => {
             Welcome back, <br /> {fullName}
           </h4>
         ) : (
-          <p className="text-center text-lg">
+          <p className="text-center text-lg mt-4">
             Please, authorize to get access to all sections
           </p>
         )}
@@ -98,10 +105,7 @@ const MenuItem: FC<IMenuItemProps> = ({
       }`}
       key={route}
     >
-      <Link
-        className="flex items-center p-2"
-        to={`/${prefix}/${route}`}
-      >
+      <Link className="flex items-center p-2" to={`/${prefix}/${route}`}>
         <div className="p-1 mr-4 rounded-x">
           <Icon width={25} icon={icon} className={`text-inherit`} />
         </div>{" "}

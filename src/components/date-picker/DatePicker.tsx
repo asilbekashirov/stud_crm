@@ -86,8 +86,8 @@ const DatePicker = forwardRef<HTMLInputElement, IProps>(
         ref={calendarRef}
         className={`border-2 border-solid rounded-lg flex items-center h-ful transition-colors relative ${
           focus.state
-            ? "border-primary-700 shadow-primary-700"
-            : "border-primary-800"
+            ? "border-secondary-800 shadow-secondary-800"
+            : "border-primary-700"
         }`.concat(` ${wrapperClassName}`)}
       >
         <div
@@ -109,7 +109,7 @@ const DatePicker = forwardRef<HTMLInputElement, IProps>(
         {calendar.state && (
           <div
             className={[
-              `p-2 rounded-md bg-slate-50`,
+              `p-2 rounded-md bg-primary-800`,
               styles.calendar_modal,
             ].join(" ")}
           >
