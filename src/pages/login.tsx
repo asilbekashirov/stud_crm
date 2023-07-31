@@ -56,7 +56,7 @@ const LoginPage = () => {
                     type="password"
                     wrapperClassName="mt-2"
                 />
-                <Button text="Submit" type="submit" wrapperClassName="mt-3 bg-primary-900 w-full" afterIcon="iconamoon:send-duotone" />
+                <Button text="Submit" type="submit" wrapperClassName="mt-3 bg-secondary-800 w-full" afterIcon="iconamoon:send-duotone" />
                 <p className="pt-2 text-center">Don&apos;t have account yet? <Link className="text-secondary-800" to="/register">Create here</Link> </p>
                 <p className="text-center w-full pt-1">
                     <Link to="/dashboard/home">Go to a dashboard</Link>

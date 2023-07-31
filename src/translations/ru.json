@@ -16,6 +16,8 @@
         "location": "Расположение",
         "fullTime": "Очное",
         "partTime": "Заочное",
-        "languages": "Языки обучения"
+        "languages": "Языки обучения",
+        "programs": "Программ",
+        "foundIn": "Основан в"
     }
 }

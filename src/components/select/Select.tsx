@@ -1,7 +1,8 @@
 import { motion, Variants } from "framer-motion";
 import { useToggle } from "../../hooks/useToggle";
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { useClickAway } from "../../hooks/useClickAway";
+import { Icon } from "@iconify/react";
 
 const itemVariants: Variants = {
   open: {
@@ -15,6 +16,7 @@ const itemVariants: Variants = {
 interface IIterable {
   name: string;
   value: string;
+  icon?: string
 }
 
 interface IProps {
@@ -30,6 +32,10 @@ const Select: FC<IProps> = ({ hideIcon, onChange, iterable, initialValue }) => {
 
   const [value, setValue] = useState<string | undefined>(initialValue);
 
+  const memoValue = useMemo(() => {
+    return iterable.find((item) => item.value === value);
+  }, [value]);
+
   // const initialValue = 
 
   const {wrapperRef} = useClickAway<HTMLDivElement>(() => open.off())
@@ -42,7 +48,6 @@ const Select: FC<IProps> = ({ hideIcon, onChange, iterable, initialValue }) => {
 
   return (
     <motion.div
-      className=""
       initial={false}
       animate={open.state ? "open" : "closed"}
       ref={wrapperRef}
@@ -52,7 +57,10 @@ const Select: FC<IProps> = ({ hideIcon, onChange, iterable, initialValue }) => {
         whileTap={{ scale: 0.97 }}
         onClick={() => open.toggle()}
       >
-        {value}
+        {memoValue?.icon && 
+          <Icon icon={memoValue.icon} className="mr-2" />
+        }
+        {memoValue?.value}
         {!hideIcon && (
           <motion.div
             variants={{
@@ -98,10 +106,11 @@ const Select: FC<IProps> = ({ hideIcon, onChange, iterable, initialValue }) => {
             <motion.li
               key={item.value}
               onClick={() => handleSelect(item.value)}
-              className="cursor-pointer py-1 px-4 text-lg text-text-900 hover:bg-primary-700 w-full"
+              className="cursor-pointer flex items-center py-1 px-4 text-lg text-text-900 hover:bg-primary-700 w-full"
               variants={itemVariants}
               value={item.value}
             >
+              {item.icon && <Icon icon={item.icon} className="mr-2" />}
               {item.name}
             </motion.li>
           ))}

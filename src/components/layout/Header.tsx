@@ -10,9 +10,9 @@ import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { useTranslation } from "react-i18next";
 
 const languages = [
-  { name: "En", value: "en" },
-  { name: "Ru", value: "ru" },
-  { name: "Uz", value: "uz" },
+  { name: "En", value: "en", icon: "flag:gb-4x3" },
+  { name: "Ru", value: "ru", icon: "flag:ru-4x3" },
+  { name: "Uz", value: "uz", icon: "flag:uz-4x3" },
 ];
 
 const Header = () => {
@@ -45,7 +45,7 @@ const Header = () => {
   return (
     <header className="flex justify-end fixed inset-0 bg-primary-900 md:h-20 h-16 items-center px-2 md:p-5 z-50">
       
-      <div className="tools flex items-center">
+      <div className="tools flex items-center gap-3">
         <Tooltip text="Language" position="bottom">
           <div className={style.circle}>
             <Select
@@ -79,8 +79,8 @@ const Header = () => {
               </div>
             </Tooltip>
             <Tooltip text="Logout" position="bottom">
-              <div className={style.circle} onClick={exitProfile}>
-                <Icon icon="iconamoon:arrow-right-4-square-duotone" />
+              <div className={style.circle} onClick={exitProfile} >
+                <Icon icon="iconamoon:arrow-right-4-square-duotone" width={30} />
               </div>
             </Tooltip>
           </>
@@ -91,7 +91,7 @@ const Header = () => {
             </div>
           </Tooltip>
         ) : (
-          <Tooltip text="Login" position="bottom">
+          <Tooltip text="Login" position="bottom" >
             <Link to="/login" className={style.circle}>
               <Icon icon="iconamoon:enter-duotone" />
             </Link>

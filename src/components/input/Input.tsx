@@ -74,13 +74,14 @@ const Input = forwardRef<unknown, IProps>((props, ref) => {
                 ? "iconamoon:eye-off-duotone"
                 : "iconamoon:eye-duotone"
             }`}
+            className="text-primary-700"
             width={25}
           />
         </div>
       )}
       {!!afterIcon && (
         <div className="p-2">
-          <Icon icon={afterIcon} width={25} />
+          <Icon icon={afterIcon} className="text-primary-700" width={25} />
         </div>
       )}
     </div>

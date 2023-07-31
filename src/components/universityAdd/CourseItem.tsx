@@ -8,6 +8,8 @@ import {
 import Input from "../input/Input";
 import Button from "../button/Button";
 import Checkbox from "../checkbox/Checkbox";
+import Card from "../card/Card";
+import Separator from "../separator/Separator";
 
 interface IProps {
   course: "phd" | "masters" | "bachelors";
@@ -29,8 +31,9 @@ const CourseItem: FC<IProps> = ({
   };
 
   return (
-    <div className="p-2 border-2 flex flex-col mt-2 bg-primary-800 rounded-3xl">
-      <span className="rounded-full flex justify-center border-accent-900 items-center p-2 w-8 h-8 border-2 border-solid">
+    // <div className="p-2 border-2 flex flex-col mt-2 bg-primary-800 rounded-3xl">
+    <Card className="mt-2">
+      <span className="rounded-full flex justify-center border-secondary-800 items-center p-2 w-8 h-8 border-2 border-solid">
         {index + 1}
       </span>
       <div className="flex gap-2 mt-2">
@@ -123,8 +126,8 @@ const CourseItem: FC<IProps> = ({
           {...register(`${course}.${index}.description.uz`)}
         />
       </div>
-      <div className="flex justify-between my-2">
-        <span></span>
+      <Separator direction="horizontal" className="my-4" />
+      <div className="flex justify-end my-2">
         <Button
           onClick={deleteCourse}
           text="Delete"
@@ -132,7 +135,9 @@ const CourseItem: FC<IProps> = ({
           wrapperClassName="bg-red-500 text-white"
         />
       </div>
-    </div>
+    </Card>
+
+    // </div>
   );
 };
 

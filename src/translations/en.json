@@ -16,6 +16,8 @@
         "location": "Location",
         "fullTime": "Full Time",
         "partTime": "Part Time",
-        "languages": "Languages"
+        "languages": "Languages",
+        "programs": "Programs",
+        "foundIn": "Found in"
     }
 }

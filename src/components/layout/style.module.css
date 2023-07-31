@@ -2,13 +2,12 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background-color: rgb(241, 245, 249);
-    margin-left: 0.5rem;
+    /* background-color: rgb(241, 245, 249); */
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #555;
+    /* color: #555; */
     font-size: 1.3rem;
 }
 .sidebar {

@@ -16,6 +16,8 @@
         "location": "Joylashuv",
         "fullTime": "To'liq stavka",
         "partTime": "Yarim stavka",
-        "languages": "Ta'lim tillari"
+        "languages": "Ta'lim tillari",
+        "programs": "Dasturlar",
+        "foundIn": "Topilgan"
     }
 }

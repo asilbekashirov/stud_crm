@@ -1,0 +1,11 @@
+.horizontal {
+    width: 100%;
+    height: 1px;
+    border-top: 1px dotted rgb(145, 158, 171);
+}
+
+.vertical {
+    width: 1px;
+    height: 100%;
+    border-left: 1px dotted rgb(145, 158, 171);
+}
