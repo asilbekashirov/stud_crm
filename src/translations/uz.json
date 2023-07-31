@@ -19,5 +19,15 @@
         "languages": "Ta'lim tillari",
         "programs": "Dasturlar",
         "foundIn": "Topilgan"
+    },
+    "sidebar": {
+        "universities": "Universitetlar",
+        "add_university": "Universitet qo'shish",
+        "users": "Foydalanuvchilar",
+        "news": "Yangiliklar",
+        "add_news": "Yangilik qo'shish",
+        "search": "Qidirmoq",
+        "programs_list": "Dasturlar ro'yxati",
+        "home": "Bosh sahifa"
     }
 }

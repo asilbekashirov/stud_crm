@@ -19,5 +19,15 @@
         "languages": "Languages",
         "programs": "Programs",
         "foundIn": "Found in"
+    },
+    "sidebar": {
+        "universities": "Universities",
+        "add_university": "Add University",
+        "users": "Users",
+        "news": "News",
+        "add_news": "Add News",
+        "search": "Search",
+        "programs_list": "Programs list",
+        "home": "Home"
     }
 }

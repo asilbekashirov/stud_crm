@@ -1,17 +1,17 @@
 export const sidebar = [
   {
     route: "home",
-    name: "Home",
+    name: "home",
     icon: "mdi:home-outline",
   },
   {
     route: "search",
-    name: "Search",
+    name: "search",
     icon: "mdi:magnify",
   },
   {
     route: "programs",
-    name: "Programs List",
+    name: "programs_list",
     icon: "mdi:format-list-group",
   },
 ];
@@ -19,27 +19,27 @@ export const sidebar = [
 export const adminSidebar = [
   {
     route: "universities",
-    name: "Universities",
+    name: "universities",
     icon: "mdi:format-list-group",
   },
   {
     route: "university-add?mode=create",
-    name: "Add University",
+    name: "add_university",
     icon: "mdi:format-list-group-plus",
   },
   {
     route: "users-all",
-    name: "Users List",
+    name: "users",
     icon: "mdi:account-group-outline",
   },
   {
     route: "news",
-    name: "News List",
+    name: "news",
     icon: "iconamoon:news-duotone"
   },
   {
     route: "news-add",
-    name: "Add news",
+    name: "add_news",
     icon: "material-symbols:add-notes-outline"
   }
 ];

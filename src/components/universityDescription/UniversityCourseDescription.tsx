@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react";
 import { FC } from "react";
 import { IUniversityProgramm } from "../../models/university";
 import { useTranslation } from "react-i18next";
+import Card from "../card/Card";
 
 interface IProps extends IUniversityProgramm {
     lng: "ru" | "en" | "uz"
@@ -9,11 +10,11 @@ interface IProps extends IUniversityProgramm {
 
 const UniversityCourseDescription: FC<IProps> = (props) => {
   
-    const {name, description, languages, semesters, educationType, lng} = props;
+    const {name, languages, semesters, educationType, lng} = props;
     const {t} = useTranslation()
   
     return (
-    <div className="w-full p-2 flex flex-col justify-start bg-primary-800 rounded-xl mt-2">
+    <Card className="w-full flex flex-col justify-start mt-2">
       <h4 className="text-text-900 text-lg">{name[lng]}</h4>
       <div className="mt-1 flex items-center text-primary-700">
         <Icon className="mr-1" icon="mdi:translate" width={20} />
@@ -31,7 +32,7 @@ const UniversityCourseDescription: FC<IProps> = (props) => {
         {educationType.fullTime && `${t("university.fullTime")} / `}
         {educationType.partTime && `${t("university.partTime")}`}
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -6,6 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FC, memo } from "react";
 import { toggleSidebar } from "../../redux/store/app";
 import styles from "./style.module.css";
+import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -98,6 +99,9 @@ const MenuItem: FC<IMenuItemProps> = ({
   isActive,
   prefix,
 }) => {
+
+  const {t} = useTranslation()
+
   return (
     <li
       className={`rounded-xl hover:bg-secondary-600 hover:text-secondary-700 mt-1 ${
@@ -109,7 +113,7 @@ const MenuItem: FC<IMenuItemProps> = ({
         <div className="p-1 mr-4 rounded-x">
           <Icon width={25} icon={icon} className={`text-inherit`} />
         </div>{" "}
-        {name}
+        {t(`sidebar.${name}`)}
       </Link>
     </li>
   );
