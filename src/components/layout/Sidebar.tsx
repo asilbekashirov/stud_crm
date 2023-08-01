@@ -1,15 +1,21 @@
 // import { user } from "@/demo/account";
-import { IMenuItem, adminSidebar, sidebar } from "../../demo/sidebar";
+import {
+  IMenuItem,
+  adminSidebar,
+  adminSidebar2,
+  sidebar,
+} from "../../demo/sidebar";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { Icon } from "@iconify/react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useMatch } from "react-router-dom";
 import { FC, memo } from "react";
 import { toggleSidebar } from "../../redux/store/app";
 import styles from "./style.module.css";
 import { useTranslation } from "react-i18next";
+import { useToggle } from "../../hooks/useToggle";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Sidebar = () => {
-  const location = useLocation();
   const { showSidebar } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
@@ -65,21 +71,11 @@ const Sidebar = () => {
 
         <ul className="flex flex-col mt-4">
           {role === "admin"
-            ? adminSidebar.map((menubar) => (
-                <MenuItem
-                  key={menubar.name}
-                  {...menubar}
-                  prefix="admin"
-                  isActive={location.pathname === `/admin/${menubar.route}`}
-                />
+            ? adminSidebar2.map((menubar) => (
+                <MenuItem key={menubar.name} {...menubar} prefix="admin" />
               ))
             : sidebar.map((menubar) => (
-                <MenuItem
-                  key={menubar.name}
-                  {...menubar}
-                  prefix="dashboard"
-                  isActive={location.pathname === `/dashboard/${menubar.route}`}
-                />
+                <MenuItem key={menubar.name} {...menubar} prefix="dashboard" />
               ))}
         </ul>
       </div>
@@ -88,7 +84,6 @@ const Sidebar = () => {
 };
 
 interface IMenuItemProps extends IMenuItem {
-  isActive: boolean;
   prefix: "dashboard" | "admin";
 }
 
@@ -96,21 +91,92 @@ const MenuItem: FC<IMenuItemProps> = ({
   route,
   icon,
   name,
-  isActive,
   prefix,
+  children,
 }) => {
+  const { t } = useTranslation();
+  const open = useToggle(false);
+  const location = useLocation();
 
-  const {t} = useTranslation()
+  const isActive = (pathname: string): boolean => {
+    return location.pathname === `/${prefix}/${pathname}`;
+  };
 
-  return (
+  return children?.length ? (
+    <li className={`cursor-pointer flex flex-col mt-1 text-primary-700`}>
+      <div
+        className="flex items-center justify-between p-2 hover:bg-primary-600 transition-colors rounded-xl"
+        onClick={() => open.toggle()}
+      >
+        <div className="flex items-center">
+          <div className="p-1 mr-4">
+            <Icon width={25} icon={icon} className={`text-inherit`} />
+          </div>{" "}
+          {t(`sidebar.${name}`)}
+        </div>
+        <div
+          className={`transition-transform ${
+            open.state ? "rotate-90" : "rotate-0"
+          }`}
+        >
+          <Icon
+            width={20}
+            icon="iconamoon:arrow-right-2-duotone"
+            className={`text-inherit`}
+          />
+        </div>
+      </div>
+      <AnimatePresence initial={false}>
+        {open.state && (
+          <motion.div
+            key="content"
+            initial="collapsed"
+            animate="open"
+            exit="collapsed"
+            variants={{
+              open: { opacity: 1, height: "auto" },
+              collapsed: { opacity: 0, height: 0 },
+            }}
+            transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
+          >
+            {children.map((child) => (
+              <motion.div
+                variants={{ collapsed: { scale: 0.9 }, open: { scale: 1 } }}
+                transition={{ duration: 0.8 }}
+                key={child.route}
+              >
+                <Link
+                  className={`flex items-center p-2 pl-6 hover:bg-primary-600 transition-colors rounded-xl ${
+                    isActive(child.route as string) ? "text-secondary-700" : ""
+                  }`}
+                  to={`/${prefix}/${child.route}${child.params || ""}`}
+                >
+                  <div className="p-1 mr-4">
+                    <Icon
+                      width={25}
+                      icon={child.icon}
+                      className={`text-inherit`}
+                    />
+                  </div>{" "}
+                  {t(`sidebar.${child.name}`)}
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </li>
+  ) : (
     <li
-      className={`rounded-xl hover:bg-secondary-600 hover:text-secondary-700 mt-1 ${
-        isActive ? "bg-secondary-600 text-secondary-700" : "text-primary-700"
+      className={`rounded-xl hover:bg-primary-600 mt-1 ${
+        isActive(route as string)
+          ? "bg-secondary-600 text-secondary-700"
+          : "text-primary-700"
       }`}
       key={route}
     >
       <Link className="flex items-center p-2" to={`/${prefix}/${route}`}>
-        <div className="p-1 mr-4 rounded-x">
+        <div className="p-1 mr-4">
           <Icon width={25} icon={icon} className={`text-inherit`} />
         </div>{" "}
         {t(`sidebar.${name}`)}

@@ -35,17 +35,61 @@ export const adminSidebar = [
   {
     route: "news",
     name: "news",
-    icon: "iconamoon:news-duotone"
+    icon: "iconamoon:news-duotone",
   },
   {
     route: "news-add",
     name: "add_news",
-    icon: "material-symbols:add-notes-outline"
-  }
+    icon: "material-symbols:add-notes-outline",
+  },
+];
+
+export const adminSidebar2 = [
+  {
+    name: "universities",
+    icon: "solar:buildings-3-bold-duotone",
+    children: [
+      {
+        name: "list",
+        route: "universities",
+        icon: "solar:list-bold-duotone",
+      },
+      {
+        route: "university-add",
+        name: "add",
+        icon: "solar:widget-add-line-duotone",
+        params: "?mode=create",
+      },
+    ],
+  },
+  {
+    name: "news",
+    icon: "iconamoon:news-duotone",
+    children: [
+      {
+        name: "list",
+        route: "news",
+        icon: "solar:list-bold-duotone",
+      },
+      {
+        route: "news-add",
+        name: "add",
+        params: "?mode=create",
+        icon: "solar:widget-add-line-duotone",
+      },
+    ],
+  },
+  {
+    name: "users",
+    route: "users-all",
+    icon: "mdi:account-group-outline",
+  },
 ];
 
 export interface IMenuItem {
-    route: string;
-    name: string;
-    icon: string;
+  route?: string;
+  name: string;
+  icon: string;
+  children?: Omit<IMenuItem[], "children">;
+  params?: string;
 }

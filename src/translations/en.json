@@ -28,6 +28,8 @@
         "add_news": "Add News",
         "search": "Search",
         "programs_list": "Programs list",
-        "home": "Home"
+        "home": "Home",
+        "list": "List",
+        "add": "Create"
     }
 }
