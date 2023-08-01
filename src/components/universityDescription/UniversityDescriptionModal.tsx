@@ -51,7 +51,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
               alt={name.en}
               className="w-full h-full object-cover rounded-t-lg block"
             />
-            <div className="w-full bg-gradient-to-b from-white to-black absolute top-0 left-0 h-full"></div>
+            <div className="w-full bg-gradient-to-b from-transparent to-black absolute top-0 left-0 h-full"></div>
             <motion.h5 className="text-2xl absolute bottom-0 left-0 md:ml-4 ml-2 text-white font-semibold mb-3">
               {name.en}
             </motion.h5>
