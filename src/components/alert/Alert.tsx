@@ -6,17 +6,17 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { hideAlert } from "../../redux/store/app";
 
 const alertColors = {
-  warning: "bg-orange-400",
-  error: "bg-orange-400",
-  info: "bg-blue-400",
-  success: "bg-green-400",
+  warning: "bg-orange-500",
+  error: "bg-orange-500",
+  info: "bg-blue-500",
+  success: "bg-green-500",
 };
 
 const alertBarColors = {
-  warning: "bg-orange-600",
-  error: "bg-orange-600",
-  info: "bg-blue-600",
-  success: "bg-green-600",
+  warning: "bg-orange-700",
+  error: "bg-orange-700",
+  info: "bg-blue-700",
+  success: "bg-green-700",
 };
 
 const Alert = () => {

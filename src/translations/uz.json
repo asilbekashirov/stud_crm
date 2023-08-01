@@ -23,7 +23,9 @@
         "partTime": "Yarim stavka",
         "languages": "Ta'lim tillari",
         "programs": "Dasturlar",
-        "foundIn": "Topilgan"
+        "foundIn": "Topilgan",
+        "open": "Qabul ochiq",
+        "closed": "Qabul yopiq"
     },
     "sidebar": {
         "universities": "Universitetlar",
@@ -35,6 +37,7 @@
         "programs_list": "Dasturlar ro'yxati",
         "home": "Bosh sahifa",
         "list": "Ro'yxat",
-        "add": "Qo'shmoq"
+        "add": "Qo'shmoq",
+        "analytics": "Analitika"
     }
 }

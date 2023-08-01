@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { FC, useMemo, useState } from "react";
-import styles from "./universityDescriptionCard.module.css";
 import { Icon } from "@iconify/react";
 import { IUniversity } from "../../models/university";
 import UniversityDescriptionModal from "./UniversityDescriptionModal";
@@ -70,7 +69,7 @@ const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
               className="mr-2"
               icon="mdi:file-document-multiple-outline"
             />{" "}
-            Application is {activeApplication ? "open" : "closed"}
+            {t(`university.${activeApplication ? "open" : "closed"}`)}
           </h6>
         </motion.div>
         <div className="flex">

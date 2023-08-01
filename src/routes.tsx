@@ -11,6 +11,7 @@ import NewsAddPage from "./pages/admin/news-add";
 import UniversityDetailPage from "./pages/dashboard/uniById";
 import NewsPage from "./pages/admin/news";
 import AllUsersPage from "./pages/admin/users-all";
+import AnalyticsPage from "./pages/admin/analytics";
 
 interface IProps {
   isAuth: boolean;
@@ -39,6 +40,10 @@ export default function Router({ isAuth, isAdmin }: IProps) {
         {
           path: "university/:id",
           element: <UniversityDetailPage />
+        },
+        {
+          path: "*",
+          element: <Navigate to="/dashboard/home" />
         }
       ],
     },
@@ -46,6 +51,10 @@ export default function Router({ isAuth, isAdmin }: IProps) {
       path: "/admin",
       element: (isAdmin && isAuth) ? <Dashboard /> : <Navigate to="/dashboard" />,
       children: [
+        {
+          path: "analytics",
+          element: <AnalyticsPage />
+        },
         {
           path: "university-add",
           element: <UniversityAddPage />,
@@ -69,6 +78,10 @@ export default function Router({ isAuth, isAdmin }: IProps) {
         {
           path: "university/:id",
           element: <UniversityDetailPage />
+        },
+        {
+          path: "*",
+          element: <Navigate to="/admin/analytics" />
         }
       ],
     },

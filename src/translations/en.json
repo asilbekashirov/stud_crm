@@ -23,7 +23,9 @@
         "partTime": "Part Time",
         "languages": "Languages",
         "programs": "Programs",
-        "foundIn": "Found in"
+        "foundIn": "Found in",
+        "open": "Application is open",
+        "closed": "Application is closed"
     },
     "sidebar": {
         "universities": "Universities",
@@ -35,6 +37,7 @@
         "programs_list": "Programs list",
         "home": "Home",
         "list": "List",
-        "add": "Create"
+        "add": "Create",
+        "analytics": "Analytics"
     }
 }

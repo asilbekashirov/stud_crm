@@ -46,6 +46,11 @@ export const adminSidebar = [
 
 export const adminSidebar2 = [
   {
+    name: "analytics",
+    route: "analytics",
+    icon: "ic:twotone-analytics"
+  },
+  {
     name: "universities",
     icon: "solar:buildings-3-bold-duotone",
     children: [
@@ -83,7 +88,7 @@ export const adminSidebar2 = [
     name: "users",
     route: "users-all",
     icon: "mdi:account-group-outline",
-  },
+  }
 ];
 
 export interface IMenuItem {
