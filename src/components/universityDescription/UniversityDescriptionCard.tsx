@@ -12,13 +12,13 @@ import { useTranslation } from "react-i18next";
 import { ILanguages } from "../../models";
 
 const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
-  const { name, country, city, foundIn } = uni;
+  const { name, country, city, foundIn, bachelors, masters, phd } = uni;
 
   const navigate = useNavigate();
   const isAdmin = useAppSelector((state) => state.app.user).role == "admin";
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const {i18n, t} = useTranslation()
-  const lng = i18n.language as ILanguages
+  const { i18n, t } = useTranslation();
+  const lng = i18n.language as ILanguages;
 
   const programs = useMemo(() => {
     return uni.bachelors?.length + uni.masters?.length + uni.phd?.length || 0;
@@ -26,6 +26,12 @@ const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
 
   const handleUniSelect = () => setSelectedId(name.en);
   const closeDescription = () => setSelectedId(null);
+
+  const activeApplication = useMemo(() => {
+    return [...bachelors, ...masters, ...phd].some(
+      (program) => program.intake.fall || program.intake.spring
+    );
+  }, []);
 
   const editUniversity = (e: any) => {
     e.stopPropagation();
@@ -42,13 +48,15 @@ const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
         layoutId={name.en}
         onClick={handleUniSelect}
       >
-        <motion.div className="flex flex-col gap-1">
-          <motion.h5 className="text-lg font-semibold text-text-900">{name[lng]}</motion.h5>
-          <motion.h6 className="flex items-center text-primary-700">
+        <motion.div className="flex flex-col gap-1 text-primary-700">
+          <motion.h5 className="text-lg font-semibold text-text-900">
+            {name[lng]}
+          </motion.h5>
+          <motion.h6 className="flex items-center">
             <Icon width={20} className="mr-2" icon="mdi:map-marker-outline" />{" "}
             {t("university.location")}: {country}, {city}
           </motion.h6>
-          <motion.h6 className="flex items-center text-primary-700">
+          <motion.h6 className="flex items-center">
             <Icon
               width={20}
               className="mr-2"
@@ -56,18 +64,14 @@ const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
             />{" "}
             {t("university.foundIn")}: {foundIn}
           </motion.h6>
-          {/* <motion.h6 className="flex items-center text-gray-700">
+          <h6 className="flex items-center">
             <Icon
               width={20}
               className="mr-2"
               icon="mdi:file-document-multiple-outline"
             />{" "}
-            Application is {active ? "open" : "closed"}
-          </motion.h6>
-          <motion.h6 className="flex items-center text-gray-700">
-            <Icon width={20} className="mr-2" icon="mdi:currency-usd" />{" "}
-            Tuition fee: {tuitionFee}$/year
-          </motion.h6> */}
+            Application is {activeApplication ? "open" : "closed"}
+          </h6>
         </motion.div>
         <div className="flex">
           <div className="flex items-center text-left">
@@ -81,6 +85,7 @@ const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
           {isAdmin && (
             <Button
               beforeIcon="iconamoon:edit-duotone"
+              wrapperClassName="text-secondary-800"
               onClick={editUniversity}
             />
           )}

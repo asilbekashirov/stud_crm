@@ -29,35 +29,31 @@ const Input = forwardRef<unknown, IProps>((props, ref) => {
     <div
       className={`border-2 border-solid rounded-lg relative flex items-center transition-colors ${
         focus.state
-          ? "border-secondary-800 shadow-secondary-800"
-          : "border-primary-700"
+          ? "border-secondary-800 text-secondary-700"
+          : "border-primary-700 text-primary-700"
       }`.concat(` ${wrapperClassName}`)}
       onFocus={() => focus.on()}
       onBlur={() => focus.off()}
     >
       {!!beforeIcon && (
-        <div className="p-2 bg-transparent flex h-full rounded-l-md">
+        <div className="p-2 bg-transparent text-inherit flex h-full rounded-l-md">
           <Icon
             icon={beforeIcon}
             width={25}
-            className="text-primary-700"
+            className="text-inherit"
           />
         </div>
       )}
       {multiline ? (
         <textarea
-          className={"p-2 w-full resize-y rounded-lg bg-transparent text-text-900".concat(
-            className?.length ? ` ${className}` : ""
-          )}
+          className={["p-2 w-full resize-y rounded-lg bg-transparent text-text-900", className || ""].join(" ")}
           //@ts-ignore
           ref={ref as unknown as LegacyRef<HTMLTextAreaElement>}
           {...rest}
         />
       ) : (
         <input
-          className={"p-2 w-full bg-transparent text-text-900 rounded-lg".concat(
-            className?.length ? ` ${className}` : ""
-          )}
+          className={["p-2 w-full bg-transparent text-text-900 rounded-lg", className || ""].join(" ")}
           ref={ref as unknown as LegacyRef<HTMLInputElement>}
           {...rest}
           type={showPassword.state ? "text" : rest.type}
