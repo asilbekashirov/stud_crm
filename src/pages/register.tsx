@@ -22,7 +22,7 @@ const RegisterPage = () => {
 
         if (res?.status === 200) {
             dispatch(login(res.data))
-            navigate("/dashboard/home")
+            navigate("/app/home")
             dispatch(showAlert({
                 show: true,
                 text: "Account successfully created. Open your email and activate your account to get full access.",
@@ -71,7 +71,7 @@ const RegisterPage = () => {
                 <Button text="Submit" type="submit" wrapperClassName="mt-3 bg-primary-900 w-full" afterIcon="iconamoon:send-duotone" />
                 <p className="pt-2 text-center">Already a user? <Link to="/login" className="text-secondary-800">Login instead</Link> </p>
                 <p className="text-center w-full pt-1">
-                    <Link to="/dashboard/home">Go to a dashboard</Link>
+                    <Link to="/app/home">Go to a dashboard</Link>
                 </p>
             </form>
         </div>

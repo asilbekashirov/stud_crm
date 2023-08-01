@@ -74,9 +74,9 @@ const Header = () => {
               </div>
             </Tooltip>
             <Tooltip text="Profile" position="bottom">
-              <div className={style.circle}>
+              <Link to="/app/profile" className={style.circle}>
                 <Icon icon="mdi:account-badge-outline" />
-              </div>
+              </Link>
             </Tooltip>
             <Tooltip text="Logout" position="bottom">
               <div className={style.circle} onClick={exitProfile} >

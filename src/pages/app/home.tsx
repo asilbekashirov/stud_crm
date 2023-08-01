@@ -3,6 +3,7 @@ import { faker } from "@faker-js/faker";
 import { useAppSelector } from "../../hooks/redux";
 import TodoItem from "../../components/todo/TodoItem";
 import Slideshow from "../../components/slideshow/Slideshow";
+import Card from "../../components/card/Card";
 
 const HomePage = () => {
   const isAuth = useAppSelector((state) => state.app.isAuth);
@@ -13,22 +14,12 @@ const HomePage = () => {
         <Slideshow
           images={[faker.image.urlLoremFlickr({ category: 'business' }), faker.image.urlLoremFlickr({ category: 'business' })]}
         />
-        {/* <img
-          src={faker.image.business()}
-          alt="Main"
-          className="rounded-xl object-cover w-full h-full"
-        />
-        <div className="absolute rounded-b-xl w-full h-full bg-gradient-to-b from-transparent to-black">
-          <h3 className="absolute bottom-3 left-3 text-slate-300 text-lg">
-            {faker.lorem.lines(2)}
-          </h3>
-        </div> */}
       </div>
       <div className="w-full flex md:flex-row flex-col justify-between md:gap-3 gap-1 mt-3">
-        <div className="w-full h-80 rounded-3xl bg-primary-800 flex justify-center items-center">
+        <Card className="w-full h-80 flex justify-center items-center">
           News archive...
-        </div>
-        <div className="w-full p-3 h-80 rounded-3xl bg-primary-800">
+        </Card>
+        <Card className="w-full h-80">
           <h4 className="text-center text-3xl font-bold">Waiting tasks...</h4>
           <div className="flex flex-col">
             {isAuth ? (
@@ -39,7 +30,7 @@ const HomePage = () => {
               <p className="text-center mt-5">To see the list of tasks, you must be authorized first</p>
             )}
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

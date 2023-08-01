@@ -23,7 +23,7 @@ const LoginPage = () => {
         const res = await fetchLogin(data)
         if (res?.status === 200) {
             dispatch(login(res.data))
-            navigate(res.data.user.role === "admin" ? "/admin/universities" : "/dashboard/home")
+            navigate(res.data.user.role === "admin" ? "/admin/universities" : "/app/home")
         } else {
             dispatch(showAlert({
                 type: "error",
@@ -35,7 +35,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (!isAuth || !role) return
-        navigate(role === "admin" ? "/admin/universities" : "/dashboard/home")
+        navigate(role === "admin" ? "/admin/universities" : "/app/home")
     }, [role])
 
     return (
@@ -59,7 +59,7 @@ const LoginPage = () => {
                 <Button text="Submit" type="submit" wrapperClassName="mt-3 bg-secondary-800 w-full" afterIcon="iconamoon:send-duotone" />
                 <p className="pt-2 text-center">Don&apos;t have account yet? <Link className="text-secondary-800" to="/register">Create here</Link> </p>
                 <p className="text-center w-full pt-1">
-                    <Link to="/dashboard/home">Go to a dashboard</Link>
+                    <Link to="/app/home">Go to a dashboard</Link>
                 </p>
             </form>
         </div>

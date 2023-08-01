@@ -1,17 +1,18 @@
 import { Navigate, useRoutes } from "react-router-dom";
 import Dashboard from "./components/layout/Dashboard";
-import SearchPage from "./pages/dashboard/search";
-import ProgramsPage from "./pages/dashboard/programs";
-import HomePage from "./pages/dashboard/home";
+import SearchPage from "./pages/app/search";
+import ProgramsPage from "./pages/app/programs";
+import HomePage from "./pages/app/home";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
 import UniversityAddPage from "./pages/admin/university-add";
 import UniversitiesPage from "./pages/admin/universities";
 import NewsAddPage from "./pages/admin/news-add";
-import UniversityDetailPage from "./pages/dashboard/uniById";
+import UniversityDetailPage from "./pages/app/uniById";
 import NewsPage from "./pages/admin/news";
 import AllUsersPage from "./pages/admin/users-all";
 import AnalyticsPage from "./pages/admin/analytics";
+import ProfilePage from "./pages/app/profile";
 
 interface IProps {
   isAuth: boolean;
@@ -22,7 +23,7 @@ export default function Router({ isAuth, isAdmin }: IProps) {
 
   return useRoutes([
     {
-      path: "/dashboard",
+      path: "/app",
       element: <Dashboard />,
       children: [
         {
@@ -42,14 +43,18 @@ export default function Router({ isAuth, isAdmin }: IProps) {
           element: <UniversityDetailPage />
         },
         {
+          path: "profile",
+          element: <ProfilePage />
+        },
+        {
           path: "*",
-          element: <Navigate to="/dashboard/home" />
+          element: <Navigate to="/app/home" />
         }
       ],
     },
     {
       path: "/admin",
-      element: (isAdmin && isAuth) ? <Dashboard /> : <Navigate to="/dashboard" />,
+      element: (isAdmin && isAuth) ? <Dashboard /> : <Navigate to="/app/home" />,
       children: [
         {
           path: "analytics",
@@ -95,7 +100,7 @@ export default function Router({ isAuth, isAdmin }: IProps) {
     },
     {
       path: "*",
-      element: <Navigate to={isAdmin ? "/admin/universities" : "/dashboard/home"} />
+      element: <Navigate to={isAdmin ? "/admin/universities" : "/app/home"} />
     }
   ]);
 }

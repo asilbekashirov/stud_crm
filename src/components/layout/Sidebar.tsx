@@ -56,7 +56,7 @@ const Sidebar = () => {
             <Icon icon="gg:menu-motion" width={25} />
           </div>
           <h3 className="md:text-3xl text-text-900 text-xl text-center w-full mt-4 font-bold">
-            <Link to="/dashboard/home">Mega Dream</Link>
+            <Link to="/app/home">Mega Dream</Link>
           </h3>
         </div>
         {isAuth ? (
@@ -75,7 +75,7 @@ const Sidebar = () => {
                 <MenuItem key={menubar.name} {...menubar} prefix="admin" />
               ))
             : sidebar.map((menubar) => (
-                <MenuItem key={menubar.name} {...menubar} prefix="dashboard" />
+                <MenuItem key={menubar.name} {...menubar} prefix="app" />
               ))}
         </ul>
       </div>
@@ -84,7 +84,7 @@ const Sidebar = () => {
 };
 
 interface IMenuItemProps extends IMenuItem {
-  prefix: "dashboard" | "admin";
+  prefix: "app" | "admin";
 }
 
 const MenuItem: FC<IMenuItemProps> = ({

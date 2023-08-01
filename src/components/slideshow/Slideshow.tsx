@@ -31,11 +31,6 @@ interface IProps {
 
 const Slideshow: React.FC<IProps> = ({ images }) => {
   const [[page, direction], setPage] = useState([0, 0]);
-
-  // We only have 3 images, but we paginate them absolutely (ie 1, 2, 3, 4, 5...) and
-  // then wrap that within 0-2 to find our image ID in the array below. By passing an
-  // absolute page index as the `motion` component's `key` prop, `AnimatePresence` will
-  // detect it as an entirely new image. So you can infinitely paginate as few as 1 images.
   const imageIndex = wrap(0, images.length, page);
 
   const paginate = (newDirection: number) => {
@@ -61,13 +56,13 @@ const Slideshow: React.FC<IProps> = ({ images }) => {
         />
       </AnimatePresence>
       <div
-        className="absolute flex justify-center items-center top-1/2 w-10 h-10 right-1 opacity-40 hover:opacity-100 p-2 rounded-full bg-slate-200 z-20"
+        className="absolute cursor-pointer flex justify-center items-center top-1/2 w-10 h-10 right-1 opacity-40 hover:opacity-100 p-2 rounded-full bg-primary-700 z-20"
         onClick={() => paginate(1)}
       >
         <Icon icon="iconamoon:player-next-duotone" width={25} />
       </div>
       <div
-        className="absolute flex justify-center items-center top-1/2 w-10 h-10 left-1 opacity-40 hover:opacity-100 p-2 rounded-full bg-slate-200 z-20"
+        className="absolute cursor-pointer flex justify-center items-center top-1/2 w-10 h-10 left-1 opacity-40 hover:opacity-100 p-2 rounded-full bg-primary-700 z-20"
         onClick={() => paginate(-1)}
       >
         <Icon icon="iconamoon:player-previous-duotone" width={25} />

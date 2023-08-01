@@ -31,6 +31,7 @@ const SearchPage = () => {
         <Button 
           text="Filter"
           afterIcon="mdi:filter-outline"
+          wrapperClassName="bg-secondary-800 ml-4"
         />
       </div>
       {!isError ? (
