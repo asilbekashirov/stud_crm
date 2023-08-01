@@ -5,6 +5,11 @@
         "update": "Update",
         "no_data": "No data"
     },
+    "input": {
+        "hint": "Type something and hit 'Enter' to search",
+        "email": "Email",
+        "password": "Password"
+    },
     "university":  {
         "available_courses": "Available Courses",
         "bsc": "Bachelor's",

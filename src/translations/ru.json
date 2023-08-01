@@ -5,6 +5,11 @@
         "update": "Обновить",
         "no_data": "Нет инфорамации"
     },
+    "input": {
+        "hint": "Введите запрос и нажмите 'Enter' для поиска",
+        "email": "Email",
+        "password": "Пароль"
+    },
     "university":  {
         "available_courses": "Доступные курсы",
         "bsc": "Бакалавриат",

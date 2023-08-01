@@ -5,6 +5,11 @@
         "update": "Yangilash",
         "no_data": "Ma'lumot mavjud emas"
     },
+    "input": {
+        "hint": "So'rovingizni kiriting va qidirish uchun 'Enter' tugmasini bosing",
+        "email": "Email",
+        "password": "Parol"
+    },
     "university":  {
         "available_courses": "Mavjud kurslar",
         "bsc": "Bakalavr",
