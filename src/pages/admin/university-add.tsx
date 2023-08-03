@@ -113,8 +113,8 @@ const UniversityAddPage = () => {
         className="p-2 gap-2 flex flex-col"
         onSubmit={handleSubmit(isEditMode ? editUniversity : createUniversity)}
       >
-        <h3 className="text-center text-3xl">Add university details below</h3>
-        <h4 className="my-1 text-xl">Name:</h4>
+        <h3 className="text-left text-3xl font-bold">{isEditMode ? "Edit university" : "Add university"}</h3>
+        <h4 className="mt-4 mb-1 text-xl">Name:</h4>
         <div className="flex gap-2 rounded-xl">
           <Input
             wrapperClassName="w-full"

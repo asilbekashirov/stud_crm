@@ -37,7 +37,7 @@ const SearchPage = () => {
       {!isError ? (
         <div className="mt-2 flex justify-center items-center flex-col">
           {data?.data.map((item: any) => (
-            <UniversityDescriptoinCard key={item._id} {...item} />
+            <UniversityDescriptoinCard direction="col" key={item._id} {...item} />
           ))}
         </div>
       ) : (

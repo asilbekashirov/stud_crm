@@ -14,6 +14,7 @@ export interface AppState {
   showSidebar: boolean;
   user: IUser;
   alert: IAlert
+  list: "row" | "col"
 }
 
 const initialState: AppState = {
@@ -21,6 +22,7 @@ const initialState: AppState = {
   token: null,
   showSidebar: true,
   user: Object.assign({}, userObj),
+  list: "row",
   alert: {
     show: false,
     text: "",
@@ -45,6 +47,9 @@ export const appSlice = createSlice({
     showAlert: (state, action: PayloadAction<IAlert>) => {
       state.alert = action.payload
     },
+    setList: (state, action: PayloadAction<"row" | "col">) => {
+      state.list = action.payload
+    },
     toggleSidebar: (state, action: PayloadAction<boolean>) => {
       state.showSidebar = action.payload
     },
@@ -59,6 +64,6 @@ export const appSlice = createSlice({
 });
 
 // Action creators
-export const { login, logout, showAlert, hideAlert, toggleSidebar } = appSlice.actions;
+export const { login, logout, showAlert, hideAlert, toggleSidebar, setList } = appSlice.actions;
 
 export default appSlice.reducer;

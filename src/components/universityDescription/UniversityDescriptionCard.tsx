@@ -9,9 +9,12 @@ import { useNavigate } from "react-router-dom";
 import { isCreatedUni } from "../../utils/helpers";
 import { useTranslation } from "react-i18next";
 import { ILanguages } from "../../models";
+import Separator from "../separator/Separator";
 
-const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
-  const { name, country, city, foundIn, bachelors, masters, phd } = uni;
+const UniversityDescriptoinCard: FC<
+  IUniversity & { direction: "row" | "col" }
+> = (uni) => {
+  const { name, bachelors, masters, phd, direction } = uni;
 
   const navigate = useNavigate();
   const isAdmin = useAppSelector((state) => state.app.user).role == "admin";
@@ -40,56 +43,27 @@ const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
 
   return (
     <>
-      <motion.div
-        className={
-          "rounded-xl bg-primary-800 mt-3 md:p-3 p-1 cursor-pointer flex md:flex-row justify-between md:items-center flex-col items-start md:w-4/5 w-full relative"
-        }
-        layoutId={name.en}
-        onClick={handleUniSelect}
-      >
-        <motion.div className="flex flex-col gap-1 text-primary-700">
-          <motion.h5 className="text-lg font-semibold text-text-900">
-            {name[lng]}
-          </motion.h5>
-          <motion.h6 className="flex items-center">
-            <Icon width={20} className="mr-2" icon="mdi:map-marker-outline" />{" "}
-            {t("university.location")}: {country}, {city}
-          </motion.h6>
-          <motion.h6 className="flex items-center">
-            <Icon
-              width={20}
-              className="mr-2"
-              icon="mdi:calendar-month-outline"
-            />{" "}
-            {t("university.foundIn")}: {foundIn}
-          </motion.h6>
-          <h6 className="flex items-center">
-            <Icon
-              width={20}
-              className="mr-2"
-              icon="mdi:file-document-multiple-outline"
-            />{" "}
-            {t(`university.${activeApplication ? "open" : "closed"}`)}
-          </h6>
-        </motion.div>
-        <div className="flex">
-          <div className="flex items-center text-left">
-            <Icon
-              icon="mdi:book-education-outline"
-              width={20}
-              className="mr-2"
-            />{" "}
-            {t("university.programs")}: {programs}
-          </div>
-          {isAdmin && (
-            <Button
-              beforeIcon="iconamoon:edit-duotone"
-              wrapperClassName="text-secondary-800"
-              onClick={editUniversity}
-            />
-          )}
-        </div>
-      </motion.div>
+      {direction === "row" ? (
+        <DisplayRow
+          {...uni}
+          isAdmin={isAdmin}
+          handleUniSelect={handleUniSelect}
+          editUniversity={editUniversity}
+          activeApplication={activeApplication}
+          lng={lng}
+          programs={programs}
+        />
+      ) : (
+        <DisplayCol
+          {...uni}
+          isAdmin={isAdmin}
+          handleUniSelect={handleUniSelect}
+          editUniversity={editUniversity}
+          activeApplication={activeApplication}
+          lng={lng}
+          programs={programs}
+        />
+      )}
       {selectedId && (
         <UniversityDescriptionModal
           selectedId={selectedId}
@@ -103,3 +77,158 @@ const UniversityDescriptoinCard: FC<IUniversity> = (uni) => {
 };
 
 export default UniversityDescriptoinCard;
+
+type ICard = IUniversity & {
+  handleUniSelect: () => void;
+  isAdmin: boolean;
+  activeApplication: boolean;
+  editUniversity: (e: any) => void;
+  lng: ILanguages;
+  programs: number;
+};
+
+const DisplayRow: FC<ICard> = ({
+  name,
+  handleUniSelect,
+  country,
+  city,
+  foundIn,
+  isAdmin,
+  activeApplication,
+  editUniversity,
+  lng,
+  programs,
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <motion.div
+      className={
+        "rounded-xl bg-primary-800 mt-3 md:p-3 p-1 cursor-pointer flex md:flex-row justify-between md:items-center flex-col items-start md:w-full w-full relative"
+      }
+      layoutId={name.en}
+      onClick={handleUniSelect}
+    >
+      <motion.div className="flex flex-col gap-1 text-primary-700">
+        <motion.h5 className="text-lg font-semibold text-text-900">
+          {name[lng]}
+        </motion.h5>
+        <motion.h6 className="flex items-center">
+          <Icon width={20} className="mr-2" icon="mdi:map-marker-outline" />{" "}
+          {t("university.location")}: {country}, {city}
+        </motion.h6>
+        <motion.h6 className="flex items-center">
+          <Icon width={20} className="mr-2" icon="mdi:calendar-month-outline" />{" "}
+          {t("university.foundIn")}: {foundIn}
+        </motion.h6>
+        <h6 className="flex items-center">
+          <Icon
+            width={20}
+            className="mr-2"
+            icon="mdi:file-document-multiple-outline"
+          />{" "}
+          {t(`university.${activeApplication ? "open" : "closed"}`)}
+        </h6>
+      </motion.div>
+      <div className="flex">
+        <div className="flex items-center text-left">
+          <Icon icon="mdi:book-education-outline" width={20} className="mr-2" />{" "}
+          {t("university.programs")}: {programs}
+        </div>
+        {isAdmin && (
+          <Button
+            beforeIcon="iconamoon:edit-duotone"
+            wrapperClassName="text-secondary-800"
+            onClick={editUniversity}
+          />
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
+const DisplayCol: FC<ICard> = ({
+  name,
+  handleUniSelect,
+  country,
+  city,
+  image,
+  foundIn,
+  isAdmin,
+  activeApplication,
+  editUniversity,
+  lng,
+  programs,
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <motion.div
+      className={
+        "rounded-xl bg-primary-800 mt-3 cursor-pointer flex justify-between md:items-center flex-col items-start w-1/3 relative"
+      }
+      layoutId={name.en}
+      onClick={handleUniSelect}
+    >
+      <motion.div className="rounded-t-xl h-72 w-full relative">
+        <motion.img
+          className="w-full h-full object-cover rounded-t-xl"
+          src={"http://localhost:5000" + image}
+        />
+        <motion.h5 className="text-xl absolute left-2 z-40 bottom-2 break-words font-semibold text-text-900">
+          {name[lng]}
+        </motion.h5>
+        <div className="w-full h-72 absolute top-0 left-0 bg-gradient-to-b from-transparent to-black">
+          {/* gradient-layer  */}
+        </div>
+      </motion.div>
+      <motion.div className="p-2 flex flex-col gap-3 my-2 text-primary-700 w-full">
+        <div className="w-full flex">
+          <motion.h6 className="flex items-center w-1/2">
+            <Icon width={20} className="mr-2" icon="mdi:map-marker-outline" />{" "}
+            {country}, {city}
+          </motion.h6>
+          <motion.h6 className="flex items-center w-1/2">
+            <Icon
+              width={20}
+              className="mr-2"
+              icon="mdi:calendar-month-outline"
+            />{" "}
+            {foundIn}
+          </motion.h6>
+        </div>
+        <div className="w-full flex">
+          <h6 className="flex items-center w-1/2">
+            <Icon
+              width={20}
+              className="mr-2"
+              icon="mdi:file-document-multiple-outline"
+            />{" "}
+            {t(`university.${activeApplication ? "open" : "closed"}`)}
+          </h6>
+          <h6 className="flex items-center text-left w-1/2">
+            <Icon
+              icon="mdi:book-education-outline"
+              width={20}
+              className="mr-2"
+            />{" "}
+            {t("university.programs")}: {programs}
+          </h6>
+        </div>
+      </motion.div>
+      {isAdmin && (
+        <>
+          <Separator direction="horizontal" />
+          <div className="flex justify-end w-full p-2">
+            <Button
+              beforeIcon="iconamoon:edit-duotone"
+              text="Edit"
+              wrapperClassName="flex gap-2 bg-secondary-800"
+              onClick={editUniversity}
+            />
+          </div>
+        </>
+      )}
+    </motion.div>
+  );
+};
