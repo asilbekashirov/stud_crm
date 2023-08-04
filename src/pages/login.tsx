@@ -39,7 +39,7 @@ const LoginPage = () => {
     }, [role])
 
     return (
-        <div className="flex flex-col min-h-screen justify-center items-center">
+        <div className="flex flex-col min-h-screen justify-center items-center bg-primary-900">
             <form onSubmit={handleSubmit(userLogin)}>
                 <h2 className="text-2xl text-center">Login page</h2>
                 <Input

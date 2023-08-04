@@ -6,6 +6,7 @@ import { ILanguages } from "../../models";
 import { useTranslation } from "react-i18next";
 import UniversityCourseDescription from "../../components/universityDescription/UniversityCourseDescription";
 import { useMemo } from "react";
+import { useToggle } from "../../hooks/useToggle";
 
 const UniversityDetailPage = () => {
   const { id } = useParams();
@@ -15,6 +16,7 @@ const UniversityDetailPage = () => {
   });
   const universityInfo = data?.data.university || null;
   const { t, i18n } = useTranslation();
+  const imageError = useToggle(false);
 
   const lng = i18n.language as ILanguages;
 
@@ -29,11 +31,23 @@ const UniversityDetailPage = () => {
   return (
     <main className="">
       <div className="w-full h-96">
-        <img
-          className="w-full h-full object-cover"
-          src={("http://localhost:5000" + universityInfo?.image) as string}
-          alt={universityInfo?.name.en}
-        />
+        {!imageError.state ? (
+          <img
+            className="w-full h-full object-cover"
+            src={("http://localhost:5000" + universityInfo?.image) as string}
+            alt={universityInfo?.name.en}
+            onError={() => imageError.on()}
+          />
+        ) : (
+          <div className="w-full rounded-xl border h-full grid place-items-center">
+            <Icon
+              width={70}
+              className="text-secondary-800"
+              icon="ic:twotone-broken-image"
+            />
+            <p className="text-xl">Error loading image</p>
+          </div>
+        )}
       </div>
       <h2 className="text-3xl mt-4 font-semibold">
         {universityInfo?.name[lng]}
@@ -60,7 +74,9 @@ const UniversityDetailPage = () => {
                 />
               ))
             ) : (
-              <p className="w-full text-center py-4 text-lg text-primary-700">{t("common.no_data")}</p>
+              <p className="w-full text-center py-4 text-lg text-primary-700">
+                {t("common.no_data")}
+              </p>
             )}
           </div>
         </div>

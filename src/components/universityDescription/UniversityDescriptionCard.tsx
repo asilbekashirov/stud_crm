@@ -10,6 +10,7 @@ import { isCreatedUni } from "../../utils/helpers";
 import { useTranslation } from "react-i18next";
 import { ILanguages } from "../../models";
 import Separator from "../separator/Separator";
+import { useToggle } from "../../hooks/useToggle";
 
 const UniversityDescriptoinCard: FC<
   IUniversity & { direction: "row" | "col" }
@@ -161,6 +162,7 @@ const DisplayCol: FC<ICard> = ({
   programs,
 }) => {
   const { t } = useTranslation();
+  const imageError = useToggle(false);
 
   return (
     <motion.div
@@ -171,10 +173,17 @@ const DisplayCol: FC<ICard> = ({
       onClick={handleUniSelect}
     >
       <motion.div className="rounded-t-xl h-72 w-full relative">
-        <motion.img
-          className="w-full h-full object-cover rounded-t-xl"
-          src={"http://localhost:5000" + image}
-        />
+        {!imageError.state ? (
+          <motion.img
+            className="w-full h-full object-cover rounded-t-xl"
+            src={"http://localhost:5000" + image}
+            onError={() => imageError.on()}
+          />
+        ) : (
+          <div className="w-full h-full grid place-items-center">
+            <Icon width={70} className="text-secondary-800" icon="ic:twotone-broken-image" />
+          </div>
+        )}
         <motion.h5 className="text-xl absolute left-2 z-40 bottom-2 break-words font-semibold text-text-900">
           {name[lng]}
         </motion.h5>

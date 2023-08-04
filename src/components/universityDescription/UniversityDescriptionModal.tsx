@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../button/Button";
 import { useAppSelector } from "../../hooks/redux";
 import { isCreatedUni } from "../../utils/helpers";
+import { useToggle } from "../../hooks/useToggle";
 
 type IProps = IUniversity & {
   selectedId: string;
@@ -29,6 +30,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
 
   const navigate = useNavigate();
   const isAdmin = useAppSelector((state) => state.app.user).role === "admin";
+  const imageError = useToggle(false);
 
   const goToUniPage = () => {
     if (!isCreatedUni(props)) return;
@@ -46,11 +48,22 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
           ].join(" ")}
         >
           <motion.div className="w-full md:h-96 relative">
-            <motion.img
-              src={("http://localhost:5000" + image!) as string}
-              alt={name.en}
-              className="w-full h-full object-cover rounded-t-lg block"
-            />
+            {!imageError.state ? (
+              <motion.img
+                src={("http://localhost:5000" + image!) as string}
+                alt={name.en}
+                className="w-full h-full object-cover rounded-t-lg block"
+                onError={() => imageError.on()}
+              />
+            ) : (
+              <div className="w-full h-full grid place-items-center">
+                <Icon
+                  width={70}
+                  className="text-secondary-800"
+                  icon="ic:twotone-broken-image"
+                />
+              </div>
+            )}
             <div className="w-full bg-gradient-to-b from-transparent to-black absolute top-0 left-0 h-full"></div>
             <motion.h5 className="text-2xl absolute bottom-0 left-0 md:ml-4 ml-2 text-white font-semibold mb-3">
               {name.en}

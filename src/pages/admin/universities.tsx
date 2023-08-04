@@ -44,10 +44,10 @@ const UniversitiesPage = () => {
           wrapperClassName="ml-2 bg-secondary-800"
         />
         <Group direction="row" className="ml-2">
-          <Tooltip text="Row" position="bottom">
+          <Tooltip text="Grid" position="bottom">
             <div
               className="p-2"
-              onClick={() => handleDirection("row")}
+              onClick={() => handleDirection("col")}
             >
               <Icon width={25} icon="fluent:dock-row-24-regular" />
             </div>
@@ -55,7 +55,7 @@ const UniversitiesPage = () => {
           <Tooltip text="Column" position="bottom">
             <div
               className="p-2"
-              onClick={() => handleDirection("col")}
+              onClick={() => handleDirection("row")}
             >
               <Icon width={25} icon="fluent:row-triple-20-regular" />
             </div>
