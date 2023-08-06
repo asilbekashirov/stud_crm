@@ -1,11 +1,23 @@
-export interface INews {
+export type INews = {
     name: {
         ru: string
         en: string
         uz: string
     },
+    description: {
+        ru: string
+        en: string
+        uz: string
+    }
+} & (ISavedNews | ICreateNews)
+
+export type ISavedNews = {
     _id: string
-    image: File | string
+    image: File | null
+}
+
+export type ICreateNews = {
+    image: string
 }
 
 export const newsObj: INews = {
@@ -14,6 +26,10 @@ export const newsObj: INews = {
         en: "",
         uz: "",
     },
-    image: "",
-    _id: "",
+    description: {
+        ru: "",
+        en: "",
+        uz: "",
+    },
+    image: ""
 }

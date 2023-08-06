@@ -1,6 +1,6 @@
 import Input from "../../components/input/Input";
 import Tooltip from "../../components/tooltip/Tooltip";
-import { INews, newsObj } from "../../models/news";
+import { ICreateNews, INews, ISavedNews, newsObj } from "../../models/news";
 import { copyObj } from "../../utils/helpers";
 import { Icon } from "@iconify/react";
 import { ChangeEvent, useRef, useState } from "react";
@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 const NewsAddPage = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
-  const { register, handleSubmit, setValue } = useForm<INews>({
+  const { register, handleSubmit, setValue } = useForm<INews & (ICreateNews | ISavedNews)>({
     defaultValues: copyObj(newsObj),
   });
 
@@ -66,13 +66,34 @@ const NewsAddPage = () => {
             {...register("name.uz")}
           />
         </div>
+        <h4 className="my-2 text-lg">Description:</h4>
+        <div className="flex gap-2">
+          <Input
+            placeholder="En"
+            wrapperClassName="w-full"
+            multiline
+            {...register("description.en")}
+          />
+          <Input
+            placeholder="Ru"
+            multiline
+            wrapperClassName="w-full"
+            {...register("description.ru")}
+          />
+          <Input
+            placeholder="Uz"
+            multiline
+            wrapperClassName="w-full"
+            {...register("description.uz")}
+          />
+        </div>
         <div>
           <div className="flex gap-2 items-center">
             <input
               type="file"
               id="uni_image"
               className="hidden"
-              accept="image/png, image/gif, image/jpeg, image/webp"
+              accept="image/png, image/gif, image/jpeg, image/webp, image/svg"
               onChange={handleImageUpload}
             />
             <label

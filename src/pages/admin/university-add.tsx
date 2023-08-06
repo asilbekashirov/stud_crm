@@ -16,7 +16,6 @@ import { Icon } from "@iconify/react";
 import Tooltip from "../../components/tooltip/Tooltip";
 import { copyObj, isCreatedUni } from "../../utils/helpers";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import Select from "../../components/select/Select";
 import { useToggle } from "../../hooks/useToggle";
 import { useAppDispatch } from "../../hooks/redux";
 import { showAlert } from "../../redux/store/app";
@@ -47,9 +46,6 @@ const UniversityAddPage = () => {
     });
 
   const createUniversity = async (data: IUniversity) => {
-    // console.log(data);
-    // return;
-
     disabled.on();
     const formData = new FormData(formRef.current || undefined);
 

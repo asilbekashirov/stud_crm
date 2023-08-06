@@ -34,7 +34,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
 
   const goToUniPage = () => {
     if (!isCreatedUni(props)) return;
-    navigate(`/${isAdmin ? "admin" : "dashboard"}/university/${props._id}`);
+    navigate(`/${isAdmin ? "admin" : "app"}/university/${props._id}`);
   };
 
   return (

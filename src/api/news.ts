@@ -1,9 +1,9 @@
-import { INews } from "../models/news"
+import { INews, ISavedNews } from "../models/news"
 import axios from "axios"
 
 export default {
     getNews() {
-        return axios.get<INews[]>('/news/all')
+        return axios.get<(INews & ISavedNews)[]>('/news/all')
     },
     createNews() {
         return axios.post('/news/create')

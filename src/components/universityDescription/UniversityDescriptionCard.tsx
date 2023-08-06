@@ -167,7 +167,7 @@ const DisplayCol: FC<ICard> = ({
   return (
     <motion.div
       className={
-        "rounded-xl bg-primary-800 mt-3 cursor-pointer flex justify-between md:items-center flex-col items-start w-1/3 relative"
+        "rounded-xl bg-primary-800 mt-3 cursor-pointer flex justify-between md:items-center flex-col items-start w-full md:w-1/2 xl:w-1/4 lg:w-1/3 relative"
       }
       layoutId={name.en}
       onClick={handleUniSelect}
