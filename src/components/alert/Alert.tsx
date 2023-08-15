@@ -20,8 +20,10 @@ const alertBarColors = {
 };
 
 const Alert = () => {
-  const { show, type, text } = useAppSelector((state) => state.alert);
+  const { show, type, text } = useAppSelector((state) => state.alert.alert);
   const dispatch = useAppDispatch()
+
+  console.log(show);
 
   const color = useMemo(() => alertColors[type], [type]);
   const barColor = useMemo(() => alertBarColors[type], [type]);

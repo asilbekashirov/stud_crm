@@ -25,8 +25,7 @@ const UserCard: FC<IUser> = ({
       trueText: "Assign",
       falseText: "Cancel",
     });
-
-    dispatch(
+    res && dispatch(
       successAlert({
         message: "User has been promoted to Admin",
       })
