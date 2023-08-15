@@ -5,8 +5,8 @@ import Button from "../button/Button";
 import { fDate } from "../../utils/date";
 import useConfirm from "../confirm/Confirm";
 import { useAppDispatch } from "../../hooks/redux";
-import { showAlert } from "../../redux/store/app";
 import Card from "../card/Card";
+import { successAlert } from "../../redux/store/alert";
 
 const UserCard: FC<IUser> = ({
   fullName,
@@ -27,10 +27,8 @@ const UserCard: FC<IUser> = ({
     });
 
     dispatch(
-      showAlert({
-        text: "User has been promoted to Admin",
-        show: true,
-        type: "success",
+      successAlert({
+        message: "User has been promoted to Admin",
       })
     );
   };

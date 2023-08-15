@@ -13,11 +13,11 @@ export type INews = {
 
 export type ISavedNews = {
     _id: string
-    image: File | null
+    image: string
 }
 
 export type ICreateNews = {
-    image: string
+    image: File | null
 }
 
 export const newsObj: INews = {
@@ -31,5 +31,5 @@ export const newsObj: INews = {
         en: "",
         uz: "",
     },
-    image: ""
+    image: null
 }

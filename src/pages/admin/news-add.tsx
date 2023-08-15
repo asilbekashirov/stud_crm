@@ -1,5 +1,6 @@
 import Input from "../../components/input/Input";
 import Tooltip from "../../components/tooltip/Tooltip";
+import { createNewsRecord } from "../../controllers/news-controller";
 import { ICreateNews, INews, ISavedNews, newsObj } from "../../models/news";
 import { copyObj } from "../../utils/helpers";
 import { Icon } from "@iconify/react";
@@ -15,6 +16,11 @@ const NewsAddPage = () => {
 
   const createNews = async (data: INews) => {
     const formData = new FormData(formRef.current || undefined);
+
+    uploadedImage && formData.append("image", uploadedImage);
+
+    const res = await createNewsRecord(formData)
+
   };
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {

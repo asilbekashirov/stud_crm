@@ -18,7 +18,8 @@ import { copyObj, isCreatedUni } from "../../utils/helpers";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useToggle } from "../../hooks/useToggle";
 import { useAppDispatch } from "../../hooks/redux";
-import { showAlert } from "../../redux/store/app";
+import { fetchCreateUniversity } from "../../controllers/university-controller";
+import { successAlert } from "../../redux/store/alert";
 
 const UniversityAddPage = () => {
   const [params, setParams] = useSearchParams();
@@ -36,10 +37,6 @@ const UniversityAddPage = () => {
     queryFn: uniId ? () => api.getUniversityById(uniId) : undefined,
   });
 
-  const create = useMutation({
-    mutationFn: (data: FormData) => api.createUniversity(data),
-  });
-
   const { register, handleSubmit, control, reset, setValue, getValues } =
     useForm<IUniversity & (ICreateUniversity | ISavedUniversity)>({
       defaultValues: copyObj(universityObj),
@@ -53,17 +50,13 @@ const UniversityAddPage = () => {
     formData.append("masters", JSON.stringify(data.masters));
     formData.append("phd", JSON.stringify(data.phd));
 
-    //@ts-ignore
     uploadedImage && formData.append("image", uploadedImage);
-    create.mutate(formData);
+    const res = await fetchCreateUniversity(formData);
 
-    !create.isLoading && disabled.off();
-    if (create.isSuccess) {
+    if (res?.status === 201) {
       dispatch(
-        showAlert({
-          text: "University has been created successfully",
-          show: true,
-          type: "success",
+        successAlert({
+          message: "University has been created successfully",
         })
       );
       goBack();
@@ -109,7 +102,9 @@ const UniversityAddPage = () => {
         className="p-2 gap-2 flex flex-col"
         onSubmit={handleSubmit(isEditMode ? editUniversity : createUniversity)}
       >
-        <h3 className="text-left text-3xl font-bold">{isEditMode ? "Edit university" : "Add university"}</h3>
+        <h3 className="text-left text-3xl font-bold">
+          {isEditMode ? "Edit university" : "Add university"}
+        </h3>
         <h4 className="mt-4 mb-1 text-xl">Name:</h4>
         <div className="flex gap-2 rounded-xl">
           <Input

@@ -4,10 +4,11 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux"
 import { Link, useNavigate } from "react-router-dom"
 import { ILoginData, loginObj } from "../models/login"
 import { copyObj } from "../utils/helpers"
-import { fetchLogin } from "../services/user-service"
-import { login, showAlert } from "../redux/store/app"
+import { fetchLogin } from "../controllers/user-controller"
+import { login } from "../redux/store/app"
 import Input from "../components/input/Input"
 import Button from "../components/button/Button"
+import { errorAlert } from "../redux/store/alert"
 
 const LoginPage = () => {
 
@@ -25,10 +26,8 @@ const LoginPage = () => {
             dispatch(login(res.data))
             navigate(res.data.user.role === "admin" ? "/admin/universities" : "/app/home")
         } else {
-            dispatch(showAlert({
-                type: "error",
-                show: true,
-                text: "Login failed"
+            dispatch(errorAlert({
+                message: "Login failed"
             }))
         }
     }

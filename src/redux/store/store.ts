@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import appReducer from './app'
+import alertReducer from './alert'
 import {
 	persistStore,
 	persistReducer,
@@ -19,7 +20,8 @@ const persistConfig = {
 }
 
 export const rootReducer = combineReducers({
-	app: appReducer
+	app: appReducer,
+	alert: alertReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 import { Icon } from "@iconify/react";
 import styles from "./alert.module.css";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { hideAlert } from "../../redux/store/app";
+import { hideAlert } from "../../redux/store/alert";
 
 const alertColors = {
   warning: "bg-orange-500",
@@ -20,7 +20,7 @@ const alertBarColors = {
 };
 
 const Alert = () => {
-  const { show, type, text } = useAppSelector((state) => state.app.alert);
+  const { show, type, text } = useAppSelector((state) => state.alert);
   const dispatch = useAppDispatch()
 
   const color = useMemo(() => alertColors[type], [type]);

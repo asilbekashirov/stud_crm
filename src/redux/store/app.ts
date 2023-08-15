@@ -2,18 +2,11 @@ import { IUser, userObj } from "../../models/user";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface IAlert {
-  show: boolean
-  text: string
-  type: "error" | "success" | "info" | "warning"
-}
-
 export interface AppState {
   isAuth: boolean;
   token: string | null;
   showSidebar: boolean;
   user: IUser;
-  alert: IAlert
   list: "row" | "col"
 }
 
@@ -23,11 +16,6 @@ const initialState: AppState = {
   showSidebar: true,
   user: Object.assign({}, userObj),
   list: "row",
-  alert: {
-    show: false,
-    text: "",
-    type: "info"
-  }
 };
 
 export const appSlice = createSlice({
@@ -44,26 +32,16 @@ export const appSlice = createSlice({
       state.token = null;
       state.user = Object.assign({}, userObj)
     },
-    showAlert: (state, action: PayloadAction<IAlert>) => {
-      state.alert = action.payload
-    },
     setList: (state, action: PayloadAction<"row" | "col">) => {
       state.list = action.payload
     },
     toggleSidebar: (state, action: PayloadAction<boolean>) => {
       state.showSidebar = action.payload
-    },
-    hideAlert: (state) => {
-      state.alert = {
-        show: false,
-        text: "",
-        type: "info"
-      }
     }
   },
 });
 
 // Action creators
-export const { login, logout, showAlert, hideAlert, toggleSidebar, setList } = appSlice.actions;
+export const { login, logout, toggleSidebar, setList } = appSlice.actions;
 
 export default appSlice.reducer;
