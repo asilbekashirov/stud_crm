@@ -18,5 +18,8 @@ export default {
     },
     deleteUser(id: string) {
         return axios.delete<{message: string}>(`/auth/user/${id}/delete`)
+    },
+    getProfile(id: string) {
+        return axios.get<IUser>(`/auth/user/${id}`)
     }
 }

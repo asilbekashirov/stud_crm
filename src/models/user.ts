@@ -6,6 +6,8 @@ export interface IUser {
     fullName: string;
     role: "user" | "admin"
     createdAt?: string;
+    selectedUniversities: string[]
+    appliedUniversities: string[]
 }
 
 export const userObj: IUser = {
@@ -14,5 +16,7 @@ export const userObj: IUser = {
     _id: "",
     isActivated: false,
     fullName: "",
-    role: "user"
+    role: "user",
+    selectedUniversities: [],
+    appliedUniversities: []
 }
