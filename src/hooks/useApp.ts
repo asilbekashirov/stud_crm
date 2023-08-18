@@ -14,14 +14,13 @@ export function useApp() {
 
   const {data, status} = useQuery({
     queryKey: ["countries"],
-    queryFn: () => analyticsApi.getAnalytics()
+    queryFn: () => analyticsApi.getCountries()
   })
 
   useEffect(() => {
     if (status !== "success") return
 
-    const countries = data.data.countriesAndCounts.map(a => a.country)
-    dispatch(setCountries(countries))
+    dispatch(setCountries(data.data.countries))
   }, [status])
 
   // set default server address

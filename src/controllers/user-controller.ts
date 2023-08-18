@@ -1,6 +1,7 @@
 import api from '../api/user'
 import { ILoginData } from '../models/login';
 import { IRegisterData } from '../models/register';
+import { ISavedUniversity, IUniversity } from '../models/university';
 
 export const fetchLogin = async (props: ILoginData) => {
     try {
@@ -18,9 +19,9 @@ export const fetchCreateAccount = async (props: IRegisterData) => {
     }
 }
 
-export const fetchUniversitySelect = async (userId: string, universitiesId: string[]) => {
+export const fetchUniversitySelect = async (userId: string, university: Partial<IUniversity & ISavedUniversity>) => {
     try {
-        return await api.selectUniversities(userId, universitiesId)
+        return await api.selectUniversity(userId, university)
     } catch (error) {
         console.log(error);
     }

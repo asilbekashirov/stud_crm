@@ -1,4 +1,4 @@
-import { IUniversity } from "../../models/university";
+import { ISavedUniversity, IUniversity } from "../../models/university";
 import { motion, AnimatePresence } from "framer-motion";
 import { FC } from "react";
 import styles from "./universityDescriptionCard.module.css";
@@ -8,12 +8,14 @@ import Button from "../button/Button";
 import { useAppSelector } from "../../hooks/redux";
 import { isCreatedUni } from "../../utils/helpers";
 import { useToggle } from "../../hooks/useToggle";
+import { fetchUniversitySelect } from "../../controllers/user-controller";
 
-type IProps = IUniversity & {
-  selectedId: string;
-  close: () => void;
-  edit: (e: any) => void;
-};
+type IProps = IUniversity &
+  ISavedUniversity & {
+    selectedId: string;
+    close: () => void;
+    edit: (e: any) => void;
+  };
 
 const UniversityDescriptionModal: FC<IProps> = (props) => {
   const {
@@ -26,24 +28,28 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
     close,
     foundIn,
     edit,
+    _id,
   } = props;
 
   const navigate = useNavigate();
-  const {isAuth, user} = useAppSelector((state) => state.app)
+  const { isAuth, user } = useAppSelector((state) => state.app);
   const isAdmin = user.role === "admin";
   const imageError = useToggle(false);
+
+  const isSelectedUniversity = useToggle(false);
 
   const goToUniPage = () => {
     if (!isCreatedUni(props)) return;
     navigate(`/${isAdmin ? "admin" : "app"}/university/${props._id}`);
   };
 
-  const handleUniversityAdd = () => {
+  const handleUniversityAdd = async () => {
     if (!isAuth) navigate("/login");
 
+    console.log({_id, name, city, country});
 
-
-  }
+    const res = await fetchUniversitySelect(user._id, {_id, name, city, country});
+  };
 
   return (
     <AnimatePresence>
@@ -134,6 +140,13 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
                   afterIcon="iconamoon:edit-duotone"
                   onClick={edit}
                   wrapperClassName="bg-secondary-800 text-white"
+                />
+              ) : isSelectedUniversity.state ? (
+                <Button
+                  text="Remove from list"
+                  afterIcon="iconamoon:sign-minus-circle-duotone"
+                  wrapperClassName="bg-red-500 text-white"
+                  onClick={handleUniversityAdd}
                 />
               ) : (
                 <Button

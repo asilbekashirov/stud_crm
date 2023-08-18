@@ -1,3 +1,14 @@
+interface IUserUnis {
+    name: {
+        ru: string
+        en: string
+        uz: string
+    },
+    country: string
+    city: string
+    _id: string
+}
+
 export interface IUser {
     birthday: string;
     email: string;
@@ -6,8 +17,8 @@ export interface IUser {
     fullName: string;
     role: "user" | "admin"
     createdAt?: string;
-    selectedUniversities: string[]
-    appliedUniversities: string[]
+    selectedUniversities: IUserUnis[]
+    appliedUniversities: IUserUnis[]
 }
 
 export const userObj: IUser = {

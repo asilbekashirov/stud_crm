@@ -1,5 +1,6 @@
 import { ILoginData } from "../models/login"
 import { IRegisterData } from "../models/register"
+import { ISavedUniversity, IUniversity } from "../models/university"
 import { IUser } from "../models/user"
 import axios from "axios"
 
@@ -22,7 +23,7 @@ export default {
     getProfile(id: string) {
         return axios.get<IUser>(`/auth/user/${id}`)
     },
-    selectUniversities(userId: string, universities: string[]) {
-        return axios.post(`/auth/user/${userId}/add-university`, universities)
+    selectUniversity(userId: string, university: Partial<IUniversity & ISavedUniversity>) {
+        return axios.post(`/auth/user/${userId}/add-university`, university)
     }
 }
