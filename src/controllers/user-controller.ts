@@ -17,3 +17,11 @@ export const fetchCreateAccount = async (props: IRegisterData) => {
         console.log(error);
     }
 }
+
+export const fetchUniversitySelect = async (userId: string, universitiesId: string[]) => {
+    try {
+        return await api.selectUniversities(userId, universitiesId)
+    } catch (error) {
+        console.log(error);
+    }
+}

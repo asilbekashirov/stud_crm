@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { FC, useMemo, useState } from "react";
 import { Icon } from "@iconify/react";
-import { IUniversity } from "../../models/university";
+import { ISavedUniversity, IUniversity } from "../../models/university";
 import UniversityDescriptionModal from "./UniversityDescriptionModal";
 import Button from "../button/Button";
 import { useAppSelector } from "../../hooks/redux";
@@ -13,9 +13,9 @@ import Separator from "../separator/Separator";
 import { useToggle } from "../../hooks/useToggle";
 
 const UniversityDescriptoinCard: FC<
-  IUniversity & { direction: "row" | "col" }
+  IUniversity & ISavedUniversity & { direction: "row" | "col" }
 > = (uni) => {
-  const { name, bachelors, masters, phd, direction } = uni;
+  const { name, bachelors, masters, phd, direction, _id } = uni;
 
   const navigate = useNavigate();
   const isAdmin = useAppSelector((state) => state.app.user).role == "admin";

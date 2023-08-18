@@ -1,4 +1,4 @@
-import { ISavedUniversity, IUniversity } from "../../models/university";
+import { IUniversity } from "../../models/university";
 import { motion, AnimatePresence } from "framer-motion";
 import { FC } from "react";
 import styles from "./universityDescriptionCard.module.css";
@@ -29,13 +29,21 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
   } = props;
 
   const navigate = useNavigate();
-  const isAdmin = useAppSelector((state) => state.app.user).role === "admin";
+  const {isAuth, user} = useAppSelector((state) => state.app)
+  const isAdmin = user.role === "admin";
   const imageError = useToggle(false);
 
   const goToUniPage = () => {
     if (!isCreatedUni(props)) return;
     navigate(`/${isAdmin ? "admin" : "app"}/university/${props._id}`);
   };
+
+  const handleUniversityAdd = () => {
+    if (!isAuth) navigate("/login");
+
+
+
+  }
 
   return (
     <AnimatePresence>
@@ -132,6 +140,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
                   text="Add to list"
                   afterIcon="iconamoon:sign-plus-circle-duotone"
                   wrapperClassName="bg-green-500 text-white"
+                  onClick={handleUniversityAdd}
                 />
               )}
             </div>

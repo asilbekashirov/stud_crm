@@ -21,5 +21,8 @@ export default {
     },
     getProfile(id: string) {
         return axios.get<IUser>(`/auth/user/${id}`)
+    },
+    selectUniversities(userId: string, universities: string[]) {
+        return axios.post(`/auth/user/${userId}/add-university`, universities)
     }
 }
