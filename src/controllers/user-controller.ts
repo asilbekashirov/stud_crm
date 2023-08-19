@@ -26,3 +26,11 @@ export const fetchUniversitySelect = async (userId: string, university: Partial<
         console.log(error);
     }
 }
+
+export const fetchUniversityRemove = async (userId: string, universityId: string) => {
+    try {
+        return await api.removeUniversity(userId, {_id: universityId})
+    } catch (error) {
+        console.log(error);
+    }
+}

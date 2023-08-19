@@ -5,10 +5,11 @@ import styles from "./universityDescriptionCard.module.css";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import Button from "../button/Button";
-import { useAppSelector } from "../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { isCreatedUni } from "../../utils/helpers";
 import { useToggle } from "../../hooks/useToggle";
-import { fetchUniversitySelect } from "../../controllers/user-controller";
+import { fetchUniversityRemove, fetchUniversitySelect } from "../../controllers/user-controller";
+import { setUser } from "../../redux/store/app";
 
 type IProps = IUniversity &
   ISavedUniversity & {
@@ -34,9 +35,11 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
   const navigate = useNavigate();
   const { isAuth, user } = useAppSelector((state) => state.app);
   const isAdmin = user.role === "admin";
-  const imageError = useToggle(false);
+  const dispatch = useAppDispatch()
 
-  const isSelectedUniversity = useToggle(false);
+
+  const imageError = useToggle(false);
+  const isSelectedUniversity = useToggle(user.selectedUniversities.some(u => u._id === _id) || false);
 
   const goToUniPage = () => {
     if (!isCreatedUni(props)) return;
@@ -46,10 +49,22 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
   const handleUniversityAdd = async () => {
     if (!isAuth) navigate("/login");
 
-    console.log({_id, name, city, country});
-
     const res = await fetchUniversitySelect(user._id, {_id, name, city, country});
+    if (res?.status === 200) {
+      isSelectedUniversity.on()
+      close()
+      dispatch(setUser(res.data.user))
+    }
   };
+
+  const handleUniversityRemove = async () => {
+    const res = await fetchUniversityRemove(user._id, _id)
+    if (res?.status === 200) {
+      isSelectedUniversity.off()
+      close()
+      dispatch(setUser(res.data.user))
+    }
+  }
 
   return (
     <AnimatePresence>
@@ -146,7 +161,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
                   text="Remove from list"
                   afterIcon="iconamoon:sign-minus-circle-duotone"
                   wrapperClassName="bg-red-500 text-white"
-                  onClick={handleUniversityAdd}
+                  onClick={handleUniversityRemove}
                 />
               ) : (
                 <Button

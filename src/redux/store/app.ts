@@ -32,6 +32,9 @@ export const appSlice = createSlice({
       state.token = null;
       state.user = Object.assign({}, userObj)
     },
+    setUser: (state, action: PayloadAction<IUser>) => {
+      state.user = action.payload
+    },
     setList: (state, action: PayloadAction<"row" | "col">) => {
       state.list = action.payload
     },
@@ -42,6 +45,6 @@ export const appSlice = createSlice({
 });
 
 // Action creators
-export const { login, logout, toggleSidebar, setList } = appSlice.actions;
+export const { login, logout, toggleSidebar, setList, setUser } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -21,9 +21,12 @@ export default {
         return axios.delete<{message: string}>(`/auth/user/${id}/delete`)
     },
     getProfile(id: string) {
-        return axios.get<IUser>(`/auth/user/${id}`)
+        return axios.get<{user: IUser}>(`/auth/user/${id}`)
     },
     selectUniversity(userId: string, university: Partial<IUniversity & ISavedUniversity>) {
-        return axios.post(`/auth/user/${userId}/add-university`, university)
+        return axios.post<{user: IUser}>(`/auth/user/${userId}/add-university`, university)
+    },
+    removeUniversity(userId: string, universityId: {_id: string}) {
+        return axios.post<{user: IUser}>(`/auth/user/${userId}/remove-university`, universityId)
     }
 }
