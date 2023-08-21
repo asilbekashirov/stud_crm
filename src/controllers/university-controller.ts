@@ -7,3 +7,15 @@ export const fetchCreateUniversity = async (data: FormData) => {
         console.log(error);
     }
 }
+
+export const fetchEditUniversity = async (data: FormData) => {
+
+}
+
+export const fetchDeleteUniversity = async (id: string) => {
+    try {
+        return await api.deleteUniversity(id)
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -10,12 +10,12 @@ import { isCreatedUni } from "../../utils/helpers";
 import { useToggle } from "../../hooks/useToggle";
 import { fetchUniversityRemove, fetchUniversitySelect } from "../../controllers/user-controller";
 import { setUser } from "../../redux/store/app";
+import { useUniversity } from "../../hooks/useUniversity";
 
 type IProps = IUniversity &
   ISavedUniversity & {
     selectedId: string;
     close: () => void;
-    edit: (e: any) => void;
   };
 
 const UniversityDescriptionModal: FC<IProps> = (props) => {
@@ -28,43 +28,20 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
     description,
     close,
     foundIn,
-    edit,
     _id,
   } = props;
 
   const navigate = useNavigate();
-  const { isAuth, user } = useAppSelector((state) => state.app);
+  const user = useAppSelector((state) => state.app.user);
   const isAdmin = user.role === "admin";
-  const dispatch = useAppDispatch()
-
+  const {editUniversity, handleUniversityAdd, handleUniversityRemove, goToUniPage} = useUniversity()
 
   const imageError = useToggle(false);
   const isSelectedUniversity = useToggle(user.selectedUniversities.some(u => u._id === _id) || false);
 
-  const goToUniPage = () => {
-    if (!isCreatedUni(props)) return;
-    navigate(`/${isAdmin ? "admin" : "app"}/university/${props._id}`);
-  };
-
-  const handleUniversityAdd = async () => {
-    if (!isAuth) navigate("/login");
-
-    const res = await fetchUniversitySelect(user._id, {_id, name, city, country});
-    if (res?.status === 200) {
-      isSelectedUniversity.on()
-      close()
-      dispatch(setUser(res.data.user))
-    }
-  };
-
-  const handleUniversityRemove = async () => {
-    const res = await fetchUniversityRemove(user._id, _id)
-    if (res?.status === 200) {
-      isSelectedUniversity.off()
-      close()
-      dispatch(setUser(res.data.user))
-    }
-  }
+  const addUniToList = () => handleUniversityAdd(user._id, {_id, name, country, city}, close)
+  const removeUniFromList = () => handleUniversityRemove(user._id, _id, close)
+  
 
   return (
     <AnimatePresence>
@@ -99,6 +76,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
             </motion.h5>
           </motion.div>
           <motion.div className="md:p-4 p-2">
+            
             <motion.div className="flex justify-start">
               <motion.div>
                 <motion.h6 className="flex items-center text-primary-800">
@@ -118,21 +96,6 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
                   Found in: {foundIn}
                 </motion.h6>
               </motion.div>
-
-              {/* <motion.div className="ml-10">
-                  <motion.h6 className="flex items-center text-gray-700">
-                    <Icon
-                      className="mr-3"
-                      width={25}
-                      icon="mdi:file-document-multiple-outline"
-                    />{" "}
-                    Application is {active ? "open" : "closed"}
-                  </motion.h6>
-                  <motion.h6 className="flex items-center text-gray-700 mt-3">
-                    <Icon width={25} className="mr-3" icon="mdi:currency-usd" />{" "}
-                    Tuition fee: {tuitionFee}$/year
-                  </motion.h6>
-                </motion.div> */}
             </motion.div>
 
             <motion.p className="mt-4">{description.en}</motion.p>
@@ -145,7 +108,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
               />
               <Button
                 text="More"
-                onClick={goToUniPage}
+                onClick={() => goToUniPage(props)}
                 afterIcon="iconamoon:information-circle-duotone"
                 wrapperClassName="bg-blue-400 text-white mx-2"
               />
@@ -153,7 +116,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
                 <Button
                   text="Edit"
                   afterIcon="iconamoon:edit-duotone"
-                  onClick={edit}
+                  onClick={e => editUniversity(e, props)}
                   wrapperClassName="bg-secondary-800 text-white"
                 />
               ) : isSelectedUniversity.state ? (
@@ -161,14 +124,14 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
                   text="Remove from list"
                   afterIcon="iconamoon:sign-minus-circle-duotone"
                   wrapperClassName="bg-red-500 text-white"
-                  onClick={handleUniversityRemove}
+                  onClick={removeUniFromList}
                 />
               ) : (
                 <Button
                   text="Add to list"
                   afterIcon="iconamoon:sign-plus-circle-duotone"
                   wrapperClassName="bg-green-500 text-white"
-                  onClick={handleUniversityAdd}
+                  onClick={addUniToList}
                 />
               )}
             </div>

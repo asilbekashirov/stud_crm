@@ -45,24 +45,22 @@ const UniversitiesPage = () => {
         />
         <Group direction="row" className="ml-2">
           <Tooltip text="Grid" position="bottom">
-            <div
-              className="p-2"
-              onClick={() => handleDirection("col")}
-            >
+            <div className="p-2" onClick={() => handleDirection("col")}>
               <Icon width={25} icon="fluent:dock-row-24-regular" />
             </div>
           </Tooltip>
           <Tooltip text="Column" position="bottom">
-            <div
-              className="p-2"
-              onClick={() => handleDirection("row")}
-            >
+            <div className="p-2" onClick={() => handleDirection("row")}>
               <Icon width={25} icon="fluent:row-triple-20-regular" />
             </div>
           </Tooltip>
         </Group>
       </div>
-      <div className="mt-2 flex flex-wrap justify-start items-center gap-5 w-4/5 m-auto">
+      <div
+        className={`mt-2 ${
+          direction === "row" ? "flex flex-col gap-2" : "grid gap-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1"
+        } justify-start items-center w-4/5 m-auto`}
+      >
         {data?.data?.map((item) => (
           <UniversityDescriptoinCard
             direction={direction}

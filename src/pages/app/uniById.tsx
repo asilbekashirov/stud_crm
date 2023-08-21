@@ -37,6 +37,7 @@ const UniversityDetailPage = () => {
             src={("http://localhost:5000" + universityInfo?.image) as string}
             alt={universityInfo?.name.en}
             onError={() => imageError.on()}
+            onLoad={() => imageError.off()}
           />
         ) : (
           <div className="w-full rounded-xl border h-full grid place-items-center">

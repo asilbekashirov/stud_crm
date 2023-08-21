@@ -10,25 +10,29 @@ import { PersistGate } from "redux-persist/integration/react";
 import { ConfirmDialogProvider } from "./components/confirm/Confirm";
 import Alert from "./components/alert/Alert";
 import { BrowserRouter } from "react-router-dom";
+import MainErrorBoundary from "./components/error/MainErrorBoundary";
+import ErrorBoundary from "./components/error/ErrorBoundary";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={new QueryClient()}>
-        <Provider store={store}>
-          <PersistGate persistor={persistor} loading={<h1>Loading...</h1>}>
-            <ConfirmDialogProvider>
-              <App />
-            </ConfirmDialogProvider>
-            <Alert />
-          </PersistGate>
-        </Provider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </BrowserRouter>
+      <ErrorBoundary fallback={<MainErrorBoundary />}>
+      <BrowserRouter>
+        <QueryClientProvider client={new QueryClient()}>
+          <Provider store={store}>
+            <PersistGate persistor={persistor} loading={<h1>Loading...</h1>}>
+              <ConfirmDialogProvider>
+                <App />
+              </ConfirmDialogProvider>
+              <Alert />
+            </PersistGate>
+          </Provider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </BrowserRouter>
+      </ErrorBoundary>
   </React.StrictMode>
 );
 

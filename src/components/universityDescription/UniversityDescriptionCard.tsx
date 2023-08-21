@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { ILanguages } from "../../models";
 import Separator from "../separator/Separator";
 import { useToggle } from "../../hooks/useToggle";
+import { useUniversity } from "../../hooks/useUniversity";
 
 const UniversityDescriptoinCard: FC<
   IUniversity & ISavedUniversity & { direction: "row" | "col" }
@@ -36,30 +37,22 @@ const UniversityDescriptoinCard: FC<
     );
   }, []);
 
-  const editUniversity = (e: any) => {
-    e.stopPropagation();
-    if (!isCreatedUni(uni)) return;
-    navigate(`/admin/university-add?mode=edit&id=${uni._id}`);
-  };
-
   return (
     <>
       {direction === "row" ? (
         <DisplayRow
-          {...uni}
+          uni={uni}
           isAdmin={isAdmin}
           handleUniSelect={handleUniSelect}
-          editUniversity={editUniversity}
           activeApplication={activeApplication}
           lng={lng}
           programs={programs}
         />
       ) : (
         <DisplayCol
-          {...uni}
+          uni={uni}
           isAdmin={isAdmin}
           handleUniSelect={handleUniSelect}
-          editUniversity={editUniversity}
           activeApplication={activeApplication}
           lng={lng}
           programs={programs}
@@ -70,7 +63,6 @@ const UniversityDescriptoinCard: FC<
           selectedId={selectedId}
           {...uni}
           close={closeDescription}
-          edit={editUniversity}
         />
       )}
     </>
@@ -79,28 +71,26 @@ const UniversityDescriptoinCard: FC<
 
 export default UniversityDescriptoinCard;
 
-type ICard = IUniversity & {
+type ICard = {
   handleUniSelect: () => void;
   isAdmin: boolean;
   activeApplication: boolean;
-  editUniversity: (e: any) => void;
   lng: ILanguages;
   programs: number;
+  uni: IUniversity & ISavedUniversity;
 };
 
 const DisplayRow: FC<ICard> = ({
-  name,
+  uni,
   handleUniSelect,
-  country,
-  city,
-  foundIn,
   isAdmin,
   activeApplication,
-  editUniversity,
   lng,
   programs,
 }) => {
+  const { name, country, city, foundIn } = uni;
   const { t } = useTranslation();
+  const { deleteUniversity, editUniversity } = useUniversity();
 
   return (
     <motion.div
@@ -140,7 +130,7 @@ const DisplayRow: FC<ICard> = ({
           <Button
             beforeIcon="iconamoon:edit-duotone"
             wrapperClassName="text-secondary-800"
-            onClick={editUniversity}
+            onClick={(e) => editUniversity(e, uni)}
           />
         )}
       </div>
@@ -149,25 +139,23 @@ const DisplayRow: FC<ICard> = ({
 };
 
 const DisplayCol: FC<ICard> = ({
-  name,
+  uni,
   handleUniSelect,
-  country,
-  city,
-  image,
-  foundIn,
   isAdmin,
   activeApplication,
-  editUniversity,
   lng,
   programs,
 }) => {
   const { t } = useTranslation();
+  const { name, country, city, foundIn, image } = uni;
   const imageError = useToggle(false);
+
+  const { deleteUniversity, editUniversity } = useUniversity();
 
   return (
     <motion.div
       className={
-        "rounded-xl bg-primary-800 mt-3 cursor-pointer flex justify-between md:items-center flex-col items-start w-full md:w-1/2 xl:w-1/4 lg:w-1/3 relative"
+        "rounded-xl bg-primary-800 cursor-pointer flex justify-between md:items-center flex-col items-start w-full relative"
       }
       layoutId={name.en}
       onClick={handleUniSelect}
@@ -181,7 +169,11 @@ const DisplayCol: FC<ICard> = ({
           />
         ) : (
           <div className="w-full h-full grid place-items-center">
-            <Icon width={70} className="text-secondary-800" icon="ic:twotone-broken-image" />
+            <Icon
+              width={70}
+              className="text-secondary-800"
+              icon="ic:twotone-broken-image"
+            />
           </div>
         )}
         <motion.h5 className="text-xl absolute left-2 z-40 bottom-2 break-words font-semibold text-text-900">
@@ -228,12 +220,18 @@ const DisplayCol: FC<ICard> = ({
       {isAdmin && (
         <>
           <Separator direction="horizontal" />
-          <div className="flex justify-end w-full p-2">
+          <div className="flex justify-end w-full p-2 gap-2">
+            <Button
+              beforeIcon="iconamoon:trash-duotone"
+              text="Delete"
+              wrapperClassName="flex gap-2 bg-red-500"
+              onClick={() => deleteUniversity(uni._id)}
+            />
             <Button
               beforeIcon="iconamoon:edit-duotone"
               text="Edit"
               wrapperClassName="flex gap-2 bg-secondary-800"
-              onClick={editUniversity}
+              onClick={(e) => editUniversity(e, uni)}
             />
           </div>
         </>
