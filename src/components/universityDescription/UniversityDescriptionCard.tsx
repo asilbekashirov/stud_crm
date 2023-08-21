@@ -5,8 +5,6 @@ import { ISavedUniversity, IUniversity } from "../../models/university";
 import UniversityDescriptionModal from "./UniversityDescriptionModal";
 import Button from "../button/Button";
 import { useAppSelector } from "../../hooks/redux";
-import { useNavigate } from "react-router-dom";
-import { isCreatedUni } from "../../utils/helpers";
 import { useTranslation } from "react-i18next";
 import { ILanguages } from "../../models";
 import Separator from "../separator/Separator";
@@ -18,7 +16,6 @@ const UniversityDescriptoinCard: FC<
 > = (uni) => {
   const { name, bachelors, masters, phd, direction, _id } = uni;
 
-  const navigate = useNavigate();
   const isAdmin = useAppSelector((state) => state.app.user).role == "admin";
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const { i18n, t } = useTranslation();
@@ -166,6 +163,7 @@ const DisplayCol: FC<ICard> = ({
             className="w-full h-full object-cover rounded-t-xl"
             src={"http://localhost:5000" + image}
             onError={() => imageError.on()}
+            onLoad={() => imageError.off()}
           />
         ) : (
           <div className="w-full h-full grid place-items-center">
@@ -225,7 +223,7 @@ const DisplayCol: FC<ICard> = ({
               beforeIcon="iconamoon:trash-duotone"
               text="Delete"
               wrapperClassName="flex gap-2 bg-red-500"
-              onClick={() => deleteUniversity(uni._id)}
+              onClick={(e) => deleteUniversity(e, uni._id)}
             />
             <Button
               beforeIcon="iconamoon:edit-duotone"

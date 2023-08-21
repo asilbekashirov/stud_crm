@@ -14,17 +14,17 @@ import { setList } from "../../redux/store/app";
 const SearchPage = () => {
   const [search, setSearch] = useState("");
   const debounceValue = useDebounce(search, 1000);
-  const dispatch = useAppDispatch()
-  const direction = useAppSelector(state => state.app.list)
+  const dispatch = useAppDispatch();
+  const direction = useAppSelector((state) => state.app.list);
 
   const { isLoading, data, isError } = useQuery({
-    queryKey: ['users'],
-    queryFn: () => api.getUniversities()
+    queryKey: ["users"],
+    queryFn: () => api.getUniversities(),
   });
 
   const handleDirection = (dir: "col" | "row") => {
-    dispatch(setList(dir))
-  }
+    dispatch(setList(dir));
+  };
 
   if (isLoading) return <p>Loading</p>;
 
@@ -38,34 +38,38 @@ const SearchPage = () => {
           wrapperClassName="w-full"
           placeholder="Type something and hit 'Enter' to search..."
         />
-        <Button 
+        <Button
           text="Filter"
           afterIcon="mdi:filter-outline"
           wrapperClassName="bg-secondary-800 ml-4"
         />
         <Group direction="row" className="ml-2">
           <Tooltip text="Grid" position="bottom">
-            <div
-              className="p-2"
-              onClick={() => handleDirection("col")}
-            >
+            <div className="p-2" onClick={() => handleDirection("col")}>
               <Icon width={25} icon="fluent:dock-row-24-regular" />
             </div>
           </Tooltip>
           <Tooltip text="Column" position="bottom">
-            <div
-              className="p-2"
-              onClick={() => handleDirection("row")}
-            >
+            <div className="p-2" onClick={() => handleDirection("row")}>
               <Icon width={25} icon="fluent:row-triple-20-regular" />
             </div>
           </Tooltip>
         </Group>
       </div>
       {!isError ? (
-        <div className="mt-2 flex flex-wrap justify-start items-center gap-5 w-4/5 m-auto">
+        <div
+          className={`mt-2 ${
+            direction === "row"
+              ? "flex flex-col gap-2"
+              : "grid gap-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1"
+          } justify-start items-center w-4/5 m-auto`}
+        >
           {data?.data.map((item: any) => (
-            <UniversityDescriptoinCard direction={direction} key={item._id} {...item} />
+            <UniversityDescriptoinCard
+              direction={direction}
+              key={item._id}
+              {...item}
+            />
           ))}
         </div>
       ) : (

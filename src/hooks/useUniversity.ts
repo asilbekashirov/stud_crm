@@ -3,7 +3,7 @@ import { ISavedUniversity, IUniversity } from "../models/university";
 import { isCreatedUni } from "../utils/helpers";
 import { fetchDeleteUniversity } from "../controllers/university-controller";
 import { useAppDispatch, useAppSelector } from "./redux";
-import { successAlert } from "../redux/store/alert";
+import { successAlert, warningAlert } from "../redux/store/alert";
 import useConfirm from "../components/confirm/Confirm";
 import {
   fetchUniversityRemove,
@@ -24,7 +24,8 @@ export function useUniversity() {
     navigate(`/${isAdmin ? "admin" : "app"}/university/${uni._id}`);
   };
 
-  const deleteUniversity = async (id: string) => {
+  const deleteUniversity = async (e: any, id: string) => {
+    e.stopPropagation();
     const yesNo = await confirm({
       message: "Are you sure you want to delete this university?",
       trueText: "Yes",
@@ -50,9 +51,9 @@ export function useUniversity() {
 
     const res = await fetchUniversitySelect(userId, uniData);
     if (res?.status === 200) {
-      //   isSelectedUniversity.on()
       callback && callback();
       dispatch(setUser(res.data.user));
+      dispatch(successAlert({ message: `${uniData.name.en} has been added to your list` }));
     }
   };
 
@@ -61,6 +62,7 @@ export function useUniversity() {
     if (res?.status === 200) {
       callback && callback();
       dispatch(setUser(res.data.user));
+      dispatch(warningAlert({ message: "University has been removed from your list" }));
     }
   };
 

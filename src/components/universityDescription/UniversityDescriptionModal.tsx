@@ -3,13 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FC } from "react";
 import styles from "./universityDescriptionCard.module.css";
 import { Icon } from "@iconify/react";
-import { useNavigate } from "react-router-dom";
 import Button from "../button/Button";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { isCreatedUni } from "../../utils/helpers";
+import { useAppSelector } from "../../hooks/redux";
 import { useToggle } from "../../hooks/useToggle";
-import { fetchUniversityRemove, fetchUniversitySelect } from "../../controllers/user-controller";
-import { setUser } from "../../redux/store/app";
 import { useUniversity } from "../../hooks/useUniversity";
 
 type IProps = IUniversity &
@@ -31,7 +27,6 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
     _id,
   } = props;
 
-  const navigate = useNavigate();
   const user = useAppSelector((state) => state.app.user);
   const isAdmin = user.role === "admin";
   const {editUniversity, handleUniversityAdd, handleUniversityRemove, goToUniPage} = useUniversity()
@@ -76,7 +71,7 @@ const UniversityDescriptionModal: FC<IProps> = (props) => {
             </motion.h5>
           </motion.div>
           <motion.div className="md:p-4 p-2">
-            
+
             <motion.div className="flex justify-start">
               <motion.div>
                 <motion.h6 className="flex items-center text-primary-800">
