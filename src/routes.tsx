@@ -1,12 +1,11 @@
 import { Navigate, useRoutes } from "react-router-dom";
 import Dashboard from "./components/layout/Dashboard";
-import SearchPage from "./pages/app/search";
+import UniversitiesPage from "./pages/common/universities";
 import ProgramsPage from "./pages/app/programs";
 import HomePage from "./pages/app/home";
-import LoginPage from "./pages/login";
-import RegisterPage from "./pages/register";
+import LoginPage from "./pages/common/login";
+import RegisterPage from "./pages/common/register";
 import UniversityAddPage from "./pages/admin/university-add";
-import UniversitiesPage from "./pages/admin/universities";
 import NewsAddPage from "./pages/admin/news-add";
 import UniversityDetailPage from "./pages/app/uniById";
 import NewsPage from "./pages/admin/news";
@@ -28,7 +27,7 @@ export default function Router({ isAuth, isAdmin }: IProps) {
       children: [
         {
           path: "search",
-          element: <SearchPage />,
+          element: <UniversitiesPage />,
         },
         {
           path: "programs",

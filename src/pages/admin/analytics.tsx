@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query"
 import Card from "../../components/card/Card"
 import api from "../../api/analytics"
 import UniByCountry from "../../components/analytics/UniByCountry"
-import Separator from "../../components/separator/Separator"
 
 const AnalyticsPage = () => {
 
@@ -11,8 +10,6 @@ const AnalyticsPage = () => {
         queryKey: ["analytics"],
         queryFn: () => api.getAnalytics()
     })
-
-    console.log(data);
 
     if (isLoading) return <p>Loading...</p>
     if (isError) return <p>Error</p>

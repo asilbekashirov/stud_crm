@@ -1,14 +1,14 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
-import { useAppDispatch, useAppSelector } from "../hooks/redux"
+import { useAppDispatch, useAppSelector } from "../../hooks/redux"
 import { Link, useNavigate } from "react-router-dom"
-import { ILoginData, loginObj } from "../models/login"
-import { copyObj } from "../utils/helpers"
-import { fetchLogin } from "../controllers/user-controller"
-import { login } from "../redux/store/app"
-import Input from "../components/input/Input"
-import Button from "../components/button/Button"
-import { errorAlert } from "../redux/store/alert"
+import { ILoginData, loginObj } from "../../models/login"
+import { copyObj } from "../../utils/helpers"
+import { fetchLogin } from "../../controllers/user-controller"
+import { login } from "../../redux/store/app"
+import Input from "../../components/input/Input"
+import Button from "../../components/button/Button"
+import { errorAlert } from "../../redux/store/alert"
 
 const LoginPage = () => {
 

@@ -1,35 +1,35 @@
-import { Icon } from "@iconify/react";
-import { useState } from "react";
-import api from "../../api/universities";
 import { useQuery } from "@tanstack/react-query";
+import api from "../../api/universities";
 import UniversityDescriptoinCard from "../../components/universityDescription/UniversityDescriptionCard";
-import { useDebounce } from "../../hooks/useDebounce";
+import { Icon } from "@iconify/react";
 import Input from "../../components/input/Input";
+import { useState } from "react";
+import { useDebounce } from "../../hooks/useDebounce";
 import Button from "../../components/button/Button";
 import Group from "../../components/group/Group";
 import Tooltip from "../../components/tooltip/Tooltip";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setList } from "../../redux/store/app";
 
-const SearchPage = () => {
-  const [search, setSearch] = useState("");
-  const debounceValue = useDebounce(search, 1000);
-  const dispatch = useAppDispatch();
-  const direction = useAppSelector((state) => state.app.list);
-
+const UniversitiesPage = () => {
   const { isLoading, data, isError } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["universities"],
     queryFn: () => api.getUniversities(),
   });
+  const [search, setSearch] = useState("");
+  const debounceValue = useDebounce(search, 1000);
+  const direction = useAppSelector((state) => state.app.list);
+  const dispatch = useAppDispatch();
+
+  if (isLoading) return <p>Loading</p>;
+  if (isError) return <p>Error</p>;
 
   const handleDirection = (dir: "col" | "row") => {
     dispatch(setList(dir));
   };
 
-  if (isLoading) return <p>Loading</p>;
-
   return (
-    <section>
+    <div>
       <div className="flex justify-center w-4/5 m-auto">
         <Input
           beforeIcon="iconamoon:search-duotone"
@@ -41,7 +41,7 @@ const SearchPage = () => {
         <Button
           text="Filter"
           afterIcon="mdi:filter-outline"
-          wrapperClassName="bg-secondary-800 ml-4"
+          wrapperClassName="ml-2 bg-secondary-800"
         />
         <Group direction="row" className="ml-2">
           <Tooltip text="Grid" position="bottom">
@@ -56,27 +56,29 @@ const SearchPage = () => {
           </Tooltip>
         </Group>
       </div>
-      {!isError ? (
-        <div
-          className={`mt-2 ${
-            direction === "row"
-              ? "flex flex-col gap-2"
-              : "grid gap-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1"
-          } justify-start items-center w-4/5 m-auto`}
-        >
-          {data?.data.map((item: any) => (
-            <UniversityDescriptoinCard
-              direction={direction}
-              key={item._id}
-              {...item}
-            />
-          ))}
+      <div className="w-full flex justify-end">
+        <div>
+          <Icon icon="iconamoon:player-previous-duotone" width={25} />
         </div>
-      ) : (
-        <p>Error during fetching</p>
-      )}
-    </section>
+        <div>
+          <Icon icon="iconamoon:player-next-duotone" width={25} />
+        </div>
+      </div>
+      <div
+        className={`mt-2 grid ${
+          direction === "row" ? "grid-cols-1 gap-2" : "gap-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1"
+        } justify-start items-center w-4/5 m-auto`}
+      >
+        {data?.data.docs.map((item) => (
+          <UniversityDescriptoinCard
+            direction={direction}
+            key={item._id}
+            {...item}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 
-export default SearchPage;
+export default UniversitiesPage;

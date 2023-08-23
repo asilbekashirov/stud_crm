@@ -1,3 +1,4 @@
+import { IParams } from "../models";
 import { ISavedUniversity, IUniversity } from "../models/university";
 import axios from "axios";
 
@@ -12,7 +13,7 @@ export default {
         return axios.get<{university: IUniversity & ISavedUniversity}>(`/uni/get/${id}`)
     },
     getUniversities() {
-        return axios.get<(IUniversity & ISavedUniversity)[]>(`/uni/list`)
+        return axios.get<IParams<IUniversity & ISavedUniversity>>(`/uni/list`)
     },
     createUniversity(data: FormData) {
         return axios.post<IUniversity & ISavedUniversity>("/uni/create", data)

@@ -1,14 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Input from "../components/input/Input";
-import DatePicker from "../components/date-picker/DatePicker";
-import Button from "../components/button/Button";
-import { useAppDispatch } from "../hooks/redux";
-import { copyObj } from "../utils/helpers";
-import { IRegisterData, registerObj } from "../models/register";
-import { fetchCreateAccount } from "../controllers/user-controller";
-import { login } from "../redux/store/app";
-import { errorAlert, successAlert } from "../redux/store/alert";
+import Input from "../../components/input/Input";
+import DatePicker from "../../components/date-picker/DatePicker";
+import Button from "../../components/button/Button";
+import { useAppDispatch } from "../../hooks/redux";
+import { copyObj } from "../../utils/helpers";
+import { IRegisterData, registerObj } from "../../models/register";
+import { fetchCreateAccount } from "../../controllers/user-controller";
+import { login } from "../../redux/store/app";
+import { errorAlert, successAlert } from "../../redux/store/alert";
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();

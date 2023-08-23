@@ -1,8 +1,8 @@
 export type ISavedUniversity = {
   _id: string
   image: string;
-  createdAt?: string | Date
-  updatedAt?: string | Date
+  createdAt: string | Date
+  updatedAt: string | Date
 }
 
 export type ICreateUniversity = {
@@ -18,6 +18,7 @@ export type IUniversity = {
   foundIn: string;
   country: string;
   city: string;
+  fee: number
   description: {
     en: string
     uz: string
@@ -37,6 +38,7 @@ export const universityObj: IUniversity = {
   foundIn: "",
   country: "",
   city: "",
+  fee: 0,
   description: {
     en: "",
     ru: "",

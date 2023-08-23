@@ -10,7 +10,7 @@
 ### Project structure:
 - **api** - stores paths to requests
 - **components** - custom reusable components
-- **views** - has two folders for users and admins respectively
+- **pages** - has two folders for users and admins respectively
 - **hooks** - custom hooks folder
 - **models** - contains types/interfaces for data
 - **redux** - store configuration and actions for redux
