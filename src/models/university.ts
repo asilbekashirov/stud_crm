@@ -99,3 +99,9 @@ export const universityProgrammObj: IUniversityProgramm = {
     fall: false
   }
 };
+
+export interface IUniFilter {
+  page: number
+  limit: number
+  searchKey: string
+}

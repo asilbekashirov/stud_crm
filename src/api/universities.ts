@@ -1,5 +1,5 @@
 import { IParams } from "../models";
-import { ISavedUniversity, IUniversity } from "../models/university";
+import { ISavedUniversity, IUniFilter, IUniversity } from "../models/university";
 import axios from "axios";
 
 export default {
@@ -12,8 +12,8 @@ export default {
     getUniversityById(id: string) {
         return axios.get<{university: IUniversity & ISavedUniversity}>(`/uni/get/${id}`)
     },
-    getUniversities() {
-        return axios.get<IParams<IUniversity & ISavedUniversity>>(`/uni/list`)
+    getUniversities(filter: Partial<IUniFilter>) {
+        return axios.get<IParams<IUniversity & ISavedUniversity>>(`/uni/list`, {params: filter})
     },
     createUniversity(data: FormData) {
         return axios.post<IUniversity & ISavedUniversity>("/uni/create", data)
