@@ -9,6 +9,7 @@ import { setList } from "../../redux/store/app";
 import { useUniversities } from "../../hooks/useUniversities";
 import { useMemo, useState } from "react";
 import { useToggle } from "../../hooks/useToggle";
+import Modal from "../../components/modal/Modal";
 
 const UniversitiesPage = () => {
   const direction = useAppSelector((state) => state.app.list);
@@ -35,12 +36,19 @@ const UniversitiesPage = () => {
           wrapperClassName="w-full"
           placeholder="Type something and hit 'Enter' to search..."
         />
-        <Button
+        <Modal
+            btnText="Filter"
+            btnClassName="ml-2 bg-secondary-800"
+            icon="mdi:filter-outline"
+            children={<FilterContent />}
+            center
+        />
+        {/* <Button
           text="Filter"
           afterIcon="mdi:filter-outline"
           onClick={() => filter.toggle()}
           wrapperClassName="ml-2 bg-secondary-800"
-        />
+        /> */}
         <Group direction="row" className="ml-2">
           <Tooltip text="Grid" position="bottom">
             <div className="p-2" onClick={() => handleDirection("col")}>
@@ -99,3 +107,12 @@ const UniversitiesPage = () => {
 };
 
 export default UniversitiesPage;
+
+const FilterContent = () => {
+    return (
+        <div>
+            <h1>Filter options</h1>
+            <Input />
+        </div>
+    )
+}

@@ -12,3 +12,7 @@ export function isCreatedUni(university: IUniversity | undefined): university is
 export function isCreatedNews(news: INews | undefined): news is INews & ISavedNews {
     return (news as INews & ISavedNews)?._id !== undefined
 }
+
+export function isObjectEmpty(obj: any): boolean {
+    return (obj && obj.constructor === Object && Object.keys(obj).length === 0)
+}
