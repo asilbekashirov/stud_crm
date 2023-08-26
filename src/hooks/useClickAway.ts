@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
-export function useClickAway<T extends HTMLElement>(closeFn: (e?: any) => any) {
+export function useClickAway<T extends HTMLElement>(closeFn: (e?: any) => any, open: boolean) {
   const wrapperRef = useRef<null | T>(null);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ export function useClickAway<T extends HTMLElement>(closeFn: (e?: any) => any) {
   }, []);
 
   const clickAway = (e: MouseEvent) => {
-    if (!wrapperRef.current) return;
+    if (!wrapperRef.current && !open) return;
 
     if (!wrapperRef.current?.contains(e.target as Node)) {
       closeFn();

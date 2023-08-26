@@ -10,6 +10,7 @@ import { useUniversities } from "../../hooks/useUniversities";
 import { useMemo, useState } from "react";
 import { useToggle } from "../../hooks/useToggle";
 import Modal from "../../components/modal/Modal";
+import Select from "../../components/select/Select";
 
 const UniversitiesPage = () => {
   const direction = useAppSelector((state) => state.app.list);
@@ -28,7 +29,7 @@ const UniversitiesPage = () => {
 
   return (
     <section className="w-4/5 m-auto">
-      <div className="flex justify-center w-full">
+      <div className="flex justify-center w-full items-center">
         <Input
           beforeIcon="iconamoon:search-duotone"
           value={search}
@@ -41,7 +42,7 @@ const UniversitiesPage = () => {
             btnClassName="ml-2 bg-secondary-800"
             icon="mdi:filter-outline"
             children={<FilterContent />}
-            center
+            
         />
         {/* <Button
           text="Filter"
@@ -70,7 +71,7 @@ const UniversitiesPage = () => {
           className={`border p-2 rounded-full ${
             params?.hasPrevPage
               ? "cursor-pointer"
-              : "text-primary-700 border-primary-700 cursor-not-allowed pointer-events-none"
+              : "text-primary-700 opacity-30 border-primary-700 cursor-not-allowed pointer-events-none"
           }`}
           onClick={prevPage}
         >
@@ -80,7 +81,7 @@ const UniversitiesPage = () => {
           className={`border p-2 rounded-full ${
             params?.hasNextPage
               ? "cursor-pointer"
-              : " text-primary-700 border-primary-700 cursor-not-allowed pointer-events-none"
+              : " text-primary-700 opacity-30 border-primary-700 cursor-not-allowed pointer-events-none"
           }`}
           onClick={nextPage}
         >
@@ -109,10 +110,14 @@ const UniversitiesPage = () => {
 export default UniversitiesPage;
 
 const FilterContent = () => {
+
+    const countries = useAppSelector(state => state.utils.countries)
+
     return (
         <div>
             <h1>Filter options</h1>
             <Input />
+            <Select className="mt-2" initialValue="Latvia" onChange={() => {}} iterable={countries.map(a => ({name: a, value: a}))} />
         </div>
     )
 }

@@ -43,16 +43,38 @@ const Modal: FC<IProps> = ({
     }
   };
 
+  const Content = () => (
+    <div className={modalWrapClassName}>
+      <div ref={modalRef}>
+        <Card>
+          {children}
+          <Separator direction="horizontal" className="my-2" />
+          <div className="flex justify-end gap-2">
+            <Button
+              wrapperClassName="bg-red-500"
+              text={!!falseText ? falseText : "Close"}
+              onClick={() => modal.off()}
+            />
+            <Button
+              wrapperClassName="bg-green-500"
+              text={!!trueText ? trueText : "Accept"}
+            />
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+
   const modalWrapClassName = useMemo(() => {
     return `${
       center
         ? "absolute w-full top-0 left-0 h-screen z-[100] backdrop-blur-md grid place-items-center"
-        : ""
+        : "absolute top-full left-0 z-[100]"
     }`;
   }, [center]);
 
   return (
-    <>
+    <div className="relative">
       <Button
         text={btnText}
         onClick={() => modal.on()}
@@ -63,29 +85,8 @@ const Modal: FC<IProps> = ({
           btnClassName,
         ].join(" ")}
       />
-      {modal.state && (
-        <ModalPortal>
-          <div className={modalWrapClassName}>
-            <div ref={modalRef}>
-              <Card>
-                {children}
-                <Separator direction="horizontal" className="my-2" />
-                <div className="flex justify-end gap-2">
-                  <Button
-                    wrapperClassName="bg-red-500"
-                    text={!!falseText ? falseText : "Close"}
-                  />
-                  <Button
-                    wrapperClassName="bg-green-500"
-                    text={!!trueText ? trueText : "Accept"}
-                  />
-                </div>
-              </Card>
-            </div>
-          </div>
-        </ModalPortal>
-      )}
-    </>
+      {(modal.state) ? center ? <ModalPortal>{<Content />}</ModalPortal> : <Content /> : null}
+    </div>
   );
 };
 
