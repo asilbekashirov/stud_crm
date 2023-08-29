@@ -7,7 +7,7 @@ import Tooltip from "../../components/tooltip/Tooltip";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setList } from "../../redux/store/app";
 import { useUniversities } from "../../hooks/useUniversities";
-import { useMemo, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { useToggle } from "../../hooks/useToggle";
 import Modal from "../../components/modal/Modal";
 import Select from "../../components/select/Select";
@@ -27,6 +27,7 @@ const UniversitiesPage = () => {
     prevPage,
     paginationLabel,
     handleFilter,
+    filter
   } = useUniversities();
 
   if (isLoading) return <p>Loading</p>;
@@ -50,7 +51,7 @@ const UniversitiesPage = () => {
           btnText="Filter"
           btnClassName="ml-2 bg-secondary-800"
           icon="mdi:filter-outline"
-          children={<FilterContent handleFilter={handleFilter} />}
+          children={<FilterContent handleFilter={handleFilter} filter={filter} />}
         />
         {/* <Button
           text="Filter"
@@ -115,16 +116,21 @@ const UniversitiesPage = () => {
 
 export default UniversitiesPage;
 
-const FilterContent = ({handleFilter}: {handleFilter: (data: IUniFilter) => void}) => {
+interface IFilterContent {
+  handleFilter: (data: IUniFilter) => void
+  filter: IUniFilter
+}
+
+const FilterContent: FC<IFilterContent> = ({handleFilter, filter}) => {
   const countries = useAppSelector((state) => state.utils.countries);
   const { handleSubmit, register } = useForm<IUniFilter>({
     defaultValues: { limit: 10, page: 1, name: "", courseName: "" },
   });
-  const [country, setCountry] = useState("")
+  const [country, setCountry] = useState(filter.country)
 
   const setFilterData = (data: IUniFilter) => {
-    console.log(data, country);
-    // handleFilter(data)
+    data.country = country
+    handleFilter(data)
   }
 
   const handleCountryChange = (data: string) => {
