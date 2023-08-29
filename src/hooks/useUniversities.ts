@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import api from '../api/universities'
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import { IUniFilter } from "../models/university"
 import { isObjectEmpty } from "../utils/helpers"
 
@@ -9,7 +9,9 @@ export function useUniversities() {
     const [filter, setFilter] = useState<IUniFilter>({
         page: 1,
         limit: 10,
-        searchKey: ''
+        name: '',
+        courseName: '',
+        country: ""
     })
 
     const {data, isLoading, isError, refetch} = useQuery({
@@ -18,8 +20,14 @@ export function useUniversities() {
     })
     const params = data?.data
 
-    const handleFilter = (data: Partial<IUniFilter>) => {
+    const handleFilter = (data: Partial<IUniFilter> | "clear") => {
+        if (data === "clear") {
+            setFilter({page: 1, limit: 10, name: "", courseName: "", country: ""})
+            refetch()
+            return
+        }
         setFilter(prev => ({...prev, ...data}))
+        refetch()
     }
 
     const nextPage = () => {
@@ -40,5 +48,5 @@ export function useUniversities() {
         return `${firstParam} - ${secondParam > thirdParam ? thirdParam : secondParam} of ${thirdParam}`
     }
 
-    return { isError, isLoading, params, handleFilter, nextPage, prevPage, paginationLabel: paginationLabelFn() }
+    return { isError, isLoading, params, handleFilter, nextPage, prevPage, paginationLabel: paginationLabelFn(), filter }
 }

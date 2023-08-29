@@ -103,5 +103,7 @@ export const universityProgrammObj: IUniversityProgramm = {
 export interface IUniFilter {
   page: number
   limit: number
-  searchKey: string
+  name: string
+  courseName: string
+  country: string
 }

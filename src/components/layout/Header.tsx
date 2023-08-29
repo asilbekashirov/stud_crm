@@ -53,6 +53,7 @@ const Header = () => {
               iterable={languages}
               onChange={changeLocale}
               initialValue={i18n.language}
+              value={i18n.language}
               // text={
               //   <div className={style.circle}>
               //     <Icon width={25} icon="prime:language" />

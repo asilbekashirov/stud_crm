@@ -11,14 +11,23 @@ import { useMemo, useState } from "react";
 import { useToggle } from "../../hooks/useToggle";
 import Modal from "../../components/modal/Modal";
 import Select from "../../components/select/Select";
+import { useForm } from "react-hook-form";
+import { IUniFilter } from "../../models/university";
 
 const UniversitiesPage = () => {
   const direction = useAppSelector((state) => state.app.list);
   const dispatch = useAppDispatch();
   const [search, setSearch] = useState("");
-  const filter = useToggle(false)
 
-  const { params, isLoading, isError, nextPage, prevPage, paginationLabel } = useUniversities();
+  const {
+    params,
+    isLoading,
+    isError,
+    nextPage,
+    prevPage,
+    paginationLabel,
+    handleFilter,
+  } = useUniversities();
 
   if (isLoading) return <p>Loading</p>;
   if (isError) return <p>Error</p>;
@@ -38,11 +47,10 @@ const UniversitiesPage = () => {
           placeholder="Type something and hit 'Enter' to search..."
         />
         <Modal
-            btnText="Filter"
-            btnClassName="ml-2 bg-secondary-800"
-            icon="mdi:filter-outline"
-            children={<FilterContent />}
-            
+          btnText="Filter"
+          btnClassName="ml-2 bg-secondary-800"
+          icon="mdi:filter-outline"
+          children={<FilterContent handleFilter={handleFilter} />}
         />
         {/* <Button
           text="Filter"
@@ -64,9 +72,7 @@ const UniversitiesPage = () => {
         </Group>
       </div>
       <div className="w-full flex justify-end gap-2 mt-3 items-center">
-        <div>
-            {paginationLabel}
-        </div>
+        <div>{paginationLabel}</div>
         <div
           className={`border p-2 rounded-full ${
             params?.hasPrevPage
@@ -109,15 +115,36 @@ const UniversitiesPage = () => {
 
 export default UniversitiesPage;
 
-const FilterContent = () => {
+const FilterContent = ({handleFilter}: {handleFilter: (data: IUniFilter) => void}) => {
+  const countries = useAppSelector((state) => state.utils.countries);
+  const { handleSubmit, register } = useForm<IUniFilter>({
+    defaultValues: { limit: 10, page: 1, name: "", courseName: "" },
+  });
+  const [country, setCountry] = useState("")
 
-    const countries = useAppSelector(state => state.utils.countries)
+  const setFilterData = (data: IUniFilter) => {
+    console.log(data, country);
+    // handleFilter(data)
+  }
 
-    return (
-        <div>
-            <h1>Filter options</h1>
-            <Input />
-            <Select className="mt-2" initialValue="Latvia" onChange={() => {}} iterable={countries.map(a => ({name: a, value: a}))} />
-        </div>
-    )
-}
+  const handleCountryChange = (data: string) => {
+    setCountry(data)
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit(setFilterData)}>
+        <h1>Filter options</h1>
+        <Input {...register("name")} />
+        <Input {...register("courseName")} />
+        <Select
+          value={country}
+          className="mt-2"
+          onChange={handleCountryChange}
+          iterable={countries.map((a) => ({ name: a, value: a }))}
+        />
+        <Button type="submit" text="Set filter" />
+      </form>
+    </div>
+  );
+};
