@@ -16,9 +16,10 @@ interface IProps {
   initialValue?: string;
   className?: string;
   value: string;
+  placeholder?: string
 }
 
-const Select: FC<IProps> = ({ hideIcon, value, className, onChange, iterable }) => {
+const Select: FC<IProps> = ({ hideIcon, placeholder, value, className, onChange, iterable }) => {
   const open = useToggle(false);
 
   const selectItem = (data: string) => {
@@ -32,19 +33,19 @@ const Select: FC<IProps> = ({ hideIcon, value, className, onChange, iterable }) 
         "relative",
         className,
         open.state
-          ? "border-secondary-800 text-secondary-700"
+          ? "border-secondary-800"
           : "border-primary-700 text-primary-700",
       ].join(" ")}
     >
-      <div className="px-2 py-1 rounded-md border-primary-700 cursor-pointer border-2">
-        {value || ""}
+      <div className="px-2 py-1 h-10 rounded-md border-primary-700 cursor-pointer border-2">
+        {value || placeholder}
       </div>
       {open.state && (
-        <Card className="absolute top-full left-0 z-[100]">
-          <div>
+        <Card className="absolute top-full w-full left-0 z-[100]">
+          <div className="w-full">
             {iterable.map((item) => (
               <li
-                className="px-2 cursor-pointer py-1 flex items-center gap-2 justify-between hover:bg-primary-700 rounded-md"
+                className="px-2 cursor-pointer hover:text-secondary-700 py-1 flex items-center gap-2 justify-between hover:bg-primary-700 rounded-md"
                 key={item.value}
                 onClick={() => selectItem(item.value)}
               >

@@ -7,8 +7,7 @@ import Tooltip from "../../components/tooltip/Tooltip";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setList } from "../../redux/store/app";
 import { useUniversities } from "../../hooks/useUniversities";
-import { FC, useMemo, useState } from "react";
-import { useToggle } from "../../hooks/useToggle";
+import { FC, useState } from "react";
 import Modal from "../../components/modal/Modal";
 import Select from "../../components/select/Select";
 import { useForm } from "react-hook-form";
@@ -27,7 +26,7 @@ const UniversitiesPage = () => {
     prevPage,
     paginationLabel,
     handleFilter,
-    filter
+    filter,
   } = useUniversities();
 
   if (isLoading) return <p>Loading</p>;
@@ -51,14 +50,12 @@ const UniversitiesPage = () => {
           btnText="Filter"
           btnClassName="ml-2 bg-secondary-800"
           icon="mdi:filter-outline"
-          children={<FilterContent handleFilter={handleFilter} filter={filter} />}
+          noActions
+          className=" w-96"
+          children={
+            <FilterContent handleFilter={handleFilter} filter={filter} />
+          }
         />
-        {/* <Button
-          text="Filter"
-          afterIcon="mdi:filter-outline"
-          onClick={() => filter.toggle()}
-          wrapperClassName="ml-2 bg-secondary-800"
-        /> */}
         <Group direction="row" className="ml-2">
           <Tooltip text="Grid" position="bottom">
             <div className="p-2" onClick={() => handleDirection("col")}>
@@ -117,39 +114,54 @@ const UniversitiesPage = () => {
 export default UniversitiesPage;
 
 interface IFilterContent {
-  handleFilter: (data: IUniFilter) => void
-  filter: IUniFilter
+  handleFilter: (data: IUniFilter) => void;
+  filter: IUniFilter;
 }
 
-const FilterContent: FC<IFilterContent> = ({handleFilter, filter}) => {
+const FilterContent: FC<IFilterContent> = ({ handleFilter, filter }) => {
   const countries = useAppSelector((state) => state.utils.countries);
   const { handleSubmit, register } = useForm<IUniFilter>({
     defaultValues: { limit: 10, page: 1, name: "", courseName: "" },
   });
-  const [country, setCountry] = useState(filter.country)
+  const [country, setCountry] = useState(filter.country);
 
   const setFilterData = (data: IUniFilter) => {
-    data.country = country
-    handleFilter(data)
-  }
+    data.country = country;
+    handleFilter(data);
+  };
 
   const handleCountryChange = (data: string) => {
-    setCountry(data)
-  }
+    setCountry(data);
+  };
 
   return (
     <div>
       <form onSubmit={handleSubmit(setFilterData)}>
-        <h1>Filter options</h1>
-        <Input {...register("name")} />
-        <Input {...register("courseName")} />
+        <h3 className="text-xl font-bold">Filter options</h3>
+        <Input
+          {...register("courseName")}
+          placeholder="Course name"
+          wrapperClassName="mt-2"
+        />
         <Select
           value={country}
           className="mt-2"
           onChange={handleCountryChange}
           iterable={countries.map((a) => ({ name: a, value: a }))}
+          placeholder="Select a country"
         />
-        <Button type="submit" text="Set filter" />
+        <div className="flex justify-start gap-2">
+          <Button
+            type="reset"
+            text="Clear filter"
+            wrapperClassName="mt-2 bg-red-500"
+          />
+          <Button
+            type="submit"
+            text="Set filter"
+            wrapperClassName="mt-2 bg-secondary-800"
+          />
+        </div>
       </form>
     </div>
   );

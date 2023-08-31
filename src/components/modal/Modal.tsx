@@ -14,6 +14,8 @@ interface IProps {
   trueText?: string;
   center?: boolean;
   icon?: string;
+  noActions?: boolean;
+  className?: string
 }
 
 const Modal: FC<IProps> = ({
@@ -25,6 +27,8 @@ const Modal: FC<IProps> = ({
   icon,
   center,
   btnClassName,
+  noActions,
+  className
 }) => {
   const modal = useToggle(false);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -44,40 +48,42 @@ const Modal: FC<IProps> = ({
   };
 
   const Content = () => (
-    <div className={modalWrapClassName}>
-      <div ref={modalRef}>
+    <div className={[modalWrapClassName, className].join(" ")}>
         <Card>
           {children}
-          <Separator direction="horizontal" className="my-2" />
-          <div className="flex justify-end gap-2">
-            <Button
-              wrapperClassName="bg-red-500"
-              text={!!falseText ? falseText : "Close"}
-              onClick={() => modal.off()}
-            />
-            <Button
-              wrapperClassName="bg-green-500"
-              text={!!trueText ? trueText : "Accept"}
-            />
-          </div>
+          {!noActions && (
+            <>
+              <Separator direction="horizontal" className="my-2" />
+              <div className="flex justify-end gap-2">
+                <Button
+                  wrapperClassName="bg-red-500"
+                  text={!!falseText ? falseText : "Close"}
+                  onClick={() => modal.off()}
+                />
+                <Button
+                  wrapperClassName="bg-green-500"
+                  text={!!trueText ? trueText : "Accept"}
+                />
+              </div>
+            </>
+          )}
         </Card>
-      </div>
     </div>
   );
 
   const modalWrapClassName = useMemo(() => {
     return `${
       center
-        ? "absolute w-full top-0 left-0 h-screen z-[100] backdrop-blur-md grid place-items-center"
-        : "absolute top-full left-0 z-[100]"
+        ? "absolute w-full top-0 right-0 h-screen z-[100] backdrop-blur-md grid place-items-center"
+        : "absolute top-full right-0 z-[100]"
     }`;
   }, [center]);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={modalRef}>
       <Button
         text={btnText}
-        onClick={() => modal.on()}
+        onClick={() => modal.toggle()}
         afterIcon={icon}
         wrapperClassName={[
           "cursor-pointer",
@@ -85,7 +91,13 @@ const Modal: FC<IProps> = ({
           btnClassName,
         ].join(" ")}
       />
-      {(modal.state) ? center ? <ModalPortal>{<Content />}</ModalPortal> : <Content /> : null}
+      {modal.state ? (
+        center ? (
+          <ModalPortal>{<Content />}</ModalPortal>
+        ) : (
+          <Content />
+        )
+      ) : null}
     </div>
   );
 };
