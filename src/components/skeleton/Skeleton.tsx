@@ -1,13 +1,15 @@
 import { FC } from "react";
+import styles from './skeleton.module.css'
 
 interface IProps {
     width?: number;
     height: number;
+    className?: string;
 }
 
-const Skeleton: FC<IProps> = ({width, height}) => {
+const Skeleton: FC<IProps> = ({width, height, className}) => {
     return (
-        <div className={`bg-slate-300 rounded-lg h-[${height}rem] ${width ? `w-[${width}rem]` : "w-full"}`}>
+        <div className={["rounded-lg", className, styles.skeleton].join(" ")}>
 
         </div>
     )

@@ -15,8 +15,8 @@ export function useUniversities() {
     })
 
     const {data, isLoading, isError, refetch} = useQuery({
-        queryKey: ["universities"],
-        queryFn: () => api.getUniversities(filter)
+        queryKey: ["universities", filter],
+        queryFn: (f) => api.getUniversities(filter)
     })
     const params = data?.data
 

@@ -1,5 +1,5 @@
 import { useToggle } from "../../hooks/useToggle";
-import { FC, LegacyRef, forwardRef } from "react";
+import { FC } from "react";
 import { Icon } from "@iconify/react";
 import Card from "../card/Card";
 
@@ -37,11 +37,18 @@ const Select: FC<IProps> = ({ hideIcon, placeholder, value, className, onChange,
           : "border-primary-700 text-primary-700",
       ].join(" ")}
     >
-      <div className="px-2 py-1 h-10 rounded-md border-primary-700 cursor-pointer border-2">
+      <div className="px-2 py-1 flex justify-between items-center h-10 rounded-md border-primary-700 cursor-pointer border-2">
         {value || placeholder}
+        {!hideIcon && (
+          <Icon
+            className={["transition-transform", open.state ? "rotate-180" : "rotate-0"].join(" ")}
+            icon="feather:chevron-down"
+            width={20}
+          />
+        )}
       </div>
       {open.state && (
-        <Card className="absolute top-full w-full left-0 z-[100]">
+        <Card className="absolute top-full h-[max(w-full max-content)] left-0 z-[100]">
           <div className="w-full">
             {iterable.map((item) => (
               <li

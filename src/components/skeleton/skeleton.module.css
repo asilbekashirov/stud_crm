@@ -1,0 +1,22 @@
+.skeleton {
+    position: relative;
+    overflow: hidden;
+}
+.skeleton::before {
+    position: absolute;
+    content: '';
+    width: 200%;
+    height: 3rem;
+    background: #000;
+    top: 0;
+    left: -100%;
+    transform: rotate(-45deg);
+    animation: shine 3s ease infinite;
+    animation-delay: attr(data-delay);
+    filter: blur(50px);
+}
+
+@keyframes shine {
+    from {left: -100%;}
+    to {left: 100%;}
+}

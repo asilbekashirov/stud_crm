@@ -12,6 +12,7 @@ import Modal from "../../components/modal/Modal";
 import Select from "../../components/select/Select";
 import { useForm } from "react-hook-form";
 import { IUniFilter } from "../../models/university";
+import Skeleton from "../../components/skeleton/Skeleton";
 
 const UniversitiesPage = () => {
   const direction = useAppSelector((state) => state.app.list);
@@ -29,7 +30,6 @@ const UniversitiesPage = () => {
     filter,
   } = useUniversities();
 
-  if (isLoading) return <p>Loading</p>;
   if (isError) return <p>Error</p>;
 
   const handleDirection = (dir: "col" | "row") => {
@@ -69,44 +69,52 @@ const UniversitiesPage = () => {
           </Tooltip>
         </Group>
       </div>
-      <div className="w-full flex justify-end gap-2 mt-3 items-center">
-        <div>{paginationLabel}</div>
-        <div
-          className={`border p-2 rounded-full ${
-            params?.hasPrevPage
-              ? "cursor-pointer"
-              : "text-primary-700 opacity-30 border-primary-700 cursor-not-allowed pointer-events-none"
-          }`}
-          onClick={prevPage}
-        >
-          <Icon icon="iconamoon:player-previous-duotone" width={20} />
-        </div>
-        <div
-          className={`border p-2 rounded-full ${
-            params?.hasNextPage
-              ? "cursor-pointer"
-              : " text-primary-700 opacity-30 border-primary-700 cursor-not-allowed pointer-events-none"
-          }`}
-          onClick={nextPage}
-        >
-          <Icon icon="iconamoon:player-next-duotone" width={20} />
-        </div>
-      </div>
-      <div
-        className={`mt-2 grid ${
-          direction === "row"
-            ? "grid-cols-1 gap-2"
-            : "gap-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1"
-        } justify-start items-center w-full`}
-      >
-        {params?.docs.map((item) => (
-          <UniversityDescriptoinCard
-            direction={direction}
-            key={item._id}
-            {...item}
-          />
-        ))}
-      </div>
+      {isLoading ? (
+        Array.from({ length: filter.limit }).map((_, i) => (
+          <Skeleton height={20} key={i} className="mt-4 h-24 w-full bg-primary-800" />
+        ))
+      ) : (
+        <>
+          <div className="w-full flex justify-end gap-2 mt-3 items-center">
+            <div>{paginationLabel}</div>
+            <div
+              className={`border p-2 rounded-full ${
+                params?.hasPrevPage
+                  ? "cursor-pointer"
+                  : "text-primary-700 opacity-30 border-primary-700 cursor-not-allowed pointer-events-none"
+              }`}
+              onClick={prevPage}
+            >
+              <Icon icon="iconamoon:player-previous-duotone" width={20} />
+            </div>
+            <div
+              className={`border p-2 rounded-full ${
+                params?.hasNextPage
+                  ? "cursor-pointer"
+                  : " text-primary-700 opacity-30 border-primary-700 cursor-not-allowed pointer-events-none"
+              }`}
+              onClick={nextPage}
+            >
+              <Icon icon="iconamoon:player-next-duotone" width={20} />
+            </div>
+          </div>
+          <div
+            className={`mt-2 grid ${
+              direction === "row"
+                ? "grid-cols-1 gap-2"
+                : "gap-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1"
+            } justify-start items-center w-full`}
+          >
+            {params?.docs.map((item) => (
+              <UniversityDescriptoinCard
+                direction={direction}
+                key={item._id}
+                {...item}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </section>
   );
 };
