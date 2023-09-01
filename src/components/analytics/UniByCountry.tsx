@@ -33,7 +33,7 @@ const renderCustomizedLabel = ({
 
 const renderColorfulLegendText = (value: string, entry: any) => {
   return (
-    <span style={{ color: "#596579", fontWeight: 500, padding: "10px" }}>
+    <span style={{ color: "#596579", padding: "10px" }}>
       {value}
     </span>
   );
@@ -48,8 +48,8 @@ const UniByCountry = ({ data }: { data: ICountryAndCount[] }) => {
   }, [data]);
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <PieChart width={400} height={400}>
+    <ResponsiveContainer width="100%" height="85%">
+      <PieChart>
         <Pie
           data={formattedData}
           cx="50%"
@@ -59,12 +59,13 @@ const UniByCountry = ({ data }: { data: ICountryAndCount[] }) => {
           outerRadius={130}
           fill="#8884d8"
           dataKey="value"
+          nameKey="name"
         >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
-        <Legend layout="vertical" iconType="circle" formatter={renderColorfulLegendText} />
+        <Legend layout="horizontal" iconType="circle" formatter={renderColorfulLegendText} />
         <Tooltip />
       </PieChart>
     </ResponsiveContainer>

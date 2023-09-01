@@ -12,7 +12,6 @@
     left: -100%;
     transform: rotate(-45deg);
     animation: shine 3s ease infinite;
-    animation-delay: attr(data-delay);
     filter: blur(50px);
 }
 

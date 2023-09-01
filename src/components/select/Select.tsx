@@ -17,9 +17,10 @@ interface IProps {
   className?: string;
   value: string;
   placeholder?: string
+  noBorder?: boolean;
 }
 
-const Select: FC<IProps> = ({ hideIcon, placeholder, value, className, onChange, iterable }) => {
+const Select: FC<IProps> = ({ hideIcon, noBorder, placeholder, value, className, onChange, iterable }) => {
   const open = useToggle(false);
 
   const selectItem = (data: string) => {
@@ -37,7 +38,7 @@ const Select: FC<IProps> = ({ hideIcon, placeholder, value, className, onChange,
           : "border-primary-700 text-primary-700",
       ].join(" ")}
     >
-      <div className="px-2 py-1 flex justify-between items-center h-10 rounded-md border-primary-700 cursor-pointer border-2">
+      <div className={["px-2 py-1 flex justify-between items-center h-10 rounded-md cursor-pointer", noBorder ? "" : "border-primary-700 border-2"].join(" ")}>
         {value || placeholder}
         {!hideIcon && (
           <Icon

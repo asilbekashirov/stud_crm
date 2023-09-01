@@ -7,7 +7,7 @@ import Tooltip from "../../components/tooltip/Tooltip";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setList } from "../../redux/store/app";
 import { useUniversities } from "../../hooks/useUniversities";
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import Modal from "../../components/modal/Modal";
 import Select from "../../components/select/Select";
 import { useForm } from "react-hook-form";
@@ -70,8 +70,8 @@ const UniversitiesPage = () => {
         </Group>
       </div>
       {isLoading ? (
-        Array.from({ length: filter.limit }).map((_, i) => (
-          <Skeleton height={20} key={i} className="mt-4 h-24 w-full bg-primary-800" />
+        Array.from({ length: Math.floor(filter.limit / 2) }).map((_, i) => (
+          <Skeleton key={i} className="mt-4 h-24 w-full bg-primary-800" />
         ))
       ) : (
         <>
@@ -142,6 +142,13 @@ const FilterContent: FC<IFilterContent> = ({ handleFilter, filter }) => {
     setCountry(data);
   };
 
+  const countriesList = useMemo(() => {
+    const list = countries.map((a) => ({ name: a, value: a }))
+    return [{ name: "-", value: ""}].concat(list);
+  }, [countries])
+
+  const resetFilter = () => handleCountryChange("")
+
   return (
     <div>
       <form onSubmit={handleSubmit(setFilterData)}>
@@ -155,13 +162,14 @@ const FilterContent: FC<IFilterContent> = ({ handleFilter, filter }) => {
           value={country}
           className="mt-2"
           onChange={handleCountryChange}
-          iterable={countries.map((a) => ({ name: a, value: a }))}
+          iterable={countriesList}
           placeholder="Select a country"
         />
         <div className="flex justify-start gap-2">
           <Button
             type="reset"
             text="Clear filter"
+            onClick={resetFilter}
             wrapperClassName="mt-2 bg-red-500"
           />
           <Button
