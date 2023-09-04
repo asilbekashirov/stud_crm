@@ -19,6 +19,11 @@ export interface IUser {
     createdAt?: string;
     selectedUniversities: IUserUnis[]
     appliedUniversities: IUserUnis[]
+    image: string
+    documents: [
+        {transcript: ""},
+        {languageCertificates: []},
+    ]
 }
 
 export const userObj: IUser = {
@@ -29,5 +34,10 @@ export const userObj: IUser = {
     fullName: "",
     role: "user",
     selectedUniversities: [],
-    appliedUniversities: []
+    appliedUniversities: [],
+    image: "",
+    documents: [
+        {transcript: ""},
+        {languageCertificates: []},
+    ]
 }

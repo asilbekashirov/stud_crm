@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Input from "../../components/input/Input";
 import Tooltip from "../../components/tooltip/Tooltip";
 import { createNewsRecord } from "../../controllers/news-controller";
@@ -6,10 +7,14 @@ import { copyObj } from "../../utils/helpers";
 import { Icon } from "@iconify/react";
 import { ChangeEvent, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { errorAlert, successAlert } from "../../redux/store/alert";
 
 const NewsAddPage = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { register, handleSubmit, setValue } = useForm<INews & (ICreateNews | ISavedNews)>({
     defaultValues: copyObj(newsObj),
   });
@@ -20,6 +25,13 @@ const NewsAddPage = () => {
     uploadedImage && formData.append("image", uploadedImage);
 
     const res = await createNewsRecord(formData)
+
+    if (res?.status === 201) {
+      navigate(-1)
+      dispatch(successAlert({message: "News created successfully"}))
+    } else {
+      dispatch(errorAlert({message: "Error creating news"}))
+    }
 
   };
 
@@ -44,7 +56,7 @@ const NewsAddPage = () => {
         onSubmit={handleSubmit(createNews)}
         className="flex flex-col"
       >
-        <h3 className="text-center text-2xl">Add details below</h3>
+        <h3 className="text-center font-bold text-2xl">Add details below</h3>
         {uploadedImage && (
           <div className="w-full h-[26rem] mt-4">
             <img
@@ -54,7 +66,7 @@ const NewsAddPage = () => {
             />
           </div>
         )}
-        <h4 className="my-2 text-lg">Name:</h4>
+        <h4 className="my-2 font-semibold text-lg">Name:</h4>
         <div className="flex gap-2">
           <Input
             placeholder="En"
@@ -72,7 +84,7 @@ const NewsAddPage = () => {
             {...register("name.uz")}
           />
         </div>
-        <h4 className="my-2 text-lg">Description:</h4>
+        <h4 className="my-2 font-semibold text-lg">Description:</h4>
         <div className="flex gap-2">
           <Input
             placeholder="En"

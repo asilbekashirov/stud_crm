@@ -13,6 +13,7 @@ import Select from "../../components/select/Select";
 import { useForm } from "react-hook-form";
 import { IUniFilter } from "../../models/university";
 import Skeleton from "../../components/skeleton/Skeleton";
+import Container from "../../components/container/Container";
 
 const UniversitiesPage = () => {
   const direction = useAppSelector((state) => state.app.list);
@@ -37,7 +38,7 @@ const UniversitiesPage = () => {
   };
 
   return (
-    <section className="w-4/5 m-auto">
+    <Container>
       <div className="flex justify-center w-full items-center">
         <Input
           beforeIcon="iconamoon:search-duotone"
@@ -115,7 +116,7 @@ const UniversitiesPage = () => {
           </div>
         </>
       )}
-    </section>
+    </Container>
   );
 };
 
@@ -143,11 +144,11 @@ const FilterContent: FC<IFilterContent> = ({ handleFilter, filter }) => {
   };
 
   const countriesList = useMemo(() => {
-    const list = countries.map((a) => ({ name: a, value: a }))
-    return [{ name: "-", value: ""}].concat(list);
-  }, [countries])
+    const list = countries.map((a) => ({ name: a, value: a }));
+    return [{ name: "-", value: "" }].concat(list);
+  }, [countries]);
 
-  const resetFilter = () => handleCountryChange("")
+  const resetFilter = () => handleCountryChange("");
 
   return (
     <div>

@@ -5,7 +5,6 @@ import UniByCountry from "../../components/analytics/UniByCountry"
 
 const AnalyticsPage = () => {
 
-
     const {data, isLoading, isError} = useQuery({
         queryKey: ["analytics"],
         queryFn: () => api.getAnalytics()
